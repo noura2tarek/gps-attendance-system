@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/counter/counter.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 
+
 class App extends StatelessWidget {
   const App({super.key});
 

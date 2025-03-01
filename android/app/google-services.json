@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "41167658690",
+    "project_id": "gps-attendance-system-c73b3",
+    "storage_bucket": "gps-attendance-system-c73b3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41167658690:android:21da03d77a23d4dc94a55b",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.gps_attendance_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB913iaxuPHbZ6j_ubPIDN8tKzvrXDE-wI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

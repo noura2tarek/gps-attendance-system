@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -21,13 +23,21 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+  // Initialize Flutter error handling
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
+  // Set up Bloc observer
   Bloc.observer = const AppBlocObserver();
 
-  // Add cross-flavor configuration here
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
+  // Add cross-flavor configuration here (if any)
+
+  // Run the app
   runApp(await builder());
 }
