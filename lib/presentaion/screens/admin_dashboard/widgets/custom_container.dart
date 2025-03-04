@@ -53,13 +53,27 @@ class CustomContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  containerTitles[index],
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.w500,
-                  ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Total',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      containerTitles[index],
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
                 Icon(
                   icons[index],

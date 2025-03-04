@@ -6,4 +6,5 @@ class AppStrings {
   static const String geofence = 'Geofence';
   static const String settings = 'Settings';
   static const String logout = 'Logout';
+  static const String viewAll = 'View All';
 }

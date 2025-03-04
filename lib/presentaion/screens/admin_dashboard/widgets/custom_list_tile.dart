@@ -19,6 +19,7 @@ class CustomListTile extends StatelessWidget {
       focusColor: AppColors.secondary,
       hoverColor: AppColors.secondary,
       selectedColor: AppColors.secondary,
+      iconColor: AppColors.thirdMintGreen,
       title: Text(title),
       leading: widget,
       onTap: onTap,

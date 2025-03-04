@@ -84,8 +84,15 @@ class AdminHome extends StatelessWidget {
                     padding: const EdgeInsetsDirectional.only(start: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // Date
+                        Text(
+                          formattedDate,
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                        // Admin name
                         const Text(
                           'Hello, Admin',
                           textAlign: TextAlign.center,
@@ -94,10 +101,6 @@ class AdminHome extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
-                        ),
-                        Text(
-                          formattedDate,
-                          style: const TextStyle(color: AppColors.whiteColor),
                         ),
                       ],
                     ),
@@ -119,7 +122,6 @@ class AdminHome extends StatelessWidget {
                   title: headerTitles[index],
                   widget: Icon(
                     headerIcons[index],
-                    color: AppColors.blackColor,
                   ),
                   onTap: () {
                     if (index == 0) {
@@ -176,15 +178,32 @@ class AdminHome extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             // Employee list title
-            const Row(
+            Row(
               children: [
-                Icon(Icons.people),
-                SizedBox(width: 10),
-                Text(
+                const Icon(Icons.people),
+                const SizedBox(width: 10),
+                const Text(
                   'Employees List',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const Spacer(),
+                // View all button
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.employees);
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.primary,
+                  ),
+                  child: const Text(
+                    AppStrings.viewAll,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ],
@@ -194,7 +213,13 @@ class AdminHome extends StatelessWidget {
             const SearchContainer(),
             const SizedBox(height: 14),
             // Employee list view
-            UsersList(dummyEmployees: dummyEmployees),
+            // Show half of the employees list
+            UsersList(
+              dummyEmployees: dummyEmployees.sublist(
+                0,
+                (dummyEmployees.length * 0.5).round(),
+              ),
+            ),
           ],
         ),
       ),
