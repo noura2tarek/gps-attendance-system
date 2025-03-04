@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps_attendance_system/blocs/auth/auth_bloc.dart';
+import 'package:gps_attendance_system/blocs/auth/auth_state.dart';
+import 'package:gps_attendance_system/presentation/screens/check_in.dart';
+import 'package:gps_attendance_system/presentation/screens/signup_page.dart';
+
+class AppNavigator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is Authenticated) {
+          return const CheckIn();
+        } else if (state is Unauthenticated) {
+          return const SignUpPage();
+        }
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      },
+    );
+  }
+}
