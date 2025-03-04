@@ -10,7 +10,7 @@ class CheckInOutButton extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onPressed,
-    this.borderRadius = 10.0,
+    this.borderRadius = 5.0,
     Key? key,
   }) : super(key: key);
 
