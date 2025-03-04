@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gps_attendance_system/presentation/screens/user-check/widgets/buttons.dart';
+import 'package:gps_attendance_system/presentation/screens/user-check/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentation/screens/user-check/widgets/details_card.dart';
 
 class CheckIn extends StatefulWidget {
@@ -61,6 +62,7 @@ class _CheckInState extends State<CheckIn> {
                     ),
                   ],
                 ),
+                CompanyLocation()
               ],
             ),
           ],
