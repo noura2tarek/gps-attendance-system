@@ -6,7 +6,9 @@ import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/admin_
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/employess_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/managers_page.dart';
+import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/settings_page.dart';
+import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/total_leaves_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -31,6 +33,10 @@ class App extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => GeofencePage());
           case AppRoutes.settings:
             return MaterialPageRoute(builder: (context) => SettingsPage());
+          case AppRoutes.totalLeaves:
+            return MaterialPageRoute(builder: (context) => TotalLeavesPage());
+          case AppRoutes.pendingApprovals:
+            return MaterialPageRoute(builder: (context) => PendingApprovalsPage());
           default:
             return MaterialPageRoute(builder: (context) => AdminHome());
         }

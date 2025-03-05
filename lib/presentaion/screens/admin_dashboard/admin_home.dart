@@ -23,6 +23,7 @@ class AdminHome extends StatelessWidget {
     AppStrings.totalLeaves,
     AppStrings.pendingApprovals,
   ];
+
   final List<String> headerTitles = [
     AppStrings.dashboard,
     AppStrings.employees,
@@ -48,7 +49,7 @@ class AdminHome extends StatelessWidget {
     Icons.supervisor_account,
     Icons.location_on,
     Icons.person,
-    Icons.holiday_village_sharp,
+    Icons.calendar_month,
     Icons.settings,
     Icons.logout,
   ];
