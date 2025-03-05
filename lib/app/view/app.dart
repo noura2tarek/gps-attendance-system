@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
+import 'package:gps_attendance_system/presentation/screens/auth/signup_page.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/themes/app_theme.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
@@ -9,6 +11,7 @@ import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/manage
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/settings_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/total_leaves_page.dart';
+
 
 class App extends StatelessWidget {
   const App({super.key});
