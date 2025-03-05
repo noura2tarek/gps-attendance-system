@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:gps_attendance_system/presentation/widgets/buttons.dart';
+import 'package:gps_attendance_system/presentaion/widgets/buttons.dart';
 
 class CheckIn extends StatefulWidget {
   const CheckIn({super.key});

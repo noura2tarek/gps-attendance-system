@@ -5,10 +5,9 @@ import 'package:gps_attendance_system/blocs/auth/auth_event.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  late final StreamSubscription<User?> _authSubscription;
 
   AuthBloc() : super(AuthInitial()) {
-    // Listen for changes in Firebase Auth's state.
+    // Listen for changes in Firebase Author's state.
     _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         add(LoggedIn());
@@ -22,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoggedIn>(_onLoggedIn);
     on<LoggedOut>(_onLoggedOut);
   }
+  late final StreamSubscription<User?> _authSubscription;
 
   Future<void> _onAppStarted(AppStarted event, Emitter<AuthState> emit) async {
     final user = FirebaseAuth.instance.currentUser;
