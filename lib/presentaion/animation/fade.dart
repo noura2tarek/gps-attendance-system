@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AnimatedPageTransition extends PageRouteBuilder {
-  final Widget page;
 
   AnimatedPageTransition({required this.page})
       : super(
@@ -14,4 +13,5 @@ class AnimatedPageTransition extends PageRouteBuilder {
           },
           transitionDuration: const Duration(seconds: 1),
         );
+  final Widget page;
 }
