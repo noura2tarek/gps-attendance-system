@@ -1,0 +1,16 @@
+CalendarTimeline(
+          initialDate: listProvider.selectDate,
+          firstDate: DateTime.now().subtract(Duration(days: 365)),
+          lastDate: DateTime.now().add(Duration(days: 365)),
+          onDateSelected: (date) {
+            listProvider.changeSelectDate(date, authProvider.currentUser!.id!);
+          },
+          leftMargin: 20,
+          monthColor: MyTheme.blackColor,
+          dayColor: MyTheme.blackColor,
+          activeDayColor: MyTheme.whiteColor,
+          activeBackgroundDayColor: Theme.of(context).primaryColor,
+          dotsColor: MyTheme.whiteColor,
+          selectableDayPredicate: (date) => true,
+          locale: 'en_ISO',
+        ),

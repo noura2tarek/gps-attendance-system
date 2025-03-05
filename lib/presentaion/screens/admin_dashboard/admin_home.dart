@@ -226,7 +226,7 @@ class AdminHome extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             // Search bar container
-            const SearchContainer(),
+            // const SearchContainer(),
             const SizedBox(height: 14),
             // Employee list view
             // Show half of the employees list
