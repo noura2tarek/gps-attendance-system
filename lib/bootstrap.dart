@@ -31,6 +31,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   // Set up Bloc observer
   Bloc.observer = const AppBlocObserver();
 
+  WidgetsFlutterBinding.ensureInitialized();
   // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
