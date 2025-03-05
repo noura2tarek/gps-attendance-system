@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
-import 'package:gps_attendance_system/presentation/screens/signup_page.dart';
+import 'package:gps_attendance_system/presentation/screens/auth/signup_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
