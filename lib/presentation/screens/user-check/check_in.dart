@@ -16,35 +16,37 @@ class _CheckInState extends State<CheckIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CheckInOutButton(
-                  label: 'Check In',
-                  color: const Color(0XFF2563EB),
-                  onPressed: checkIn,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CheckInOutButton(
+                      label: 'Check In',
+                      color: const Color(0XFF2563EB),
+                      onPressed: checkIn,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CheckInOutButton(
+                      label: 'Check Out',
+                      color: const Color(0XFF203546),
+                      onPressed: checkIn,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                CheckInOutButton(
-                  label: 'Check Out',
-                  color: const Color(0XFF203546),
-                  onPressed: checkIn,
-                ),
-              ],
-            ),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+                SizedBox(height: 20,),
                 Text(
                   "Today's Attendance",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 20,),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -62,10 +64,9 @@ class _CheckInState extends State<CheckIn> {
                     ),
                   ],
                 ),
-                CompanyLocation()
+                const Expanded(child: CompanyLocation()),
               ],
             ),
-          ],
         ),
       ),
     );
