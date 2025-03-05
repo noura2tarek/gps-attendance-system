@@ -18,14 +18,18 @@ class AdminHome extends StatelessWidget {
   AdminHome({super.key});
 
   final List<String> containerTitles = [
-    'Employees',
-    'Managers',
+    AppStrings.totalAttendance,
+    AppStrings.employeesPresentNow,
+    AppStrings.totalLeaves,
+    AppStrings.pendingApprovals,
   ];
   final List<String> headerTitles = [
     AppStrings.dashboard,
     AppStrings.employees,
     AppStrings.managers,
     AppStrings.geofence,
+    AppStrings.profile,
+    AppStrings.leaves,
     AppStrings.settings,
     AppStrings.logout,
   ];
@@ -43,12 +47,16 @@ class AdminHome extends StatelessWidget {
     Icons.person,
     Icons.supervisor_account,
     Icons.location_on,
+    Icons.person,
+    Icons.holiday_village_sharp,
     Icons.settings,
     Icons.logout,
   ];
   final List<IconData> containerIcons = [
-    Icons.people,
-    Icons.supervisor_account,
+    Icons.how_to_reg,
+    Icons.group,
+    Icons.calendar_month,
+    Icons.pending_actions,
   ];
 
   @override
@@ -133,9 +141,15 @@ class AdminHome extends StatelessWidget {
                     } else if (index == 3) {
                       Navigator.pushNamed(context, AppRoutes.geofence);
                     } else if (index == 4) {
-                      Navigator.pushNamed(context, AppRoutes.settings);
+                      //Navigator.pushNamed(context, AppRoutes.profile);
                     } else if (index == 5) {
                       // log out logic here
+                      //Navigator.pushNamed(context, AppRoutes.leaves);
+                    } else if (index == 6) {
+                      Navigator.pushNamed(context, AppRoutes.settings);
+                    } else {
+                      // log out logic here
+                      //Navigator.pushNamed(context, AppRoutes.login);
                     }
                   },
                 );
@@ -164,6 +178,7 @@ class AdminHome extends StatelessWidget {
                 crossAxisCount: 2,
                 childAspectRatio: 1.3,
                 crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
               ),
               itemCount: containerTitles.length,
               shrinkWrap: true,
