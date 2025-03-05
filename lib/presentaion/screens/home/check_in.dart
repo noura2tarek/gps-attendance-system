@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:gps_attendance_system/core/models/user_attendance.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/cubits/employee_location_cubit.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/buttons.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/company_location.dart';
@@ -32,7 +34,15 @@ class _CheckInState extends State<CheckIn> {
       context.read<EmployeeLocationCubit>().checkEmployeeLocation();
     }
   }
-  void checkIn() {}
+
+  String? getCurrentUserId() {
+    final user = FirebaseAuth.instance.currentUser;
+    return user?.uid; // Returns the user ID or null if not logged in
+  }
+
+  void checkIn() async {
+    context.read<EmployeeLocationCubit>().checkIn();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +53,8 @@ class _CheckInState extends State<CheckIn> {
           child: BlocBuilder<EmployeeLocationCubit, EmployeeLocationState>(
             builder: (context, state) {
               bool isInside = state is EmployeeLocationInside;
+              String? checkInTime = (state is EmployeeCheckedIn) ? state.time : "Not Checked In";
+
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -71,16 +83,16 @@ class _CheckInState extends State<CheckIn> {
                   ),
                   SizedBox(height: 20,),
 
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Detailscard(
                         title: 'Check In',
-                        subtitle: '10:00',
+                        subtitle: checkInTime,
                         icon: Icons.login,
-                        iconColor: Color(0xff203546),
+                        iconColor: const Color(0xff203546),
                       ),
-                      Detailscard(
+                      const Detailscard(
                         title: 'Check In',
                         subtitle: '10:00',
                         icon: Icons.login,

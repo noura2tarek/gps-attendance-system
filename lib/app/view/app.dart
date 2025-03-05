@@ -10,6 +10,8 @@ import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/manage
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/settings_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/total_leaves_page.dart';
+import 'package:gps_attendance_system/presentaion/screens/auth/login_page.dart';
+import 'package:gps_attendance_system/presentaion/screens/auth/signup_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/cubits/employee_location_cubit.dart';
 
@@ -29,7 +31,7 @@ class App extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         initialRoute: AppRoutes.adminHome,
-        home: CheckIn(),
+        home: SignUpPage(),
       ),
     );
   }
