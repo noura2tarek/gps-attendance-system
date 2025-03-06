@@ -9,7 +9,7 @@ import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/manage
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/settings_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/total_leaves_page.dart';
-
+import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -21,23 +21,37 @@ class App extends StatelessWidget {
       theme: lightTheme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: AppRoutes.adminHome,
+      initialRoute: AppRoutes.userHome,
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
+          case AppRoutes.userHome:
+            return MaterialPageRoute(builder: (context) => const CheckIn());
           case AppRoutes.adminHome:
             return MaterialPageRoute(builder: (context) => AdminHome());
           case AppRoutes.employees:
-            return MaterialPageRoute(builder: (context) => EmployeesPage());
+            return MaterialPageRoute(
+              builder: (context) => const EmployeesPage(),
+            );
           case AppRoutes.managers:
-            return MaterialPageRoute(builder: (context) => ManagersPage());
+            return MaterialPageRoute(
+              builder: (context) => const ManagersPage(),
+            );
           case AppRoutes.geofence:
-            return MaterialPageRoute(builder: (context) => GeofencePage());
+            return MaterialPageRoute(
+              builder: (context) => const GeofencePage(),
+            );
           case AppRoutes.settings:
-            return MaterialPageRoute(builder: (context) => SettingsPage());
+            return MaterialPageRoute(
+              builder: (context) => const SettingsPage(),
+            );
           case AppRoutes.totalLeaves:
-            return MaterialPageRoute(builder: (context) => TotalLeavesPage());
+            return MaterialPageRoute(
+              builder: (context) => const TotalLeavesPage(),
+            );
           case AppRoutes.pendingApprovals:
-            return MaterialPageRoute(builder: (context) => PendingApprovalsPage());
+            return MaterialPageRoute(
+              builder: (context) => const PendingApprovalsPage(),
+            );
           default:
             return MaterialPageRoute(builder: (context) => AdminHome());
         }
