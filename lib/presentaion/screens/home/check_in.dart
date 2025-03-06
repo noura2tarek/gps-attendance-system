@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:gps_attendance_system/presentation/screens/user-check/widgets/buttons.dart';
-import 'package:gps_attendance_system/presentation/screens/user-check/widgets/company_location.dart';
-import 'package:gps_attendance_system/presentation/screens/user-check/widgets/details_card.dart';
+import 'package:gps_attendance_system/presentaion/screens/home/widgets/buttons.dart';
+import 'package:gps_attendance_system/presentaion/screens/home/widgets/company_location.dart';
+import 'package:gps_attendance_system/presentaion/screens/home/widgets/details_card.dart';
 
 class CheckIn extends StatefulWidget {
   const CheckIn({super.key});
@@ -40,14 +39,14 @@ class _CheckInState extends State<CheckIn> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
-                Text(
+                const SizedBox(height: 20,),
+                const Text(
                   "Today's Attendance",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Detailscard(
