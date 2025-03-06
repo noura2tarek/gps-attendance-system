@@ -8,14 +8,16 @@ class LeavesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Leaves'),
+        title: const Text('Leaves'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ApplyLeaveScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const ApplyLeaveScreen(),
+                ),
               );
             },
           ),

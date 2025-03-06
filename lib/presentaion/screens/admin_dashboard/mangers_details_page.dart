@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance_system/utils/attendance_helper.dart';
+import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 
 class ManagerDetailsPage extends StatelessWidget {
   final String managerName;
-  List<Map<String, String>> attendanceRecords = [
+  final List<Map<String, String>> attendanceRecords = [
     {'date': 'April 10, 2023', 'checkIn': '10:12 am', 'checkOut': '07:00 am'},
     {'date': 'April 11, 2023', 'checkIn': '10:00 am', 'checkOut': '07:10 am'},
     {'date': 'April 12, 2023', 'checkIn': '09:50 am', 'checkOut': '07:00 am'},

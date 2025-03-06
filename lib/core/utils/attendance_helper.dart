@@ -14,18 +14,18 @@ class AttendanceHelper {
     if (_isBetween(checkIn, onTimeStart, onTimeEnd)) return "On Time";
     if (_isBefore(checkIn, lateLimit)) return "Late";
 
-    return "Out of Bounds";
+    return 'Out of Bounds';
   }
 
   static Color getStatusColor(String status) {
     switch (status) {
-      case "On Time":
+      case 'On Time':
         return Colors.green;
-      case "Late":
+      case 'Late':
         return Colors.red;
-      case "Early":
+      case 'Early':
         return Colors.orange;
-      case "Out of Bounds":
+      case 'Out of Bounds':
         return Colors.grey;
       default:
         return Colors.black;
@@ -39,8 +39,8 @@ class AttendanceHelper {
     int hour = int.parse(timeParts[0]);
     int minute = int.parse(timeParts[1]);
 
-    if (parts[1] == "pm" && hour != 12) hour += 12;
-    if (parts[1] == "am" && hour == 12) hour = 0;
+    if (parts[1] == 'pm' && hour != 12) hour += 12;
+    if (parts[1] == 'am' && hour == 12) hour = 0;
 
     return TimeOfDay(hour: hour, minute: minute);
   }

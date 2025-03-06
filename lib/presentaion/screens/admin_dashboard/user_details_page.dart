@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance_system/utils/attendance_helper.dart';
+import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 import 'package:intl/intl.dart';
 
 class UserDetailsPage extends StatelessWidget {

@@ -4,7 +4,6 @@ import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_container.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_list_tile.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/search_container.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/users_list.dart';
 import 'package:intl/intl.dart';
 
@@ -145,7 +144,6 @@ class AdminHome extends StatelessWidget {
                     } else if (index == 4) {
                       Navigator.pushNamed(context, AppRoutes.profile);
                     } else if (index == 5) {
-                      // log out logic here
                       Navigator.pushNamed(context, AppRoutes.leaves);
                     } else if (index == 6) {
                       Navigator.pushNamed(context, AppRoutes.settings);
