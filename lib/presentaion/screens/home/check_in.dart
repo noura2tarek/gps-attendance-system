@@ -36,7 +36,7 @@ class _CheckInState extends State<CheckIn> {
 
   String? getCurrentUserId() {
     final user = FirebaseAuth.instance.currentUser;
-    return user?.uid; // Returns the user ID or null if not logged in
+    return user?.uid;
   }
 
   void checkIn() async {
@@ -63,7 +63,7 @@ class _CheckInState extends State<CheckIn> {
                       CheckInOutButton(
                         label: 'Check In',
                         color: isInside? Color(0XFF2563EB) : Colors.black12,
-                        onPressed: checkIn,
+                        onPressed: isInside ? checkIn : () {},
                       ),
                       const SizedBox(
                         width: 10,
