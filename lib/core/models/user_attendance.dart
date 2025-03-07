@@ -32,10 +32,10 @@ class UserAttendance {
 
   Map<String, dynamic> toFirestore() {
     return {
-      "employeeId": employeeId,
-      if (checkInTime != null) "checkInTime": checkInTime,
-      if (checkOutTime != null) "checkOutTime": checkOutTime,
-      "status": status,
+      'employeeId': employeeId,
+      if (checkInTime != null) 'checkInTime': checkInTime,
+      if (checkOutTime != null) 'checkOutTime': checkOutTime,
+      'status': status,
     };
   }
 }

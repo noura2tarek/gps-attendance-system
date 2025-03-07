@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Attendance {
   final String employeeId;
   final DateTime checkInTime;
@@ -6,7 +8,7 @@ class Attendance {
 
   Map<String, dynamic> toFirestore() {
     return {
-      "checkInTime": checkInTime.toIso8601String(),
+      'checkInTime': checkInTime.toIso8601String(),
     };
   }
 
@@ -14,7 +16,7 @@ class Attendance {
     final data = doc.data()!;
     return Attendance(
       employeeId: doc.id,
-      checkInTime: DateTime.parse(data["checkInTime"]),
+      checkInTime: DateTime.parse(data["checkInTime"] as String),
     );
   }
 }
