@@ -16,7 +16,7 @@ class Attendance {
     final data = doc.data()!;
     return Attendance(
       employeeId: doc.id,
-      checkInTime: DateTime.parse(data["checkInTime"] as String),
+      checkInTime: DateTime.parse(data['checkInTime'] as String),
     );
   }
 }
