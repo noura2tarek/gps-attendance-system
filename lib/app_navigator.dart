@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gps_attendance_system/blocs/auth/auth_bloc.dart';
-import 'package:gps_attendance_system/blocs/auth/auth_state.dart';
-import 'package:gps_attendance_system/presentaion/screens/auth/signup_page.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
+import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
+import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 
 class AppNavigator extends StatelessWidget {
   const AppNavigator({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocBuilder<AuthCubit, AuthStates>(
       builder: (context, state) {
         if (state is Authenticated) {
-          return const CheckIn();
+          // check user role first
+          // if admin -> navigate to admin dashboard
+          // else -> navigate to user home page
+          return AdminHome();
         } else if (state is Unauthenticated) {
-          return const SignUpPage();
+          return const LoginPage();
         }
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),

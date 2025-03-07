@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:gps_attendance_system/core/models/user_attendance.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/cubits/employee_location_cubit.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/widgets/buttons.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/widgets/company_location.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/widgets/details_card.dart';
+import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/details_card.dart';
 
 class CheckIn extends StatefulWidget {
   const CheckIn({super.key});
@@ -28,9 +26,9 @@ class _CheckInState extends State<CheckIn> {
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
-      print("Location permission denied");
+      print('Location permission denied');
     } else {
-      context.read<EmployeeLocationCubit>().checkEmployeeLocation();
+      await context.read<EmployeeLocationCubit>().checkEmployeeLocation();
     }
   }
 
@@ -40,7 +38,7 @@ class _CheckInState extends State<CheckIn> {
   }
 
   void checkIn() async {
-    context.read<EmployeeLocationCubit>().checkIn();
+    await context.read<EmployeeLocationCubit>().checkIn();
   }
 
   @override
@@ -62,7 +60,7 @@ class _CheckInState extends State<CheckIn> {
                     children: [
                       CheckInOutButton(
                         label: 'Check In',
-                        color: isInside? Color(0XFF2563EB) : Colors.black12,
+                        color: isInside? const Color(0XFF2563EB) : Colors.black12,
                         onPressed: checkIn,
                       ),
                       const SizedBox(
@@ -75,12 +73,12 @@ class _CheckInState extends State<CheckIn> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text(
+                  const SizedBox(height: 20,),
+                  const Text(
                     "Today's Attendance",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

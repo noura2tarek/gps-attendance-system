@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
+
+  const TextFormFieldWidget({
+    required this.labelText,
+    required this.controller,
+    required this.validator,
+    required this.prefixIcon,
+    super.key,
+    this.suffixIcon,
+    this.keyboardType,
+    this.obscureText = false,
+  });
   final String labelText;
   final TextEditingController controller;
   final String? Function(String?) validator;
@@ -8,17 +19,6 @@ class TextFormFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final bool obscureText;
-
-  const TextFormFieldWidget({
-    super.key,
-    required this.labelText,
-    required this.controller,
-    required this.validator,
-    required this.prefixIcon,
-    this.suffixIcon,
-    this.keyboardType,
-    this.obscureText = false,
-  });
 
   @override
   Widget build(BuildContext context) {

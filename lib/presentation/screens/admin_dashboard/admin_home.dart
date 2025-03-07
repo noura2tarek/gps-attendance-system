@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_container.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_list_tile.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/users_list.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_container.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
 import 'package:intl/intl.dart';
 
 DateTime date = DateTime.now();
@@ -229,7 +229,7 @@ class AdminHome extends StatelessWidget {
             // Employee list view
             // Show half of the employees list
             UsersList(
-              dummyEmployees: dummyEmployees.sublist(
+              employees: dummyEmployees.sublist(
                 0,
                 (dummyEmployees.length * 0.5).round(),
               ),

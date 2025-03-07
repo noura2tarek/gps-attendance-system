@@ -1,30 +1,76 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 
 class UserService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //--------- Firebase auth feature --------//
+  static FirebaseAuth authInstance = FirebaseAuth.instance;
 
-  Future<void> addUser(String uid, UserModel user) async {
+  //--- Sign in with email and password method ---//
+  static Future<User?> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    final credentials = await authInstance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return credentials.user;
+  }
+
+  //--- Create user with email and password ---//
+  static Future<User?> createUserWithEmailAndPassword(
+      {required String email, required String password}) async {
+    final credential = await authInstance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return credential.user;
+  }
+
+  // Log out from firebase auth
+  static Future<void> signOut() async => authInstance.signOut();
+
+  //-------- Firebase firestore feature --------//
+
+  // database instance
+  static FirebaseFirestore db = FirebaseFirestore.instance;
+
+  // create a collection called users
+  static CollectionReference<Map<String, dynamic>> users =
+      db.collection('users');
+
+  // Add user document to the collection users in database after sign up
+  static Future<void> addUser(String uid, UserModel user) async {
     try {
-      await _firestore.collection('users').doc(uid).set(user.toJson());
+      await users.doc(uid).set(user.toJson());
       print('User added successfully.');
     } catch (e) {
       throw Exception('Error adding user: $e');
     }
   }
 
-  Future<UserModel?> getUser(String uid) async {
+  // Get user data from firestore
+  static Future<UserModel?> getUserData(String uid) async {
     try {
-      final DocumentSnapshot<Map<String, dynamic>> docSnapshot =
-          await _firestore.collection('users').doc(uid).get();
+      final DocumentSnapshot<Object?> docSnapshot = await users.doc(uid).get();
 
       if (docSnapshot.exists && docSnapshot.data() != null) {
-        return UserModel.fromJson(docSnapshot.data()!);
+        return UserModel.fromFirestore(
+            docSnapshot as DocumentSnapshot<Map<String, dynamic>>);
       } else {
         return null;
       }
     } catch (e) {
       throw Exception('Error getting user data: $e');
     }
+  }
+
+  // Update user data
+  static Future<void> updateUserData({
+    required UserModel user,
+    required String userId,
+  }) async {
+    await users.doc(userId).update(user.toJson());
   }
 }
