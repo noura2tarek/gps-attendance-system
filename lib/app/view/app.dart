@@ -6,6 +6,7 @@ import 'package:gps_attendance_system/blocs/auth/auth_event.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/themes/app_theme.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
+import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/employess_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
@@ -16,6 +17,7 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves.dart';
+import 'package:gps_attendance_system/presentation/screens/request_leave_Page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -34,11 +36,11 @@ class App extends StatelessWidget {
         theme: lightTheme,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: const AppNavigator(),
+         home: const AppNavigator(),
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case AppRoutes.userHome:
-              return MaterialPageRoute(builder: (context) => const CheckIn());
+              return AnimatedPageTransition(page: const CheckIn());
             case AppRoutes.adminHome:
               return MaterialPageRoute(builder: (context) => AdminHome());
             case AppRoutes.employees:
@@ -69,6 +71,8 @@ class App extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (context) => const LeavesPage(),
               );
+            case AppRoutes.requestLeave:
+              return AnimatedPageTransition(page: const ApplyLeaveScreen());
             default:
               return MaterialPageRoute(builder: (context) => AdminHome());
           }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance_system/presentation/screens/form_Page.dart';
+import 'package:gps_attendance_system/core/app_routes.dart';
 
 class LeavesPage extends StatelessWidget {
   const LeavesPage({super.key});
@@ -13,11 +13,9 @@ class LeavesPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const ApplyLeaveScreen(),
-                ),
+                AppRoutes.requestLeave,
               );
             },
           ),

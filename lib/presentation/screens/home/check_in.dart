@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:gps_attendance_system/core/models/user_attendance.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/cubits/employee_location_cubit.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/widgets/buttons.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/widgets/company_location.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/widgets/details_card.dart';
+import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/details_card.dart';
+import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 
 class CheckIn extends StatefulWidget {
   const CheckIn({super.key});
@@ -21,16 +20,16 @@ class _CheckInState extends State<CheckIn> {
   void initState() {
     super.initState();
     _requestLocationPermission();
-    context.read<EmployeeLocationCubit>().checkEmployeeLocation();
   }
 
+  // Request location permission
   Future<void> _requestLocationPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
-      print("Location permission denied");
+      print('Location permission denied');
     } else {
-      context.read<EmployeeLocationCubit>().checkEmployeeLocation();
+      await EmployeeLocationCubit.get(context).checkEmployeeLocation();
     }
   }
 
@@ -39,8 +38,13 @@ class _CheckInState extends State<CheckIn> {
     return user?.uid;
   }
 
-  void checkIn() async {
-    context.read<EmployeeLocationCubit>().checkIn();
+  // Check in
+  Future<void> _checkIn() async {
+    bool isInside =
+        await EmployeeLocationCubit.get(context).checkEmployeeLocation();
+    if (isInside) {
+      await EmployeeLocationCubit.get(context).checkIn();
+    }
   }
 
   @override
@@ -49,10 +53,32 @@ class _CheckInState extends State<CheckIn> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: BlocBuilder<EmployeeLocationCubit, EmployeeLocationState>(
+          child: BlocConsumer<EmployeeLocationCubit, EmployeeLocationState>(
+            listener: (context, state) {
+              if (state is EmployeeLocationError) {
+                CustomSnackBar.show(
+                  context,
+                  state.message,
+                  color: chooseSnackBarColor(ToastStates.ERROR),
+                );
+              } else if (state is EmployeeLocationOutside) {
+                CustomSnackBar.show(
+                  context,
+                  state.message,
+                  color: chooseSnackBarColor(ToastStates.ERROR),
+                );
+              } else if (state is EmployeeCheckedIn) {
+                CustomSnackBar.show(
+                  context,
+                  'Checked In Successfully at ${state.time}',
+                  color: chooseSnackBarColor(ToastStates.SUCCESS),
+                );
+              }
+            },
             builder: (context, state) {
               bool isInside = state is EmployeeLocationInside;
-              String? checkInTime = (state is EmployeeCheckedIn) ? state.time : "Not Checked In";
+              final String checkInTime =
+                  (state is EmployeeCheckedIn) ? state.time : 'Not Checked In';
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,8 +88,9 @@ class _CheckInState extends State<CheckIn> {
                     children: [
                       CheckInOutButton(
                         label: 'Check In',
-                        color: isInside? Color(0XFF2563EB) : Colors.black12,
-                        onPressed: isInside ? checkIn : () {},
+                        color:
+                            isInside ? const Color(0XFF2563EB) : Colors.black12,
+                        onPressed: _checkIn,
                       ),
                       const SizedBox(
                         width: 10,
@@ -71,17 +98,20 @@ class _CheckInState extends State<CheckIn> {
                       CheckInOutButton(
                         label: 'Check Out',
                         color: const Color(0XFF203546),
-                        onPressed: checkIn,
+                        onPressed: _checkIn,
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text(
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
                     "Today's Attendance",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 20,),
-
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
