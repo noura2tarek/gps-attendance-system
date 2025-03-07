@@ -9,7 +9,6 @@ import 'package:gps_attendance_system/presentaion/screens/home/widgets/buttons.d
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/details_card.dart';
 
-
 class CheckIn extends StatefulWidget {
   const CheckIn({super.key});
 
