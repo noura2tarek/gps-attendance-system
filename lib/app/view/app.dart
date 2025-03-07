@@ -14,7 +14,6 @@ import 'package:gps_attendance_system/presentaion/screens/leaves.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/cubits/employee_location_cubit.dart';
 
-
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -59,7 +58,9 @@ class App extends StatelessWidget {
                 builder: (context) => const PendingApprovalsPage(),
               );
             case AppRoutes.leaves:
-            return MaterialPageRoute(builder: (context) => LeavesPage());  
+              return MaterialPageRoute(
+                builder: (context) => const LeavesPage(),
+              );
             default:
               return MaterialPageRoute(builder: (context) => AdminHome());
           }
