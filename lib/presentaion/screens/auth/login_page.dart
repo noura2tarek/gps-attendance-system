@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/presentaion/animation/fade.dart';
 import 'package:gps_attendance_system/presentaion/screens/auth/signup_page.dart';
-import 'package:gps_attendance_system/presentaion/screens/check_in.dart';
+import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentaion/widgets/snakbar_widget.dart';
 import 'package:gps_attendance_system/presentaion/widgets/text_form_field.dart';
 

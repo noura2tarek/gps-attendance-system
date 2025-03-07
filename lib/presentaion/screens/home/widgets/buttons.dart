@@ -10,7 +10,7 @@ class CheckInOutButton extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onPressed,
-    this.borderRadius = 10.0,
+    this.borderRadius = 5.0,
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class CheckInOutButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 35, vertical: 30),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),

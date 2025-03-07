@@ -8,4 +8,5 @@ class AppRoutes {
   static const String leaves = '/leaves';
   static const String totalLeaves = '/total-leaves';
   static const String pendingApprovals = '/pending-approvals';
+  static const String userHome = '/home';
 }

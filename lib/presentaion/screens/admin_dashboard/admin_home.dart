@@ -145,6 +145,7 @@ class AdminHome extends StatelessWidget {
                       Navigator.pushNamed(context, AppRoutes.profile);
                     } else if (index == 5) {
                       Navigator.pushNamed(context, AppRoutes.leaves);
+
                     } else if (index == 6) {
                       Navigator.pushNamed(context, AppRoutes.settings);
                     } else {
