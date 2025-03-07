@@ -10,8 +10,10 @@ import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/manage
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/settings_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/total_leaves_page.dart';
+import 'package:gps_attendance_system/presentaion/screens/leaves.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/cubits/employee_location_cubit.dart';
+
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -56,6 +58,8 @@ class App extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (context) => const PendingApprovalsPage(),
               );
+            case AppRoutes.leaves:
+            return MaterialPageRoute(builder: (context) => LeavesPage());  
             default:
               return MaterialPageRoute(builder: (context) => AdminHome());
           }

@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/user_details_page.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_list_tile.dart';
 
 class UsersList extends StatelessWidget {
-  const UsersList({
-    required this.dummyEmployees, super.key,
-  });
-
   final List<String> dummyEmployees;
+
+  const UsersList({required this.dummyEmployees, super.key});
 
   @override
   Widget build(BuildContext context) {
+    double avatarRadius = MediaQuery.of(context).size.width * 0.08;
+
     return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: dummyEmployees.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsetsDirectional.only(bottom: 8),
           child: CustomListTile(
-            // user name
             title: dummyEmployees[index],
-            // user photo
-            widget: const CircleAvatar(
+            widget: CircleAvatar(
               backgroundColor: AppColors.primary,
-              radius: 28,
+              radius: avatarRadius,
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      UserDetailsPage(userName: dummyEmployees[index]),
+                ),
+              );
+            },
           ),
         );
       },

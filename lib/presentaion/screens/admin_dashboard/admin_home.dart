@@ -4,7 +4,6 @@ import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_container.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/custom_list_tile.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/search_container.dart';
 import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/users_list.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +15,7 @@ String formattedDate = format.format(date);
 
 class AdminHome extends StatelessWidget {
   AdminHome({super.key});
+  final TextEditingController searchController = TextEditingController();
 
   final List<String> containerTitles = [
     AppStrings.totalAttendance,
@@ -142,9 +142,10 @@ class AdminHome extends StatelessWidget {
                     } else if (index == 3) {
                       Navigator.pushNamed(context, AppRoutes.geofence);
                     } else if (index == 4) {
-                      //Navigator.pushNamed(context, AppRoutes.profile);
+                      Navigator.pushNamed(context, AppRoutes.profile);
                     } else if (index == 5) {
-                      //Navigator.pushNamed(context, AppRoutes.leaves);
+                      Navigator.pushNamed(context, AppRoutes.leaves);
+
                     } else if (index == 6) {
                       Navigator.pushNamed(context, AppRoutes.settings);
                     } else {
@@ -225,8 +226,6 @@ class AdminHome extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             // Search bar container
-            const SearchContainer(),
-            const SizedBox(height: 14),
             // Employee list view
             // Show half of the employees list
             UsersList(
