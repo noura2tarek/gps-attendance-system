@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gps_attendance_system/presentaion/animation/fade.dart';
-import 'package:gps_attendance_system/presentaion/screens/auth/signup_page.dart';
-import 'package:gps_attendance_system/presentaion/screens/home/check_in.dart';
-import 'package:gps_attendance_system/presentaion/widgets/snakbar_widget.dart';
-import 'package:gps_attendance_system/presentaion/widgets/text_form_field.dart';
+import 'package:gps_attendance_system/presentation/animation/fade.dart';
+import 'package:gps_attendance_system/presentation/screens/auth/signup_page.dart';
+import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
+import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
+import 'package:gps_attendance_system/presentation/widgets/text_form_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -50,11 +49,6 @@ class _LoginPageState extends State<LoginPage> {
         _isLoading = true;
       });
       try {
-        final credential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
         await Navigator.pushReplacement(
           context,
           AnimatedPageTransition(
@@ -63,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       } catch (e) {
         CustomSnackBar.show(
+          color: chooseSnackBarColor(ToastStates.ERROR),
           context,
           e.toString(),
         );

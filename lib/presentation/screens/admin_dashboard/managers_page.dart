@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/utils/custom_calendar_timeline.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/search_container.dart';
-import 'package:gps_attendance_system/presentaion/screens/admin_dashboard/widgets/users_list.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/search_container.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
 
-class EmployeesPage extends StatefulWidget {
-  const EmployeesPage({super.key});
+class ManagersPage extends StatefulWidget {
+  const ManagersPage({super.key});
 
   @override
-  State<EmployeesPage> createState() => _EmployeesPageState();
+  State<ManagersPage> createState() => _ManagersPageState();
 }
 
-class _EmployeesPageState extends State<EmployeesPage> {
+class _ManagersPageState extends State<ManagersPage> {
   TextEditingController searchController = TextEditingController();
-  List<String> allEmployees = [
+
+  List<String> allMangers = [
     'John Doe',
     'Jane Doe',
     'Monia Mohamed',
@@ -21,21 +22,21 @@ class _EmployeesPageState extends State<EmployeesPage> {
     'Jane Doe',
     'Jane Doe',
   ];
-  List<String> filteredEmployees = [];
+  List<String> filteredMangers = [];
   DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    filteredEmployees = allEmployees;
+    filteredMangers = allMangers;
   }
 
   void filterEmployees(String query) {
     setState(() {
       if (query.isEmpty) {
-        filteredEmployees = allEmployees;
+        filteredMangers = allMangers;
       } else {
-        filteredEmployees = allEmployees
+        filteredMangers = allMangers
             .where((employee) =>
                 employee.toLowerCase().contains(query.toLowerCase()))
             .toList();
@@ -48,7 +49,7 @@ class _EmployeesPageState extends State<EmployeesPage> {
     double screenPadding = MediaQuery.of(context).size.width * 0.04;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Employees Records')),
+      appBar: AppBar(title: const Text('Mangers Records')),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 14, horizontal: screenPadding),
         child: Column(
@@ -60,9 +61,11 @@ class _EmployeesPageState extends State<EmployeesPage> {
             ),
             const SizedBox(height: 10),
             SearchContainer(
-                controller: searchController, onSearch: filterEmployees),
+              controller: searchController,
+              onSearch: filterEmployees,
+            ),
             const SizedBox(height: 10),
-            Expanded(child: UsersList(dummyEmployees: filteredEmployees)),
+            Expanded(child: UsersList(dummyEmployees: filteredMangers)),
           ],
         ),
       ),

@@ -14,7 +14,8 @@ class CompanyLocation extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: SizedBox(
-          height: 200, // Set a fixed height
+          // Make height responsive
+          height: MediaQuery.of(context).size.height * 0.3,
           child: GoogleMap(
             initialCameraPosition: const CameraPosition(
               target: LatLng(30.0447, 31.2389),
@@ -22,6 +23,7 @@ class CompanyLocation extends StatelessWidget {
             ),
             markers: {
               const Marker(
+                infoWindow: InfoWindow(title: 'Greek Campus'),
                 markerId: MarkerId('Greek Campus'),
                 position: LatLng(30.0447, 31.2389),
               ),
