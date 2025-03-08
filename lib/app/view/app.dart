@@ -23,7 +23,6 @@ import 'package:gps_attendance_system/presentation/screens/leaves.dart';
 import 'package:gps_attendance_system/presentation/screens/request_leave_Page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
-
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -43,7 +42,6 @@ class App extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         home: const AppNavigator(),
         onGenerateRoute: onGenerateRoute,
-
       ),
     );
   }
@@ -54,13 +52,13 @@ class App extends StatelessWidget {
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.userHome:
-      return MaterialPageRoute(builder: (context) => const CheckIn());
+      return FadePageTransition(page: const CheckIn());
     case AppRoutes.adminHome:
       UserModel admin = settings.arguments! as UserModel;
       return FadePageTransition(
           page: AdminHome(
-            admin: admin,
-          ));
+        admin: admin,
+      ));
     case AppRoutes.employees:
       List<UserModel> users = settings.arguments! as List<UserModel>;
       return MaterialPageRoute(
