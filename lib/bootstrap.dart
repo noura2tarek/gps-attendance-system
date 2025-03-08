@@ -40,7 +40,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   );
   await SharedPrefsService.init();
 
-
   // Add cross-flavor configuration here (if any)
 
   // Run the app

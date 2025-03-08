@@ -26,8 +26,8 @@ class AddUserPageState extends State<AddUserPage> {
       TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _positionController = TextEditingController();
-  bool isPasswordObscure = false;
-  bool isConfirmPasswordObscure = false;
+  bool isPasswordObscure = true;
+  bool isConfirmPasswordObscure = true;
 
   bool _isLoading = false;
 
