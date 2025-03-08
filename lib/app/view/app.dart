@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/app_navigator.dart';
+import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
@@ -18,7 +19,6 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/users
 import 'package:gps_attendance_system/presentation/screens/auth/add_user_page.dart';
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
-import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves.dart';
 import 'package:gps_attendance_system/presentation/screens/request_leave_Page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
@@ -30,7 +30,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => EmployeeLocationCubit()),
+        BlocProvider(create: (context) => AttendanceBloc()),
         BlocProvider(
           create: (context) => AuthCubit(),
         ),

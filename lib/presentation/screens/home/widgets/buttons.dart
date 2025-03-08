@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CheckInOutButton extends StatelessWidget {
   final String label;
   final Color color;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double borderRadius;
 
   const CheckInOutButton({
