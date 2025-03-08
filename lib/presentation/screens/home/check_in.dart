@@ -6,7 +6,9 @@ import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_
 import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/details_card.dart';
+
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
+
 
 class CheckIn extends StatefulWidget {
   const CheckIn({super.key});
@@ -20,16 +22,20 @@ class _CheckInState extends State<CheckIn> {
   void initState() {
     super.initState();
     _requestLocationPermission();
+
   }
 
   // Request location permission
+
   Future<void> _requestLocationPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
       print('Location permission denied');
     } else {
+
       await EmployeeLocationCubit.get(context).checkEmployeeLocation();
+
     }
   }
 
@@ -45,10 +51,12 @@ class _CheckInState extends State<CheckIn> {
     if (isInside) {
       await EmployeeLocationCubit.get(context).checkIn();
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -136,6 +144,7 @@ class _CheckInState extends State<CheckIn> {
             },
           ),
         ),
+
       ),
     );
   }

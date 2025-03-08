@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
+
 import 'firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -36,6 +38,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await SharedPrefsService.init();
+
 
   // Add cross-flavor configuration here (if any)
 

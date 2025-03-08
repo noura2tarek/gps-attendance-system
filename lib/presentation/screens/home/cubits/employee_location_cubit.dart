@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,7 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
   final double companyLat = 30.0447;
   final double companyLng = 31.2389;
   final double geofenceRadius = 100;
+
   static final DateTime officialCheckInTime = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 9, 0);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -24,11 +26,13 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
   //--- Check employee location method ---//
   Future<bool> checkEmployeeLocation() async {
     bool isInside = false;
+
     try {
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         emit(EmployeeLocationPermissionDenied());
       }
+
 
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -38,6 +42,7 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
         position.longitude,
         companyLat,
         companyLng,
+
       );
 
       if (distance <= geofenceRadius) {
@@ -69,6 +74,7 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
       'employeeId': user?.uid,
       'checkInTime': checkInTime,
       'timestamp': now,
+
     };
 
     try {
@@ -80,9 +86,11 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
           .set(checkInData, SetOptions(merge: true));
 
       emit(EmployeeCheckedIn(time: checkInTime));
+
     } catch (e) {
       print('Error failed to check in: $e');
       emit(EmployeeLocationError('Failed to check in: $e'));
+
     }
   }
 }

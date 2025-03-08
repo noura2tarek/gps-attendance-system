@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AnimatedPageTransition extends PageRouteBuilder {
 
-  AnimatedPageTransition({required this.page})
+class FadePageTransition extends PageRouteBuilder {
+
+  FadePageTransition({required this.page})
+
       : super(
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {

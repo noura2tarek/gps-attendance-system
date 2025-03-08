@@ -15,7 +15,8 @@ class CompanyLocation extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         child: SizedBox(
           // Make height responsive
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.4,
+
           child: GoogleMap(
             initialCameraPosition: const CameraPosition(
               target: LatLng(30.0447, 31.2389),
@@ -23,6 +24,7 @@ class CompanyLocation extends StatelessWidget {
             ),
             markers: {
               const Marker(
+
                 infoWindow: InfoWindow(title: 'Greek Campus'),
                 markerId: MarkerId('Greek Campus'),
                 position: LatLng(30.0447, 31.2389),

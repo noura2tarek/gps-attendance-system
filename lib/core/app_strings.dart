@@ -13,4 +13,5 @@ class AppStrings {
   static const String employeesPresentNow = 'Employees\nPresent\nNow';
   static const String totalLeaves = 'Total\nLeaves';
   static const String pendingApprovals = 'Pending\nApprovals';
+  static const String roleKey = 'role';
 }

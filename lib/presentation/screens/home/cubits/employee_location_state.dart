@@ -6,6 +6,7 @@ abstract class EmployeeLocationState {}
 class EmployeeLocationInitial extends EmployeeLocationState {}
 
 class EmployeeLocationInside extends EmployeeLocationState {
+
   EmployeeLocationInside({required this.checkInTime, required this.isOnTime});
 
   final DateTime checkInTime;
@@ -18,9 +19,11 @@ class EmployeeLocationOutside extends EmployeeLocationState {
   final String message;
 }
 
+
 class EmployeeLocationPermissionDenied extends EmployeeLocationState {}
 
 class EmployeeCheckedIn extends EmployeeLocationState {
+
   EmployeeCheckedIn({required this.time});
 
   final String time;
@@ -31,3 +34,4 @@ class EmployeeLocationError extends EmployeeLocationState {
 
   final String message;
 }
+
