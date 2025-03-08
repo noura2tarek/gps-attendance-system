@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
@@ -9,7 +8,6 @@ import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_auth_button.dart';
-
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 import 'package:gps_attendance_system/presentation/widgets/text_form_field.dart';
 
@@ -27,11 +25,9 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   bool _isLoading = false;
-  bool isPassword = true;
+  bool _isPassword = true;
   IconData icon = Icons.visibility_outlined;
-
 
   @override
   void dispose() {
@@ -39,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
     super.dispose();
   }
-
 
   // log in method
   Future<void> _logIn() async {
@@ -56,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
   Future<UserModel?> _getUserData(String id) async {
     UserModel? user = await UserService.getUserData(id);
     return user;
-
   }
 
   @override
@@ -68,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
         centerTitle: true,
       ),
-
       body: BlocListener<AuthCubit, AuthStates>(
         listener: (context, state) async {
           if (state is Authenticated) {
@@ -165,16 +158,16 @@ class _LoginPageState extends State<LoginPage> {
                   //---------- Password text field ----------//
                   TextFormFieldWidget(
                     labelText: 'Password',
-                    obscureText: isPassword,
+                    obscureText: _isPassword,
                     controller: _passwordController,
                     validator: _validatePassword,
                     prefixIcon: Icons.lock,
                     suffixPressed: () {
                       setState(() {
-                        isPassword = !isPassword;
+                        _isPassword = !_isPassword;
                       });
                     },
-                    suffixIcon: isPassword
+                    suffixIcon: _isPassword
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
                   ),
@@ -212,5 +205,4 @@ class _LoginPageState extends State<LoginPage> {
     }
     return null;
   }
-
 }

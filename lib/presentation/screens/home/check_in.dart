@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
@@ -19,25 +17,19 @@ class _CheckInState extends State<CheckIn> {
   @override
   void initState() {
     super.initState();
-    _requestLocationPermission();
+    // _requestLocationPermission();
   }
 
   // Request location permission
-
-  Future<void> _requestLocationPermission() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      print('Location permission denied');
-    } else {
-      await EmployeeLocationCubit.get(context).checkEmployeeLocation();
-    }
-  }
-
-  String? getCurrentUserId() {
-    final user = FirebaseAuth.instance.currentUser;
-    return user?.uid;
-  }
+  // Future<void> _requestLocationPermission() async {
+  //   LocationPermission permission = await Geolocator.requestPermission();
+  //   if (permission == LocationPermission.denied ||
+  //       permission == LocationPermission.deniedForever) {
+  //     print('Location permission denied');
+  //   } else {
+  //     await EmployeeLocationCubit.get(context).checkEmployeeLocation();
+  //   }
+  // }
 
   // Check in
   Future<void> _checkIn() async {

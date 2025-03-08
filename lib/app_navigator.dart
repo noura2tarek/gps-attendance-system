@@ -8,7 +8,6 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
-
 class AppNavigator extends StatelessWidget {
   const AppNavigator({super.key});
 
