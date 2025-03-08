@@ -1,129 +1,115 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
+import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/details_card.dart';
-import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 
-class CheckIn extends StatefulWidget {
-  const CheckIn({super.key});
+class Attendance extends StatefulWidget {
+  const Attendance({super.key});
 
   @override
-  State<CheckIn> createState() => _CheckInState();
+  State<Attendance> createState() => _AttendanceState();
 }
 
-class _CheckInState extends State<CheckIn> {
+class _AttendanceState extends State<Attendance> {
   @override
   void initState() {
     super.initState();
-    // _requestLocationPermission();
-  }
-
-  // Request location permission
-  // Future<void> _requestLocationPermission() async {
-  //   LocationPermission permission = await Geolocator.requestPermission();
-  //   if (permission == LocationPermission.denied ||
-  //       permission == LocationPermission.deniedForever) {
-  //     print('Location permission denied');
-  //   } else {
-  //     await EmployeeLocationCubit.get(context).checkEmployeeLocation();
-  //   }
-  // }
-
-  // Check in
-  Future<void> _checkIn() async {
-    bool isInside =
-        await EmployeeLocationCubit.get(context).checkEmployeeLocation();
-    if (isInside) {
-      await EmployeeLocationCubit.get(context).checkIn();
-    }
+    context.read<AttendanceBloc>().add(CheckEmployeeLocation());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: BlocConsumer<EmployeeLocationCubit, EmployeeLocationState>(
-        listener: (context, state) {
-          if (state is EmployeeLocationError) {
-            CustomSnackBar.show(
-              context,
-              state.message,
-              color: chooseSnackBarColor(ToastStates.ERROR),
-            );
-          } else if (state is EmployeeLocationOutside) {
-            CustomSnackBar.show(
-              context,
-              state.message,
-              color: chooseSnackBarColor(ToastStates.ERROR),
-            );
-          } else if (state is EmployeeCheckedIn) {
-            CustomSnackBar.show(
-              context,
-              'Checked In Successfully at ${state.time}',
-              color: chooseSnackBarColor(ToastStates.SUCCESS),
-            );
-          }
-        },
-        builder: (context, state) {
-          bool isInside = state is EmployeeLocationInside;
-          final String checkInTime =
-              (state is EmployeeCheckedIn) ? state.time : 'Not Checked In';
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: BlocBuilder<AttendanceBloc, AttendanceState>(
+            builder: (context, state) {
+              bool isInside = false;
+              bool hasCheckedIn = false;
+              bool hasCheckedOut = false;
+              String checkInTime = '--:--';
+              String checkOutTime = '--:--';
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
+              if (state is EmployeeLocationInside) {
+                isInside = true;
+              } else if (state is EmployeeCheckedIn) {
+                hasCheckedIn = true;
+                checkInTime = state.time;
+              } else if (state is EmployeeCheckedOut) {
+                hasCheckedOut = true;
+                hasCheckedIn = false;
+                checkOutTime = state.checkOutTime;
+              }
+
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CheckInOutButton(
-                    label: 'Check In',
-                    color: isInside ? const Color(0XFF2563EB) : Colors.black12,
-                    onPressed: _checkIn,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CheckInOutButton(
+                        label: 'Check In',
+                        color: isInside && !hasCheckedIn
+                            ? Color(0XFF2563EB)
+                            : Colors.black12,
+                        onPressed: isInside && !hasCheckedIn
+                            ? () =>
+                                context.read<AttendanceBloc>().add(CheckIn())
+                            : null,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      CheckInOutButton(
+                        label: 'Check Out',
+                        color: hasCheckedIn
+                            ? Color(0XFF203546)
+                            : Color(0xff50B3C8),
+                        onPressed: hasCheckedIn
+                            ? () =>
+                                context.read<AttendanceBloc>().add(CheckOut())
+                            : null,
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    width: 10,
+                  SizedBox(
+                    height: 20,
                   ),
-                  CheckInOutButton(
-                    label: 'Check Out',
-                    color: const Color(0XFF203546),
-                    onPressed: _checkIn,
+                  Text(
+                    "Today's Attendance",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Detailscard(
+                        title: 'Check In',
+                        subtitle: checkInTime,
+                        icon: Icons.login,
+                        iconColor: const Color(0xff203546),
+                      ),
+                      Detailscard(
+                        title: 'Check Out',
+                        subtitle: checkOutTime,
+                        icon: Icons.login,
+                        iconColor: Color(0xff203546),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const CompanyLocation(),
                 ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Today's Attendance",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Detailscard(
-                    title: 'Check In',
-                    subtitle: checkInTime,
-                    icon: Icons.login,
-                    iconColor: const Color(0xff203546),
-                  ),
-                  const Detailscard(
-                    title: 'Check In',
-                    subtitle: '10:00',
-                    icon: Icons.login,
-                    iconColor: Color(0xff203546),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              const CompanyLocation(),
-            ],
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

@@ -52,7 +52,7 @@ class App extends StatelessWidget {
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.userHome:
-      return FadePageTransition(page: const CheckIn());
+      return FadePageTransition(page: Attendance());
     case AppRoutes.adminHome:
       UserModel admin = settings.arguments! as UserModel;
       return FadePageTransition(
