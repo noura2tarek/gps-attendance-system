@@ -294,10 +294,12 @@ class AdminHome extends StatelessWidget {
                 return Skeletonizer(
                   enabled: state is UsersLoading,
                   child: UsersList(
-                    users: employees.sublist(
-                      0,
-                      (employees.length * 0.4).round(),
-                    ),
+                    users: employees.length <= 4
+                        ? employees
+                        : employees.sublist(
+                            0,
+                            (employees.length * 0.5).round(),
+                          ),
                   ),
                 );
               },
