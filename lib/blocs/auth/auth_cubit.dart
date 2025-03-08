@@ -8,7 +8,6 @@ import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:meta/meta.dart';
-
 part 'auth_states.dart';
 
 StreamSubscription<User?>? authSubscription;

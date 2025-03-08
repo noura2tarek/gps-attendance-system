@@ -52,8 +52,6 @@ class App extends StatelessWidget {
   }
 }
 
-/////////////////////////////////////////////////////
-//------------- On Generate Route ---------------//
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.userHome:
