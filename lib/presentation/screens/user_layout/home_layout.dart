@@ -6,7 +6,7 @@ import 'package:gps_attendance_system/presentation/screens/leaves.dart';
 import 'package:gps_attendance_system/presentation/screens/profile_page.dart';
 
 final List<Widget> screens = [
-  const CheckIn(),
+  const Attendance(),
   const LeavesPage(), ///// Edit
   const ProfilePage(), /////
 ];
