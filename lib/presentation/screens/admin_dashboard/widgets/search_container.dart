@@ -22,7 +22,8 @@ class SearchContainer extends StatelessWidget {
         decoration: const InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
-          hintText: 'Search employees...',
+          enabledBorder: InputBorder.none,
+          hintText: 'Search...',
           hintStyle: TextStyle(color: Colors.grey),
           prefixIcon: Icon(Icons.search, color: Colors.grey),
         ),

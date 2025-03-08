@@ -4,43 +4,43 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 enum Role { admin, employee, manager }
 
 class UserModel {
-//  final String? uid;
   final String name;
   final String email;
   final String contactNumber;
   final bool isOnLeave; // for admin to track
   final Role role; // admin, employee, manager
+  final String position;
 
   UserModel({
-   // this.uid,
     required this.name,
     required this.email,
     required this.contactNumber,
     required this.isOnLeave,
     required this.role,
+    required this.position,
   });
 
   factory UserModel.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data();
     return UserModel(
-     // uid: data?['uid'] as String,
       name: data?['name'] as String,
       email: data?['email'] as String,
       contactNumber: data?['contactNumber'] as String,
       isOnLeave: data?['isOnLeave'] as bool,
       role: roleFromString(data?['role'] as String),
+      position: data?['position'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      //'uid': uid,
       'name': name,
       'email': email,
       'contactNumber': contactNumber,
       'isOnLeave': isOnLeave,
       'role': stringFromRole(role),
+      'position': position,
     };
   }
 }

@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:meta/meta.dart';
-
 part 'auth_states.dart';
 
 StreamSubscription<User?>? authSubscription;
@@ -26,24 +24,10 @@ class AuthCubit extends Cubit<AuthStates> {
 
   // get instance of cubit
   static AuthCubit get(BuildContext context) => BlocProvider.of(context);
-  bool passwordVisible = false;
-  bool confirmPasswordVisible = false;
-  bool loginPasswordVisible = false;
-  IconData icon1 = Icons.visibility_outlined;
+  bool loginPasswordSecure = false;
   IconData loginIcon = Icons.visibility_outlined;
-  IconData icon2 = Icons.visibility_outlined;
 
-  // initialize method
-  // void init() {
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     emit(Authenticated(user.uid));
-  //   } else {
-  //     emit(Unauthenticated());
-  //   }
-  // }
-
-  //-- Login method --//
+//-- Login method --//
   Future<void> login({
     required String email,
     required String password,
@@ -77,7 +61,7 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  //-- Sign up method --//
+//-- Sign up method --//
   Future<void> signUp({
     required String email,
     required String password,
@@ -92,7 +76,7 @@ class AuthCubit extends Cubit<AuthStates> {
         password: password,
       );
       String uid = credential.user!.uid;
-      // save user data in firebase
+// save user data in firebase
       UserModel newUser = UserModel(
         name: userModel.name,
         email: email,
@@ -100,6 +84,7 @@ class AuthCubit extends Cubit<AuthStates> {
         // uid: uid,
         contactNumber: userModel.contactNumber,
         isOnLeave: userModel.isOnLeave,
+        position: userModel.position,
       );
       await UserService.addUser(uid, newUser);
       emit(AccountCreated());
@@ -114,27 +99,10 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(Unauthenticated());
   }
 
-  // change password visibility
-  void changePasswordVisibility() {
-    passwordVisible = !passwordVisible;
-    icon1 = passwordVisible
-        ? Icons.visibility_outlined
-        : Icons.visibility_off_outlined;
-    emit(ChangePasswordVisibility());
-  }
-
-  void changeConfirmPasswordVisibility() {
-    confirmPasswordVisible = !confirmPasswordVisible;
-    icon2 = passwordVisible
-        ? Icons.visibility_outlined
-        : Icons.visibility_off_outlined;
-    emit(ChangeConfirmPasswordVisibility());
-  }
-
-  // change password visibility (login)
+// change password visibility (login)
   void changeLoginPasswordVisibility() {
-    loginPasswordVisible = !loginPasswordVisible;
-    loginIcon = passwordVisible
+    loginPasswordSecure = !loginPasswordSecure;
+    loginIcon = loginPasswordSecure
         ? Icons.visibility_outlined
         : Icons.visibility_off_outlined;
     emit(ChangePasswordVisibility());

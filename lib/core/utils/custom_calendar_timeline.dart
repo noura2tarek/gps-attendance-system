@@ -29,7 +29,7 @@ class _CustomCalendarTimelineState extends State<CustomCalendarTimeline> {
       monthColor: Colors.blueGrey,
       dayColor: AppColors.primary,
       activeDayColor: Colors.white,
-      activeBackgroundDayColor: AppColors.primary,
+      activeBackgroundDayColor: AppColors.secondary,
       dotColor: Colors.white,
       locale: 'en',
       selectableDayPredicate: (date) => true,
