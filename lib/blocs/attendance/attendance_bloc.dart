@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
+import 'package:gps_attendance_system/core/utils/AttendanceStatusHelper.dart';
 
 part 'attendance_event.dart';
 part 'attendance_state.dart';
@@ -66,16 +66,17 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     final checkInTime =
         "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
 
+    final status = AttendanceStatusHelper.getStatus(now);
     final attendanceDoc = _firestore
         .collection('attendanceRecords')
         .doc("${user.uid}_$todayDate");
-
+    print(status);
     try {
       await attendanceDoc.set({
         "userId": user.uid,
         "date": todayDate,
         "checkInTime": checkInTime,
-        "timestamp": now.toIso8601String(),
+        "status": status
       }, SetOptions(merge: true));
 
       emit(EmployeeCheckedIn(time: checkInTime));
@@ -104,7 +105,6 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     try {
       await attendanceDoc.set({
         "checkOutTime": checkOutTime,
-        "timestamp": now.toIso8601String(),
       }, SetOptions(merge: true));
 
       emit(EmployeeCheckedOut(checkOutTime: checkOutTime));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
+import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/buttons.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentaion/screens/home/widgets/details_card.dart';
@@ -17,6 +18,7 @@ class _AttendanceState extends State<Attendance> {
   @override
   void initState() {
     super.initState();
+    print(AttendanceHelper.getAttendanceStatus("08:30 am"));
     context.read<AttendanceBloc>().add(CheckEmployeeLocation());
   }
 
@@ -36,8 +38,6 @@ class _AttendanceState extends State<Attendance> {
 
               if (state is EmployeeLocationInside) {
                 isInside = true;
-                checkInTime =
-                    "${state.checkInTime.hour.toString().padLeft(2, '0')}:${state.checkInTime.minute.toString().padLeft(2, '0')}";
               } else if (state is EmployeeCheckedIn) {
                 hasCheckedIn = true;
                 checkInTime = state.time;
@@ -98,7 +98,7 @@ class _AttendanceState extends State<Attendance> {
                         iconColor: const Color(0xff203546),
                       ),
                       Detailscard(
-                        title: 'Check In',
+                        title: 'Check Out',
                         subtitle: checkOutTime,
                         icon: Icons.login,
                         iconColor: Color(0xff203546),

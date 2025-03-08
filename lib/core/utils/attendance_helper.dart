@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AttendanceHelper {
   static String getAttendanceStatus(String checkInTime) {
+    print(checkInTime);
     TimeOfDay checkIn = _parseTime(checkInTime);
 
     const earlyLimit = TimeOfDay(hour: 9, minute: 0);
@@ -9,12 +10,16 @@ class AttendanceHelper {
     const onTimeEnd = TimeOfDay(hour: 10, minute: 15);
     const lateLimit = TimeOfDay(hour: 11, minute: 0);
 
-    if (_isBefore(checkIn, earlyLimit)) return "Out of Bounds";
-    if (_isBefore(checkIn, onTimeStart)) return "Early";
-    if (_isBetween(checkIn, onTimeStart, onTimeEnd)) return "On Time";
-    if (_isBefore(checkIn, lateLimit)) return "Late";
-
-    return 'Out of Bounds';
+    if (_isBefore(checkIn, earlyLimit))
+      return "Out of Bounds";
+    else if (_isBefore(checkIn, onTimeStart))
+      return "Early";
+    else if (_isBetween(checkIn, onTimeStart, onTimeEnd))
+      return "On Time";
+    else if (_isBefore(checkIn, lateLimit))
+      return "Late";
+    else
+      return 'Out of Bounds';
   }
 
   static Color getStatusColor(String status) {
