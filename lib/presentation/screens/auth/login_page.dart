@@ -71,15 +71,15 @@ class _LoginPageState extends State<LoginPage> {
             // else -> navigate to user home page
             UserModel? user = await _getUserData(state.userId);
             if (user != null) {
-              // save user data in shared prefs
+              // save user role in shared prefs
               await SharedPrefsService.saveStringData(
                 key: AppStrings.roleKey,
                 value: user.role == Role.admin ? 'admin' : 'user',
               );
+
               if (user.role == Role.admin) {
                 await Navigator.pushReplacementNamed(
                   context,
-                  arguments: user,
                   AppRoutes.adminHome,
                 );
               } else if (user.role == Role.employee ||

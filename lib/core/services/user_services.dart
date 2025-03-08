@@ -19,8 +19,10 @@ class UserService {
   }
 
   //--- Create user with email and password ---//
-  static Future<User?> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
+  static Future<User?> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     final credential = await authInstance.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -40,7 +42,8 @@ class UserService {
   static CollectionReference<Map<String, dynamic>> users =
       db.collection('users');
 
-  // Add user document to the collection users in database after sign up
+  // Add user document to the collection users in database
+  // After adding an user, from the admin side.
   static Future<void> addUser(String uid, UserModel user) async {
     try {
       await users.doc(uid).set(user.toJson());
@@ -57,7 +60,8 @@ class UserService {
 
       if (docSnapshot.exists && docSnapshot.data() != null) {
         return UserModel.fromFirestore(
-            docSnapshot as DocumentSnapshot<Map<String, dynamic>>);
+          docSnapshot as DocumentSnapshot<Map<String, dynamic>>,
+        );
       } else {
         return null;
       }
@@ -72,5 +76,16 @@ class UserService {
     required String userId,
   }) async {
     await users.doc(userId).update(user.toJson());
+  }
+
+  //-- Get all users data from firestore --//
+  static Future<List<UserModel>> getAllUsers() async {
+    final snapshot = await users.get();
+    final usersData = snapshot.docs.map((doc) {
+      return UserModel.fromFirestore(
+        doc as DocumentSnapshot<Map<String, dynamic>>,
+      );
+    }).toList();
+    return usersData;
   }
 }

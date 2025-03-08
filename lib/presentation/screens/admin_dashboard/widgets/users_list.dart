@@ -29,6 +29,8 @@ class UsersList extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 AppRoutes.userDetailsRoute,
+                // send to this page attendance list of this user & user model
+                // as arguments
                 arguments: users[index],
               );
             },

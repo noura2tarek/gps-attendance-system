@@ -14,14 +14,14 @@ class AppNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthStates>(
       builder: (context, state) {
-        // get user role from shared pref
-        String? userRole =
-            SharedPrefsService.getStringData(key: AppStrings.roleKey);
-        print('user role: $userRole');
         if (state is Authenticated) {
           // check user role first
           // if admin -> navigate to admin dashboard
           // else -> navigate to user home page
+          // Get user role from shared prefs
+          String? userRole =
+              SharedPrefsService.getStringData(key: AppStrings.roleKey);
+          print('user role saved is: $userRole');
           if (userRole == 'admin') {
             return AdminHome();
           } else {

@@ -44,7 +44,7 @@ class AddUserPageState extends State<AddUserPage> {
       );
 
       AuthCubit authCubit = AuthCubit.get(context);
-      await authCubit.signUp(
+      await authCubit.addUser(
         email: _emailController.text,
         password: _passwordController.text,
         userModel: userModel,

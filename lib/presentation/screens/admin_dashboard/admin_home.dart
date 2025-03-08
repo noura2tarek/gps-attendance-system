@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
+import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
@@ -9,6 +11,7 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widge
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
 import 'package:intl/intl.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 DateTime date = DateTime.now();
 //format using intl package
@@ -16,14 +19,40 @@ DateFormat format = DateFormat('EEE, dd MMM');
 
 String formattedDate = format.format(date);
 
+// constant data
+//------------ Dummy data ---------//
+final List<UserModel> dummyUsersObjects = [
+  UserModel(
+    name: 'Noura Tarek',
+    email: 'noura@gmail.com',
+    contactNumber: '011455555',
+    isOnLeave: false,
+    role: Role.employee,
+    position: 'Software Engineer',
+  ),
+  UserModel(
+    name: 'Ahmed Tarek',
+    email: 'ahmed@gmail.com',
+    contactNumber: '011455555',
+    isOnLeave: false,
+    role: Role.employee,
+    position: 'Software Engineer',
+  ),
+  UserModel(
+    name: 'John doe',
+    email: 'john@gmail.com',
+    contactNumber: '011455555',
+    isOnLeave: false,
+    role: Role.employee,
+    position: 'Software Engineer',
+  ),
+];
+
+/////////
 class AdminHome extends StatelessWidget {
-
-  AdminHome({this.admin, super.key});
-
-  final UserModel? admin;
+  AdminHome({super.key});
 
   final TextEditingController searchController = TextEditingController();
-
   final List<String> containerTitles = [
     AppStrings.totalAttendance,
     AppStrings.employeesPresentNow,
@@ -42,36 +71,6 @@ class AdminHome extends StatelessWidget {
     AppStrings.logout,
   ];
 
-
-  //--------- Get Admin data from firebase //
-  //------------ Get employees list from firebase //
-  final List<UserModel> dummyUsersObjects = [
-    UserModel(
-      name: 'Noura Tarek',
-      email: 'noura@gmail.com',
-      contactNumber: '011455555',
-      isOnLeave: false,
-      role: Role.employee,
-      position: 'Software Engineer',
-    ),
-    UserModel(
-      name: 'Ahmed Tarek',
-      email: 'ahmed@gmail.com',
-      contactNumber: '011455555',
-      isOnLeave: false,
-      role: Role.employee,
-      position: 'Software Engineer',
-    ),
-    UserModel(
-      name: 'John doe',
-      email: 'john@gmail.com',
-      contactNumber: '011455555',
-      isOnLeave: false,
-      role: Role.employee,
-      position: 'Software Engineer',
-    ),
-
-  ];
   final List<IconData> headerIcons = [
     Icons.dashboard,
     Icons.person,
@@ -91,6 +90,7 @@ class AdminHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UsersCubit usersCubit = UsersCubit.get(context);
     return Scaffold(
       // App bar
       appBar: AppBar(
@@ -125,21 +125,25 @@ class AdminHome extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Date
+                        // Today Date
                         Text(
                           formattedDate,
                           style: const TextStyle(color: Colors.grey),
                         ),
                         // Admin name
-
-                        Text(
-                          'Hello, ${admin?.name ?? "Admin"}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: AppColors.whiteColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        BlocBuilder<UsersCubit, UsersState>(
+                          builder: (context, state) {
+                            UserModel? admin = usersCubit.adminData;
+                            return Text(
+                              'Hello, ${admin?.name ?? "Admin"}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: AppColors.whiteColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -166,23 +170,21 @@ class AdminHome extends StatelessWidget {
                     if (index == 0) {
                       Navigator.pop(context);
                     } else if (index == 1) {
-
                       Navigator.pushNamed(
                         // we will send the employees list from firebase
                         // to the employees page
+                        arguments: UsersCubit.get(context).employees,
                         context,
                         AppRoutes.employees,
-                        arguments: dummyUsersObjects,
                       );
                     } else if (index == 2) {
                       Navigator.pushNamed(
-                        context,
-                        AppRoutes.managers,
                         // we will send the managers list from firebase
                         // to the mangers page
-                        arguments: dummyUsersObjects,
+                        arguments: UsersCubit.get(context).managers,
+                        context,
+                        AppRoutes.managers,
                       );
-
                     } else if (index == 3) {
                       Navigator.pushNamed(context, AppRoutes.geofence);
                     } else if (index == 4) {
@@ -193,14 +195,12 @@ class AdminHome extends StatelessWidget {
                       Navigator.pushNamed(context, AppRoutes.settings);
                     } else {
                       // log out logic here
-
                       AuthCubit.get(context).logout();
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         AppRoutes.login,
                         (_) => false,
                       );
-
                     }
                   },
                 );
@@ -209,6 +209,7 @@ class AdminHome extends StatelessWidget {
           ],
         ),
       ),
+      //-- Add bloc provider of users
       body: Padding(
         padding: const EdgeInsetsDirectional.all(12),
         child: ListView(
@@ -223,7 +224,7 @@ class AdminHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            // overview cards Gridview
+            //-- Overview cards Gridview --//
             GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -259,15 +260,13 @@ class AdminHome extends StatelessWidget {
                 // View all button
                 TextButton(
                   onPressed: () {
-
                     Navigator.pushNamed(
                       // we will send the employees list from firebase
                       // to the employees page
+                      arguments: UsersCubit.get(context).employees,
                       context,
                       AppRoutes.employees,
-                      arguments: dummyUsersObjects,
                     );
-
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.primary,
@@ -283,16 +282,25 @@ class AdminHome extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            // Search bar container
-            // Employee list view
+            //------- Employee list view -------//
             // Show half of the employees list
-            UsersList(
-
-              users: dummyUsersObjects.sublist(
-                0,
-                (dummyUsersObjects.length * 0.5).round(),
-
-              ),
+            BlocBuilder<UsersCubit, UsersState>(
+              builder: (context, state) {
+                final cubit = UsersCubit.get(context);
+                List<UserModel> employees = cubit.employees;
+                if (employees.isEmpty) {
+                  employees = dummyUsersObjects;
+                }
+                return Skeletonizer(
+                  enabled: state is UsersLoading,
+                  child: UsersList(
+                    users: employees.sublist(
+                      0,
+                      (employees.length * 0.4).round(),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

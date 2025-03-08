@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/search_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class UsersPage extends StatefulWidget {
   const UsersPage({
@@ -93,7 +97,44 @@ class _UsersPageState extends State<UsersPage> {
             ),
             const SizedBox(height: 15),
             // List of employees or managers
-            Expanded(child: UsersList(users: filteredUsers)),
+            BlocBuilder<UsersCubit, UsersState>(
+              builder: (context, state) {
+                final usersCubit = UsersCubit.get(context);
+                if (state is GetUsersSuccess) {
+                  if (widget.isEmployees) {
+                    filteredUsers = usersCubit.employees;
+                  } else if (!widget.isEmployees) {
+                    filteredUsers = usersCubit.managers;
+                  }
+                }
+
+                return (state is UsersLoading || filteredUsers.isNotEmpty)
+                    ? Expanded(
+                        child: Skeletonizer(
+                          enabled: state is UsersLoading,
+                          child: UsersList(
+                            users:
+                                filteredUsers.isEmpty && state is UsersLoading
+                                    ? dummyUsersObjects
+                                    : filteredUsers,
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            'No ${widget.isEmployees ? 'employees' : 'managers'} found',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      );
+              },
+            ),
           ],
         ),
       ),
