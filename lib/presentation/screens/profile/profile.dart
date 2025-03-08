@@ -28,12 +28,12 @@ class _ProfilePageState extends State<ProfilePage> {
     user = _auth.currentUser;
 
     if (user != null) {
-      DocumentSnapshot userDoc =
+      final DocumentSnapshot userDoc =
           await _firestore.collection('users').doc(user!.uid).get();
 
       if (userDoc.exists) {
         setState(() {
-          userData = (userDoc.data() as Map<String, dynamic>);
+          userData = userDoc.data()! as Map<String, dynamic>;
         });
       }
     }
@@ -50,12 +50,12 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 '${userData!['name']}',
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                '${userData!['role']}',
+                '${userData!['position']}',
                 style: const TextStyle(
                   color: Colors.grey,
                 ),
@@ -66,18 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: Colors.grey,
                 ),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: const Text('Edit Profile'),
-              ),
-              const SizedBox(height: 20),
+              const Divider(),
               ListView(
                 shrinkWrap: true,
                 children: const [
