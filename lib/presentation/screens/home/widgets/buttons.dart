@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CheckInOutButton extends StatelessWidget {
-  final String label;
-  final Color color;
-  final VoidCallback? onPressed;
-  final double borderRadius;
-
   const CheckInOutButton({
     required this.label,
     required this.color,
     required this.onPressed,
     this.borderRadius = 5.0,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final String label;
+  final Color color;
+  final VoidCallback? onPressed;
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,14 @@ class CheckInOutButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
-        padding: EdgeInsets.symmetric(horizontal: 35, vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 30),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
       child: Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           color: Colors.white,
         ),

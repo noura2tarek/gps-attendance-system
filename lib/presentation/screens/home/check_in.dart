@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
@@ -54,7 +53,7 @@ class _AttendanceState extends State<Attendance> {
                       CheckInOutButton(
                         label: 'Check In',
                         color: isInside && !hasCheckedIn
-                            ? Color(0XFF2563EB)
+                            ? const Color(0XFF2563EB)
                             : Colors.black12,
                         onPressed: isInside && !hasCheckedIn
                             ? () =>
@@ -67,8 +66,8 @@ class _AttendanceState extends State<Attendance> {
                       CheckInOutButton(
                         label: 'Check Out',
                         color: hasCheckedIn
-                            ? Color(0XFF203546)
-                            : Color(0xff50B3C8),
+                            ? const Color(0XFF203546)
+                            : const Color(0xff50B3C8),
                         onPressed: hasCheckedIn
                             ? () =>
                                 context.read<AttendanceBloc>().add(CheckOut())
@@ -76,14 +75,14 @@ class _AttendanceState extends State<Attendance> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     "Today's Attendance",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -99,7 +98,7 @@ class _AttendanceState extends State<Attendance> {
                         title: 'Check Out',
                         subtitle: checkOutTime,
                         icon: Icons.login,
-                        iconColor: Color(0xff203546),
+                        iconColor: const Color(0xff203546),
                       ),
                     ],
                   ),

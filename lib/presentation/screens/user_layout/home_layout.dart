@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
-import 'package:gps_attendance_system/presentation/screens/leaves.dart';
+import 'package:gps_attendance_system/presentation/screens/leaves/leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/profile_page.dart';
 
 final List<Widget> screens = [
