@@ -3,10 +3,9 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 
 class CustomCalendarTimeline extends StatefulWidget {
-  final void Function(DateTime) onDateSelected;
+  const CustomCalendarTimeline({required this.onDateSelected, super.key});
 
-  const CustomCalendarTimeline({Key? key, required this.onDateSelected})
-      : super(key: key);
+  final void Function(DateTime) onDateSelected;
 
   @override
   State<CustomCalendarTimeline> createState() => _CustomCalendarTimelineState();

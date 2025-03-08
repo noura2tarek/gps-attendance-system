@@ -71,7 +71,7 @@ class AuthCubit extends Cubit<AuthStates> {
     await Future.delayed(const Duration(milliseconds: 500));
     try {
       final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -99,14 +99,6 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(Unauthenticated());
   }
 
-// change password visibility (login)
-  void changeLoginPasswordVisibility() {
-    loginPasswordSecure = !loginPasswordSecure;
-    loginIcon = loginPasswordSecure
-        ? Icons.visibility_outlined
-        : Icons.visibility_off_outlined;
-    emit(ChangePasswordVisibility());
-  }
 
   @override
   Future<void> close() {

@@ -9,10 +9,10 @@ class AttendanceHelper {
     const onTimeEnd = TimeOfDay(hour: 10, minute: 15);
     const lateLimit = TimeOfDay(hour: 11, minute: 0);
 
-    if (_isBefore(checkIn, earlyLimit)) return "Out of Bounds";
-    if (_isBefore(checkIn, onTimeStart)) return "Early";
-    if (_isBetween(checkIn, onTimeStart, onTimeEnd)) return "On Time";
-    if (_isBefore(checkIn, lateLimit)) return "Late";
+    if (_isBefore(checkIn, earlyLimit)) return 'Out of Bounds';
+    if (_isBefore(checkIn, onTimeStart)) return 'Early';
+    if (_isBetween(checkIn, onTimeStart, onTimeEnd)) return 'On Time';
+    if (_isBefore(checkIn, lateLimit)) return 'Late';
 
     return 'Out of Bounds';
   }

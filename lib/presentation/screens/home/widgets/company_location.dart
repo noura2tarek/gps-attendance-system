@@ -24,7 +24,6 @@ class CompanyLocation extends StatelessWidget {
             ),
             markers: {
               const Marker(
-
                 infoWindow: InfoWindow(title: 'Greek Campus'),
                 markerId: MarkerId('Greek Campus'),
                 position: LatLng(30.0447, 31.2389),

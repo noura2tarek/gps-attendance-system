@@ -20,6 +20,7 @@ import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart'
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentation/screens/home/cubits/employee_location_cubit.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves.dart';
+import 'package:gps_attendance_system/presentation/screens/request_leave_Page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
 
@@ -58,8 +59,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       UserModel admin = settings.arguments! as UserModel;
       return FadePageTransition(
           page: AdminHome(
-        admin: admin,
-      ));
+            admin: admin,
+          ));
     case AppRoutes.employees:
       List<UserModel> users = settings.arguments! as List<UserModel>;
       return MaterialPageRoute(
@@ -89,6 +90,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case AppRoutes.leaves:
       return MaterialPageRoute(
         builder: (context) => const LeavesPage(),
+      );
+    case AppRoutes.requestLeave:
+      return MaterialPageRoute(
+        builder: (context) => const ApplyLeaveScreen(),
       );
     case AppRoutes.login:
       return MaterialPageRoute(

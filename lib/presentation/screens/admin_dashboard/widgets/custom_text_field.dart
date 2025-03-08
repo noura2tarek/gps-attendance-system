@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.onDateTap,
   });
+
   final String labelText;
   final String hintText;
   final TextEditingController? controller;
@@ -27,17 +28,20 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: isDropdown
           ? DropdownButtonFormField<String>(
               decoration: _buildInputDecoration(),
               items: dropdownItems
-                  ?.map((item) => DropdownMenuItem(
+                  ?.map(
+                    (item) => DropdownMenuItem(
                       value: item,
                       child: Text(
                         item,
                         style: const TextStyle(fontWeight: FontWeight.bold),
-                      )))
+                      ),
+                    ),
+                  )
                   .toList(),
               dropdownColor: AppColors.whiteColor,
               onChanged: onChanged,
