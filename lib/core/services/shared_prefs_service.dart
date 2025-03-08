@@ -8,8 +8,10 @@ class SharedPrefsService {
   }
 
   /*-------------- Save string data ---------------*/
-  static Future<bool> saveStringData(
-      {required String key, required String value}) async {
+  static Future<bool> saveStringData({
+    required String key,
+    required String value,
+  }) async {
     await _sharedPreferences.setString(key, value);
     print('String data: $value -> saved successfully');
     return true;

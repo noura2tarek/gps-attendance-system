@@ -46,8 +46,6 @@ class App extends StatelessWidget {
   }
 }
 
-/////////////////////////////////////////////////////
-//------------- On Generate Route ---------------//
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.userHome:
@@ -55,9 +53,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case AppRoutes.adminHome:
       UserModel admin = settings.arguments! as UserModel;
       return FadePageTransition(
-          page: AdminHome(
-        admin: admin,
-      ));
+        page: AdminHome(
+          admin: admin,
+        ),
+      );
     case AppRoutes.employees:
       List<UserModel> users = settings.arguments! as List<UserModel>;
       return MaterialPageRoute(

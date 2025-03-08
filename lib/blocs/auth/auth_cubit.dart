@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
-import 'package:meta/meta.dart';
 part 'auth_states.dart';
 
 StreamSubscription<User?>? authSubscription;
@@ -71,7 +70,7 @@ class AuthCubit extends Cubit<AuthStates> {
     await Future.delayed(const Duration(milliseconds: 500));
     try {
       final credential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -98,7 +97,6 @@ class AuthCubit extends Cubit<AuthStates> {
     await UserService.signOut();
     emit(Unauthenticated());
   }
-
 
   @override
   Future<void> close() {

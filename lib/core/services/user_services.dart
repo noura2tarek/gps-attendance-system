@@ -19,8 +19,10 @@ class UserService {
   }
 
   //--- Create user with email and password ---//
-  static Future<User?> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
+  static Future<User?> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     final credential = await authInstance.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -57,7 +59,8 @@ class UserService {
 
       if (docSnapshot.exists && docSnapshot.data() != null) {
         return UserModel.fromFirestore(
-            docSnapshot as DocumentSnapshot<Map<String, dynamic>>);
+          docSnapshot as DocumentSnapshot<Map<String, dynamic>>,
+        );
       } else {
         return null;
       }
