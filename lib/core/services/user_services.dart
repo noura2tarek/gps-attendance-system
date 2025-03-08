@@ -42,7 +42,8 @@ class UserService {
   static CollectionReference<Map<String, dynamic>> users =
       db.collection('users');
 
-  // Add user document to the collection users in database after sign up
+  // Add user document to the collection users in database
+  // After adding an user, from the admin side.
   static Future<void> addUser(String uid, UserModel user) async {
     try {
       await users.doc(uid).set(user.toJson());
@@ -75,5 +76,16 @@ class UserService {
     required String userId,
   }) async {
     await users.doc(userId).update(user.toJson());
+  }
+
+  //-- Get all users data from firestore --//
+  static Future<List<UserModel>> getAllUsers() async {
+    final snapshot = await users.get();
+    final usersData = snapshot.docs.map((doc) {
+      return UserModel.fromFirestore(
+        doc as DocumentSnapshot<Map<String, dynamic>>,
+      );
+    }).toList();
+    return usersData;
   }
 }

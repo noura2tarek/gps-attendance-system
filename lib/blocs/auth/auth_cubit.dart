@@ -3,8 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
+import 'package:meta/meta.dart';
 part 'auth_states.dart';
 
 StreamSubscription<User?>? authSubscription;
@@ -39,12 +42,13 @@ class AuthCubit extends Cubit<AuthStates> {
         email,
         password,
       );
-      // save token in shared prefs
-      // await SharedPrefsService.saveStringData(
-      //   key: AppStringEn.tokenKey,
-      //   value: user!.uid,
-      // );
+
       if (user != null) {
+        // save token or id in shared prefs
+        await SharedPrefsService.saveStringData(
+          key: AppStrings.id,
+          value: user.uid,
+        );
         emit(Authenticated(user.uid));
       } else {
         emit(Unauthenticated());
@@ -54,14 +58,18 @@ class AuthCubit extends Cubit<AuthStates> {
         emit(AuthError(message: 'No user found for that email.'));
       } else if (e.code == 'wrong-password') {
         emit(AuthError(message: 'Wrong password provided for that user.'));
+      } else if (e.code == 'invalid-email') {
+        emit(AuthError(message: 'The email address is not valid.'));
+      } else {
+        emit(AuthError(message: 'An error occurred'));
       }
     } catch (e) {
       emit(AuthError(message: 'An error occurred'));
     }
   }
 
-//-- Sign up method --//
-  Future<void> signUp({
+//-- Add user method --//
+  Future<void> addUser({
     required String email,
     required String password,
     required UserModel userModel,
@@ -75,7 +83,7 @@ class AuthCubit extends Cubit<AuthStates> {
         password: password,
       );
       String uid = credential.user!.uid;
-// save user data in firebase
+      // save user data in firebase
       UserModel newUser = UserModel(
         name: userModel.name,
         email: email,

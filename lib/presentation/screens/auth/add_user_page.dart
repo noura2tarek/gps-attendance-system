@@ -26,8 +26,8 @@ class AddUserPageState extends State<AddUserPage> {
       TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _positionController = TextEditingController();
-  bool isPasswordObscure = false;
-  bool isConfirmPasswordObscure = false;
+  bool isPasswordObscure = true;
+  bool isConfirmPasswordObscure = true;
 
   bool _isLoading = false;
 
@@ -44,7 +44,7 @@ class AddUserPageState extends State<AddUserPage> {
       );
 
       AuthCubit authCubit = AuthCubit.get(context);
-      await authCubit.signUp(
+      await authCubit.addUser(
         email: _emailController.text,
         password: _passwordController.text,
         userModel: userModel,

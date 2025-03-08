@@ -10,11 +10,9 @@ class CustomSnackBar {
       SnackBar(
         content: Text(message),
         duration: const Duration(seconds: 2),
-
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(10),
         backgroundColor: color,
-
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

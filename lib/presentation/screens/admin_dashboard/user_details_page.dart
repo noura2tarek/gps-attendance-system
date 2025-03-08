@@ -6,8 +6,8 @@ import 'package:gps_attendance_system/core/utils/custom_calendar_timeline.dart';
 import 'package:intl/intl.dart';
 
 class UserDetailsPage extends StatefulWidget {
-
   const UserDetailsPage({required this.userModel, super.key});
+
   final UserModel userModel;
 
   @override
@@ -28,13 +28,11 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   DateTime selectedDate = DateTime.now();
 
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-
       appBar: AppBar(title: Text('${widget.userModel.name} Attendance')),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
@@ -103,7 +101,6 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               ),
             ],
           ),
-
         ),
       ),
     );

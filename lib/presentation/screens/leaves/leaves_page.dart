@@ -24,6 +24,7 @@ class LeavesPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              //------ Leave Status Squares ------//
               GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 16,
@@ -63,6 +64,7 @@ class LeavesPage extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
+              //------ Upcoming Leaves list ------//
               SizedBox(
                 height: 80,
                 child: ListView(

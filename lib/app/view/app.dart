@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/app_navigator.dart';
 import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
+import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/themes/app_theme.dart';
@@ -33,6 +34,11 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthCubit(),
         ),
+        BlocProvider(
+          create: (context) => UsersCubit()
+            ..getUsers()
+            ..getAdminData(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,12 +57,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case AppRoutes.userHome:
       return FadePageTransition(page: const Attendance());
     case AppRoutes.adminHome:
-      UserModel admin = settings.arguments! as UserModel;
-      return FadePageTransition(
-        page: AdminHome(
-          admin: admin,
-        ),
-      );
+      return FadePageTransition(page: AdminHome());
     case AppRoutes.employees:
       List<UserModel> users = settings.arguments! as List<UserModel>;
       return MaterialPageRoute(

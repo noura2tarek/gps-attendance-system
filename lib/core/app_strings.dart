@@ -14,4 +14,5 @@ class AppStrings {
   static const String totalLeaves = 'Total\nLeaves';
   static const String pendingApprovals = 'Pending\nApprovals';
   static const String roleKey = 'role';
+  static const String id = 'id';
 }
