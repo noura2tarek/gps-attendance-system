@@ -21,6 +21,11 @@ class EmployeeCheckedIn extends EmployeeLocationState {
   EmployeeCheckedIn({required this.time});
 }
 
+class EmployeeCheckedOut extends EmployeeLocationState {
+  final String time;
+  EmployeeCheckedOut({required this.time});
+}
+
 class EmployeeLocationError extends EmployeeLocationState {
   final String message;
   EmployeeLocationError(this.message);

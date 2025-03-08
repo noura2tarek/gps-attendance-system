@@ -2,12 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
+import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 
-part 'employee_location_state.dart';
+part 'attendance_event.dart';
+part 'attendance_state.dart';
 
-class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
-  EmployeeLocationCubit() : super(EmployeeLocationInitial());
+class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   final double companyLat = 30.0447;
   final double companyLng = 31.2389;
   final double geofenceRadius = 100;
@@ -16,11 +17,19 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> checkEmployeeLocation() async {
+  AttendanceBloc() : super(AttendanceInitial()) {
+    on<CheckEmployeeLocation>(_onCheckEmployeeLocation);
+    on<CheckIn>(_onCheckIn);
+    on<CheckOut>(_onCheckOut);
+  }
+
+  Future<void> _onCheckEmployeeLocation(
+      CheckEmployeeLocation event, Emitter<AttendanceState> emit) async {
     try {
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         emit(EmployeeLocationPermissionDenied());
+        return;
       }
 
       Position position = await Geolocator.getCurrentPosition(
@@ -40,10 +49,12 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
       } else {
         emit(EmployeeLocationOutside());
       }
-    } catch (e) {}
+    } catch (e) {
+      emit(EmployeeLocationError("Error checking location: $e"));
+    }
   }
 
-  Future<void> checkIn() async {
+  Future<void> _onCheckIn(CheckIn event, Emitter<AttendanceState> emit) async {
     final user = _auth.currentUser;
     if (user == null) {
       emit(EmployeeLocationError("User not found"));
@@ -73,7 +84,8 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
     }
   }
 
-  Future<void> checkOut() async {
+  Future<void> _onCheckOut(
+      CheckOut event, Emitter<AttendanceState> emit) async {
     final user = _auth.currentUser;
     if (user == null) {
       emit(EmployeeLocationError("User not found"));
@@ -92,9 +104,10 @@ class EmployeeLocationCubit extends Cubit<EmployeeLocationState> {
     try {
       await attendanceDoc.set({
         "checkOutTime": checkOutTime,
+        "timestamp": now.toIso8601String(),
       }, SetOptions(merge: true));
 
-      emit(EmployeeCheckedOut(time: checkOutTime));
+      emit(EmployeeCheckedOut(checkOutTime: checkOutTime));
     } catch (e) {
       emit(EmployeeLocationError("Failed to check out: $e"));
     }

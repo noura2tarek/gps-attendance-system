@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         await Navigator.pushReplacement(
           context,
           AnimatedPageTransition(
-            page: const CheckIn(),
+            page: const Attendance(),
           ),
         );
       } catch (e) {
