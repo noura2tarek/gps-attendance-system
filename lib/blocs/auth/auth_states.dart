@@ -31,7 +31,3 @@ class AuthError extends AuthStates {
 }
 
 class AccountCreated extends AuthStates {}
-
-class ChangePasswordVisibility extends AuthStates {}
-
-class ChangeConfirmPasswordVisibility extends AuthStates {}
