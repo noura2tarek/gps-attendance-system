@@ -162,8 +162,9 @@ class AdminHome extends StatelessWidget {
               headerTitles.length,
               (index) {
                 return CustomListTile(
+                  isUser: false,
                   title: headerTitles[index],
-                  widget: Icon(
+                  leadingWidget: Icon(
                     headerIcons[index],
                   ),
                   onTap: () {

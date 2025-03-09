@@ -7,8 +7,8 @@ import 'package:gps_attendance_system/presentation/screens/profile/profile.dart'
 
 final List<Widget> screens = [
   const Attendance(),
-  const LeavesPage(), ///// Edit
-  const ProfilePage(), /////
+  const LeavesPage(),
+  const ProfilePage(),
 ];
 
 List<String> titles = [

@@ -21,6 +21,7 @@ import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart'
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/request_leave_Page.dart';
+import 'package:gps_attendance_system/presentation/screens/profile/profile.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
 class App extends StatelessWidget {
@@ -107,6 +108,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     case AppRoutes.homeLayoutRoute:
       return FadePageTransition(page: const HomeLayout());
+    case AppRoutes.profile:
+      return FadePageTransition(page: const ProfilePage());
     default:
       return FadePageTransition(page: const HomeLayout());
   }
