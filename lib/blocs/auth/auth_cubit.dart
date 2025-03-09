@@ -11,19 +11,17 @@ import 'package:meta/meta.dart';
 
 part 'auth_states.dart';
 
-StreamSubscription<User?>? authSubscription;
-
 class AuthCubit extends Cubit<AuthStates> {
-  AuthCubit() : super(AuthInitial()) {
-    authSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) async {
-      if (user != null) {
-        // final user = FirebaseAuth.instance.currentUser;
-        emit(Authenticated(userId: user.uid));
-      } else {
-        emit(Unauthenticated());
-      }
-    });
+  AuthCubit() : super(AuthInitial());
+
+  //-- init method --//
+  void init() {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      emit(Authenticated(userId: currentUser.uid));
+    } else {
+      emit(Unauthenticated());
+    }
   }
 
   // get instance of cubit
@@ -109,11 +107,5 @@ class AuthCubit extends Cubit<AuthStates> {
   Future<void> logout() async {
     await UserService.signOut();
     emit(Unauthenticated());
-  }
-
-  @override
-  Future<void> close() {
-    authSubscription?.cancel();
-    return super.close();
   }
 }

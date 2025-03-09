@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_auth_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
@@ -45,12 +44,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Get user data after login
-  Future<UserModel?> _getUserData(String id) async {
-    UserModel? user = await UserService.getUserData(id);
-    return user;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,6 +70,12 @@ class _LoginPageState extends State<LoginPage> {
               await Navigator.pushReplacementNamed(
                 context,
                 AppRoutes.homeLayoutRoute,
+              );
+            } else {
+              CustomSnackBar.show(
+                context,
+                'User role not found',
+                color: chooseSnackBarColor(ToastStates.ERROR),
               );
             }
           } else if (state is AuthError) {

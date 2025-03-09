@@ -33,7 +33,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AttendanceBloc()),
         BlocProvider(
-          create: (context) => AuthCubit(),
+          create: (context) => AuthCubit()..init(),
         ),
         BlocProvider(
           create: (context) => UsersCubit()
