@@ -47,6 +47,7 @@ class CustomTextFormField extends StatelessWidget {
               onChanged: onChanged,
             )
           : TextFormField(
+              cursorColor: AppColors.primary,
               controller: controller,
               keyboardType: keyboardType,
               readOnly: isDateField,
