@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
+import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
@@ -21,7 +23,7 @@ class AppNavigator extends StatelessWidget {
           // Get user role from shared prefs
           String? userRole =
               SharedPrefsService.getStringData(key: AppStrings.roleKey);
-          print('user role saved is: $userRole');
+          log('user role saved is: $userRole');
           if (userRole == 'admin') {
             return AdminHome();
           } else {
@@ -29,10 +31,15 @@ class AppNavigator extends StatelessWidget {
           }
         } else if (state is Unauthenticated) {
           return const LoginPage();
+        } else {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primary,
+              ),
+            ),
+          );
         }
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
       },
     );
   }

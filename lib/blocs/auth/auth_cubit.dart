@@ -106,6 +106,14 @@ class AuthCubit extends Cubit<AuthStates> {
   // Logout method
   Future<void> logout() async {
     await UserService.signOut();
+    // delete user id & role of logged in user
+    await SharedPrefsService.clearStringData(
+      key: AppStrings.id,
+    );
+    await SharedPrefsService.clearStringData(
+      key: AppStrings.roleKey,
+    );
+
     emit(Unauthenticated());
   }
 }
