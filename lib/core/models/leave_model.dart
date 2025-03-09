@@ -9,12 +9,14 @@ class LeaveModel {
     required this.endDate,
     required this.reason,
     required this.userId,
-    required this.status,
+    required this.id,
+    this.status = 'Pending',
   });
 
   factory LeaveModel.fromMap(Map<String, dynamic> map, String documentId) {
     return LeaveModel(
       title: map['title']?.toString() ?? '',
+      id: map['id']?.toString() ?? '',
       leaveType: map['leaveType']?.toString() ?? '',
       contactNumber: map['contactNumber']?.toString() ?? '',
       startDate: (map['startDate'] is Timestamp)
@@ -36,6 +38,7 @@ class LeaveModel {
   Timestamp endDate;
   String reason;
   String userId;
+  String id;
   String status; // pending, approved, rejected
 
   Map<String, dynamic> toMap() {
@@ -48,6 +51,7 @@ class LeaveModel {
       'reason': reason,
       'userId': userId,
       'status': status,
+      'id': id,
     };
   }
 }

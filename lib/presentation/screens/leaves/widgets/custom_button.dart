@@ -8,9 +8,11 @@ class CustomButton extends StatelessWidget {
     super.key,
     this.backgroundColor = AppColors.primary,
     this.opacity = 0.8,
+    this.isLoading = false,
   });
 
   final String text;
+  final bool isLoading;
   final VoidCallback onPressed;
   final Color backgroundColor;
   final double opacity;
@@ -26,14 +28,16 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 18,
-          //fontWeight: FontWeight.bold,
-          color: AppColors.whiteColor,
-        ),
-      ),
+      child: isLoading
+          ? const CircularProgressIndicator()
+          : Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
+                //fontWeight: FontWeight.bold,
+                color: AppColors.whiteColor,
+              ),
+            ),
     );
   }
 }

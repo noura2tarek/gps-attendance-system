@@ -8,6 +8,7 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widge
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class ApplyLeaveScreen extends StatefulWidget {
   const ApplyLeaveScreen({super.key});
@@ -24,6 +25,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   final TextEditingController endDateController = TextEditingController();
   final TextEditingController reasonController = TextEditingController();
   String? selectedLeaveType;
+  bool _isLoading = false;
 
   //--- Select Date Method ----//
   Future<void> _selectDate(
@@ -44,15 +46,18 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   //--- Apply Leave Method ----//
   Future<void> _applyLeave() async {
     String? userId = FirebaseAuth.instance.currentUser?.uid;
+    setState(() {
+      _isLoading = true;
+    });
     if (_formKey.currentState!.validate() && selectedLeaveType != null) {
       try {
-        // var uuid = Uuid().v4();
+        var uuid = const Uuid().v4();
         // Create a leave model
         LeaveModel leaveModel = LeaveModel(
+          id: uuid,
           title: titleController.text,
           leaveType: selectedLeaveType!,
           contactNumber: contactController.text,
-          status: 'Pending',
           startDate:
               Timestamp.fromDate(DateTime.parse(startDateController.text)),
           endDate: Timestamp.fromDate(DateTime.parse(endDateController.text)),
@@ -66,6 +71,9 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
           'Leave applied successfully!',
           color: chooseSnackBarColor(ToastStates.SUCCESS),
         );
+        setState(() {
+          _isLoading = false;
+        });
         titleController.clear();
         contactController.clear();
         startDateController.clear();
@@ -75,6 +83,9 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
           selectedLeaveType = null;
         });
       } catch (e) {
+        setState(() {
+          _isLoading = false;
+        });
         CustomSnackBar.show(
           context,
           'Error: ${e.toString()}',
@@ -127,6 +138,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                       'Sick Leave',
                       'Casual Leave',
                       'Annual Leave',
+                      'Holiday',
                     ],
                     onChanged: (value) =>
                         setState(() => selectedLeaveType = value),
@@ -161,6 +173,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: CustomButton(
+                      isLoading: _isLoading,
                       text: 'Apply Leave',
                       onPressed: _applyLeave,
                     ),

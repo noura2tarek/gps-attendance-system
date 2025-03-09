@@ -18,9 +18,9 @@ class LeaveService {
   //   }
   // }
   static Future<void> applyLeave(LeaveModel leave) async {
-    final userId = leave.userId;
+    //final userId = leave.userId;
     try {
-      await _firestore.collection('leaves').doc(userId).set(leave.toMap());
+      await _firestore.collection('leaves').add(leave.toMap());
       print('Leave Applied Successfully');
     } catch (e) {
       print('Error applying leave: $e');
