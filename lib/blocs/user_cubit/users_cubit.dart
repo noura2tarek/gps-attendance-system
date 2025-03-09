@@ -32,6 +32,7 @@ class UsersCubit extends Cubit<UsersState> {
   Future<void> getUsers() async {
     try {
       emit(UsersLoading());
+      await Future.delayed(const Duration(milliseconds: 500));
       users = await UserService.getAllUsers();
       // Filter employees & managers
       for (final user in users) {

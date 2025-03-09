@@ -284,23 +284,22 @@ class AdminHome extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             //------- Employee list view -------//
-            // Show half of the employees list
+            // Show half of the employees list of the length is greater than 4
             BlocBuilder<UsersCubit, UsersState>(
               builder: (context, state) {
                 final cubit = UsersCubit.get(context);
                 List<UserModel> employees = cubit.employees;
-                if (employees.isEmpty) {
-                  employees = dummyUsersObjects;
-                }
                 return Skeletonizer(
                   enabled: state is UsersLoading,
                   child: UsersList(
-                    users: employees.length <= 4
-                        ? employees
-                        : employees.sublist(
-                            0,
-                            (employees.length * 0.5).round(),
-                          ),
+                    users: state is UsersLoading
+                        ? dummyUsersObjects
+                        : employees.length <= 4
+                            ? employees
+                            : employees.sublist(
+                                0,
+                                (employees.length * 0.5).round(),
+                              ),
                   ),
                 );
               },
