@@ -63,19 +63,17 @@ class LeavesPage extends StatelessWidget {
                 'Upcoming Leaves',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 16),
               //------ Upcoming Leaves list ------//
-              SizedBox(
-                height: 80,
-                child: ListView(
-                  children: const [
-                    ListTile(
-                      title: Text('JAN 15, 2025 - JAN 18, 2025'),
-                      subtitle: Text('Approved by Admin'),
-                      trailing: Text('3 Days'),
-                    ),
-                  ],
-                ),
+              ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  ListTile(
+                    title: Text('JAN 15, 2025 - JAN 18, 2025'),
+                    subtitle: Text('Approved by Admin'),
+                    trailing: Text('3 Days'),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               //-------- Request Leave Button --------//

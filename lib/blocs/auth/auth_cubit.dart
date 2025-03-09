@@ -8,16 +8,18 @@ import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:meta/meta.dart';
+
 part 'auth_states.dart';
 
 StreamSubscription<User?>? authSubscription;
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitial()) {
-    authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+    authSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((user) async {
       if (user != null) {
         // final user = FirebaseAuth.instance.currentUser;
-        emit(Authenticated(user.uid));
+        emit(Authenticated(userId: user.uid));
       } else {
         emit(Unauthenticated());
       }
@@ -26,30 +28,34 @@ class AuthCubit extends Cubit<AuthStates> {
 
   // get instance of cubit
   static AuthCubit get(BuildContext context) => BlocProvider.of(context);
-  bool loginPasswordSecure = false;
-  IconData loginIcon = Icons.visibility_outlined;
 
-//-- Login method --//
+  //-- Login method --//
   Future<void> login({
     required String email,
     required String password,
   }) async {
     emit(AuthLoading());
-    await Future.delayed(const Duration(milliseconds: 500));
     try {
       // login using firebase auth
       final user = await UserService.signInWithEmailAndPassword(
         email,
         password,
       );
-
       if (user != null) {
         // save token or id in shared prefs
         await SharedPrefsService.saveStringData(
           key: AppStrings.id,
           value: user.uid,
         );
-        emit(Authenticated(user.uid));
+        UserModel? userModel = await UserService.getUserData(user.uid);
+        if (userModel != null) {
+          // save user role in shared prefs
+          await SharedPrefsService.saveStringData(
+            key: AppStrings.roleKey,
+            value: userModel.role == Role.admin ? 'admin' : 'user',
+          );
+          emit(Authenticated(userId: user.uid, userRole: userModel.role));
+        }
       } else {
         emit(Unauthenticated());
       }
@@ -75,7 +81,6 @@ class AuthCubit extends Cubit<AuthStates> {
     required UserModel userModel,
   }) async {
     emit(AuthLoading());
-    await Future.delayed(const Duration(milliseconds: 500));
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
-import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_auth_button.dart';
@@ -69,32 +67,17 @@ class _LoginPageState extends State<LoginPage> {
             // check user role first
             // if admin -> navigate to admin dashboard
             // else -> navigate to user home page
-            UserModel? user = await _getUserData(state.userId);
-            if (user != null) {
-              // save user role in shared prefs
-              await SharedPrefsService.saveStringData(
-                key: AppStrings.roleKey,
-                value: user.role == Role.admin ? 'admin' : 'user',
+            if (state.userRole == Role.admin) {
+              await Navigator.pushReplacementNamed(
+                context,
+                AppRoutes.adminHome,
               );
-
-              if (user.role == Role.admin) {
-                await Navigator.pushReplacementNamed(
-                  context,
-                  AppRoutes.adminHome,
-                );
-              } else if (user.role == Role.employee ||
-                  user.role == Role.manager) {
-                await Navigator.pushReplacementNamed(
-                  context,
-                  AppRoutes.homeLayoutRoute,
-                );
-              } else {
-                CustomSnackBar.show(
-                  context,
-                  'Error',
-                  color: chooseSnackBarColor(ToastStates.ERROR),
-                );
-              }
+            } else if (state.userRole == Role.employee ||
+                state.userRole == Role.manager) {
+              await Navigator.pushReplacementNamed(
+                context,
+                AppRoutes.homeLayoutRoute,
+              );
             }
           } else if (state is AuthError) {
             CustomSnackBar.show(

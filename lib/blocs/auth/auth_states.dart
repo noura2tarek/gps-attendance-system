@@ -11,9 +11,9 @@ class AuthInitial extends AuthStates {}
 class AuthLoading extends AuthStates {}
 
 class Authenticated extends AuthStates {
-  Authenticated(this.userId);
-
+  Authenticated({required this.userId, this.userRole});
   final String userId;
+  final Role? userRole;
 
   @override
   List<Object?> get props => [userId];

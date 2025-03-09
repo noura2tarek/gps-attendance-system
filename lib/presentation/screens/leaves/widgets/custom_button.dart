@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/themes/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
-
   const CustomButton({
-    required this.text, required this.onPressed, Key? key,
-    this.backgroundColor = Colors.blueAccent,
+    required this.text,
+    required this.onPressed,
+    super.key,
+    this.backgroundColor = AppColors.primary,
     this.opacity = 0.8,
-  }) : super(key: key);
+  });
+
   final String text;
   final VoidCallback onPressed;
   final Color backgroundColor;
@@ -17,18 +20,18 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor.withValues(alpha: opacity),
+        backgroundColor: backgroundColor,
         padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       child: Text(
         text,
         style: const TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
+          //fontWeight: FontWeight.bold,
+          color: AppColors.whiteColor,
         ),
       ),
     );
