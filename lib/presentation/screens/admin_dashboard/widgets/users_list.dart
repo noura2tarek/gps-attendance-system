@@ -14,18 +14,19 @@ class UsersList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: users.length,
       itemBuilder: (context, index) {
+        final user = users[index];
         return Padding(
           padding: const EdgeInsetsDirectional.only(bottom: 8),
           child: CustomListTile(
-            title: users[index].name,
-            subtitle: users[index].email,
+            title: user.name,
+            subtitle: user.email,
             onTap: () {
               Navigator.pushNamed(
                 context,
                 AppRoutes.userDetailsRoute,
                 // send to this page attendance list of this user & user model
                 // as arguments
-                arguments: users[index],
+                arguments: user,
               );
             },
           ),
