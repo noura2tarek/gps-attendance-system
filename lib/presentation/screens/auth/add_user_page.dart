@@ -39,7 +39,6 @@ class AddUserPageState extends State<AddUserPage> {
         email: _emailController.text,
         role: _selectedRole,
         contactNumber: _contactController.text,
-        isOnLeave: false,
         position: _positionController.text,
       );
 

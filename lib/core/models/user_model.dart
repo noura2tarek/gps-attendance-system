@@ -10,14 +10,16 @@ class UserModel {
   final bool isOnLeave; // for admin to track
   final Role role; // admin, employee, manager
   final String position;
+  final int leaveBalance;
 
   UserModel({
     required this.name,
     required this.email,
     required this.contactNumber,
-    required this.isOnLeave,
     required this.role,
     required this.position,
+    this.isOnLeave = false,
+    this.leaveBalance = 25,
   });
 
   factory UserModel.fromFirestore(
@@ -31,6 +33,7 @@ class UserModel {
       isOnLeave: data?['isOnLeave'] as bool,
       role: roleFromString(data?['role'] as String),
       position: data?['position'] as String,
+      leaveBalance: data?['leaveBalance'] as int,
     );
   }
 
@@ -42,6 +45,7 @@ class UserModel {
       'isOnLeave': isOnLeave,
       'role': stringFromRole(role),
       'position': position,
+      'leaveBalance': leaveBalance,
     };
   }
 }

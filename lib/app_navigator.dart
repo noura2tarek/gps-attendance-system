@@ -29,7 +29,7 @@ class AppNavigator extends StatelessWidget {
           } else {
             return const HomeLayout();
           }
-        } else if (state is Unauthenticated) {
+        } else if (state is Unauthenticated || state is AuthLoading) {
           return const LoginPage();
         } else {
           return const Scaffold(
