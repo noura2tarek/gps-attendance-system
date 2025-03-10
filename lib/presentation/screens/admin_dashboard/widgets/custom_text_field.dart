@@ -5,6 +5,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     required this.labelText,
     required this.hintText,
+    required this.context,
     super.key,
     this.controller,
     this.keyboardType = TextInputType.text,
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
   final List<String>? dropdownItems;
   final void Function(String?)? onChanged;
   final VoidCallback? onDateTap;
+  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: isDropdown
           ? DropdownButtonFormField<String>(
-              decoration: _buildInputDecoration(),
+              decoration: _buildInputDecoration(context: context),
               items: dropdownItems
                   ?.map(
                     (item) => DropdownMenuItem(
@@ -43,7 +45,6 @@ class CustomTextFormField extends StatelessWidget {
                     ),
                   )
                   .toList(),
-              dropdownColor: AppColors.whiteColor,
               onChanged: onChanged,
             )
           : TextFormField(
@@ -54,6 +55,7 @@ class CustomTextFormField extends StatelessWidget {
               onTap: isDateField ? onDateTap : null,
               decoration: _buildInputDecoration(
                 suffixIcon: isDateField ? Icons.calendar_today : null,
+                context: context,
               ),
               validator: (value) => value == null || value.isEmpty
                   ? 'Please enter $labelText'
@@ -62,13 +64,18 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 
-  InputDecoration _buildInputDecoration({IconData? suffixIcon}) {
+  InputDecoration _buildInputDecoration(
+      {required BuildContext context, IconData? suffixIcon}) {
     return InputDecoration(
       labelText: labelText,
-      labelStyle: const TextStyle(
-          fontWeight: FontWeight.bold, color: AppColors.blackColor),
+      labelStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+      ),
       hintText: hintText,
-      hintStyle: const TextStyle(color: AppColors.fifthColor),
+      hintStyle: TextStyle(
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(color: AppColors.thirdMintGreen),

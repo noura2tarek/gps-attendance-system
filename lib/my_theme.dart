@@ -35,6 +35,32 @@ class MyTheme {
       ),
       primaryColorLight: primaryColor,
       useMaterial3: true,
+      dropdownMenuTheme: DropdownMenuThemeData(
+        textStyle: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        ),
+        menuStyle: MenuStyle(
+          backgroundColor: WidgetStatePropertyAll(scaffoldBackgroundColor),
+          surfaceTintColor: WidgetStatePropertyAll(scaffoldBackgroundColor),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: TextStyle(color: textColor),
+          labelStyle: TextStyle(color: textColor),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.thirdMintGreen),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.thirdMintGreen),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.fifthColor),
+          ),
+        ),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary.withValues(alpha: 0.8),
@@ -125,7 +151,7 @@ class MyTheme {
         cardColor: AppColors.fifthColor,
         progressIndicatorColor: AppColors.whiteColor,
         primaryColor: AppColors.fifthColor,
-        scaffoldBackgroundColor: AppColors.black2Color,
+        scaffoldBackgroundColor: AppColors.blackColor,
         selectedItemColor: AppColors.secondary,
         unselectedItemColor: AppColors.whiteColor,
         iconColor: AppColors.thirdMintGreen,

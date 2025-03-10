@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
-import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_text_field.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
@@ -93,6 +92,9 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
         );
       }
     } else {
+      setState(() {
+        _isLoading = false;
+      });
       CustomSnackBar.show(
         context,
         'Please fill all fields',
@@ -104,16 +106,12 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: const Text(
           'Apply Leave',
-          style: TextStyle(color: AppColors.whiteColor),
         ),
-        backgroundColor: AppColors.primary,
-        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -126,11 +124,13 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
               child: Column(
                 children: [
                   CustomTextFormField(
+                    context: context,
                     labelText: 'Title',
                     hintText: 'Enter Title',
                     controller: titleController,
                   ),
                   CustomTextFormField(
+                    context: context,
                     labelText: 'Leave Type',
                     hintText: 'Select Leave Type',
                     isDropdown: true,
@@ -138,18 +138,19 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                       'Sick Leave',
                       'Casual Leave',
                       'Annual Leave',
-                      'Holiday',
                     ],
                     onChanged: (value) =>
                         setState(() => selectedLeaveType = value),
                   ),
                   CustomTextFormField(
+                    context: context,
                     labelText: 'Contact Number',
                     hintText: 'Enter Contact Number',
                     keyboardType: TextInputType.phone,
                     controller: contactController,
                   ),
                   CustomTextFormField(
+                    context: context,
                     labelText: 'Start Date',
                     hintText: 'Select Start Date',
                     controller: startDateController,
@@ -157,6 +158,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                     onDateTap: () => _selectDate(context, startDateController),
                   ),
                   CustomTextFormField(
+                    context: context,
                     labelText: 'End Date',
                     hintText: 'Select End Date',
                     controller: endDateController,
@@ -167,6 +169,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                     labelText: 'Reason for Leave',
                     hintText: 'Enter Reason',
                     controller: reasonController,
+                    context: context,
                   ),
                   const SizedBox(height: 20),
                   //--- Apply Leave Button ----//

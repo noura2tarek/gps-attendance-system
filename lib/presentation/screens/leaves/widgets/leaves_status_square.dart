@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/themes/app_colors.dart';
 
 class LeaveStatusSquare extends StatelessWidget {
   const LeaveStatusSquare({
@@ -21,6 +22,13 @@ class LeaveStatusSquare extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: opacity),
         borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[300]!,
+            blurRadius: 1,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,9 +36,9 @@ class LeaveStatusSquare extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              color: Colors.black,
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
+              color: AppColors.blackColor,
             ),
           ),
           const SizedBox(height: 8),
@@ -38,7 +46,7 @@ class LeaveStatusSquare extends StatelessWidget {
             count.toString(),
             style: TextStyle(
               color: color, // Use the square's color for the count
-              fontSize: 24,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
             ),
           ),
