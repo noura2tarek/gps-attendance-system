@@ -17,6 +17,7 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // Language Text
         Text(
           AppLocalizations.of(context).language,
           style: TextStyle(
@@ -36,6 +37,8 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 dropdownColor: Theme.of(context).primaryColor,
+                iconEnabledColor: AppColors.whiteColor,
+                iconDisabledColor: AppColors.whiteColor,
                 value: context
                     .watch<ChangeLanguageCubit>()
                     .state
@@ -65,9 +68,9 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_drop_down,
-                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                  color: AppColors.whiteColor,
                 ),
               ),
             ),
