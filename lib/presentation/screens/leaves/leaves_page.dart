@@ -15,12 +15,11 @@ class LeavesPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
+              const Text(
                 'All Leaves',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black.withValues(alpha: 0.8),
                 ),
               ),
               const SizedBox(height: 16),

@@ -29,7 +29,6 @@ class CustomListTile extends StatelessWidget {
               focusColor: AppColors.secondary,
               hoverColor: AppColors.secondary,
               selectedColor: AppColors.secondary,
-              iconColor: AppColors.thirdMintGreen,
               title: Text(
                 title,
                 style: const TextStyle(
@@ -49,7 +48,6 @@ class CustomListTile extends StatelessWidget {
             focusColor: AppColors.secondary,
             hoverColor: AppColors.secondary,
             selectedColor: AppColors.secondary,
-            iconColor: AppColors.thirdMintGreen,
             title: Text(title),
             leading: leadingWidget,
             onTap: onTap,

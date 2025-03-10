@@ -22,9 +22,6 @@ class UsersCubit extends Cubit<UsersState> {
   // filtered managers list
   List<UserModel> managers = [];
 
-  // filtered admins list
-  //List<UserModel> admins = [];
-
   // ALL users list
   List<UserModel> users = [];
 
@@ -56,7 +53,7 @@ class UsersCubit extends Cubit<UsersState> {
 
   // Get current admin data
   Future<UserModel?> getAdminData() async {
-    String? uid = SharedPrefsService.getStringData(key: AppStrings.id);
+    String? uid = SharedPrefsService.getData(key: AppStrings.id) as String?;
     log('user id saved is $uid');
     uid ??= UserService.authInstance.currentUser!.uid;
     UserModel? admin = await UserService.getUserData(uid);

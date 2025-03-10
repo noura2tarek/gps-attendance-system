@@ -7,19 +7,27 @@ class SharedPrefsService {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  /*-------------- Save string data ---------------*/
-  static Future<bool> saveStringData({
+  /*-------------- Save data ---------------*/
+  static Future<bool> saveData({
     required String key,
-    required String value,
+    required dynamic value,
   }) async {
-    await _sharedPreferences.setString(key, value);
+    if (value is String) {
+      await _sharedPreferences.setString(key, value);
+    }
+    if (value is bool) {
+      await _sharedPreferences.setBool(key, value);
+    }
+    if (value is int) {
+      await _sharedPreferences.setInt(key, value);
+    }
     print('String data: $value -> saved successfully');
     return true;
   }
 
-  /*------------ Get String data from shared prefs --------------*/
-  static String? getStringData({required String key}) {
-    String? value = _sharedPreferences.getString(key);
+  /*------------ Get data from shared prefs --------------*/
+  static Object? getData({required String key}) {
+    Object? value = _sharedPreferences.get(key);
     return value;
   }
 

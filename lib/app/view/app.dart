@@ -15,7 +15,7 @@ import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/settings_page.dart';
+import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total_leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/users_page.dart';

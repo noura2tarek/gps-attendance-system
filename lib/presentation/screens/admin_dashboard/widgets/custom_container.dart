@@ -29,11 +29,11 @@ class CustomContainer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.secondary.withValues(alpha: 0.8),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Colors.grey,
+              color: Colors.grey[500]!,
               blurRadius: 4,
-              offset: Offset(0, 5),
+              offset: const Offset(0, 5),
             ),
           ],
           borderRadius: const BorderRadius.all(

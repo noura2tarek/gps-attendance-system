@@ -103,13 +103,12 @@ class AdminHome extends StatelessWidget {
       ),
       // Drawer
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: [
             // Drawer header includes title and date
             DrawerHeader(
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,7 +147,7 @@ class AdminHome extends StatelessWidget {
                   // Admin photo
                   const CircleAvatar(
                     backgroundColor: AppColors.whiteColor,
-                    radius: 28,
+                    radius: 26,
                   ),
                 ],
               ),
@@ -207,7 +206,6 @@ class AdminHome extends StatelessWidget {
           ],
         ),
       ),
-      //-- Add bloc provider of users
       body: Padding(
         padding: const EdgeInsetsDirectional.all(12),
         child: ListView(

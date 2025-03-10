@@ -82,9 +82,10 @@ class MyTheme {
       ),
       listTileTheme: ListTileThemeData(
         textColor: textColor,
+        iconColor: iconColor,
       ),
       cardTheme: CardTheme(
-        color: cardColor.withValues(alpha: 0.9),
+        color: cardColor,
         surfaceTintColor: AppColors.whiteColor,
         elevation: 1.5,
       ),
@@ -134,13 +135,13 @@ class MyTheme {
   static ThemeData get lightTheme => createTheme(
         progressIndicatorColor: AppColors.primary,
         floatingActionButtonColor: AppColors.secondary,
-        cardColor: AppColors.whiteColor,
+        cardColor: AppColors.grey200Color,
         brightness: Brightness.light,
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.whiteColor,
-        selectedItemColor: AppColors.secondary,
-        unselectedItemColor: AppColors.thirdMintGreen,
-        iconColor: AppColors.thirdMintGreen,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.secondary,
+        iconColor: AppColors.secondary,
         textColor: AppColors.blackColor,
         appBarTextColor: AppColors.whiteColor,
       );
@@ -148,7 +149,7 @@ class MyTheme {
   static ThemeData get darkTheme => createTheme(
         brightness: Brightness.dark,
         floatingActionButtonColor: AppColors.secondary.withValues(alpha: 0.7),
-        cardColor: AppColors.fifthColor,
+        cardColor: AppColors.fifthColor.withValues(alpha: 0.9),
         progressIndicatorColor: AppColors.whiteColor,
         primaryColor: AppColors.fifthColor,
         scaffoldBackgroundColor: AppColors.blackColor,

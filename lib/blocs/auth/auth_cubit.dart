@@ -41,14 +41,14 @@ class AuthCubit extends Cubit<AuthStates> {
       );
       if (user != null) {
         // save token or id in shared prefs
-        await SharedPrefsService.saveStringData(
+        await SharedPrefsService.saveData(
           key: AppStrings.id,
           value: user.uid,
         );
         UserModel? userModel = await UserService.getUserData(user.uid);
         if (userModel != null) {
           // save user role in shared prefs
-          await SharedPrefsService.saveStringData(
+          await SharedPrefsService.saveData(
             key: AppStrings.roleKey,
             value: userModel.role == Role.admin ? 'admin' : 'user',
           );
