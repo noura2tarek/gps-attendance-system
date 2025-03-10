@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
@@ -94,8 +93,6 @@ class AdminHome extends StatelessWidget {
     return Scaffold(
       // App bar
       appBar: AppBar(
-        foregroundColor: AppColors.blackColor,
-        backgroundColor: AppColors.whiteColor,
         elevation: 1,
         title: const Text(
           'Dashboard',
@@ -221,7 +218,6 @@ class AdminHome extends StatelessWidget {
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w500,
-                color: AppColors.blackColor,
               ),
             ),
             const SizedBox(height: 10),
@@ -269,14 +265,10 @@ class AdminHome extends StatelessWidget {
                       AppRoutes.employees,
                     );
                   },
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppColors.primary,
-                  ),
                   child: const Text(
                     AppStrings.viewAll,
                     style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),

@@ -46,125 +46,121 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Login',
-        ),
-        centerTitle: true,
-      ),
-      body: BlocListener<AuthCubit, AuthStates>(
-        listener: (context, state) async {
-          if (state is Authenticated) {
-            _isLoading = false;
-            // check user role first
-            // if admin -> navigate to admin dashboard
-            // else -> navigate to user home page
-            if (state.userRole == Role.admin) {
-              await Navigator.pushReplacementNamed(
-                context,
-                AppRoutes.adminHome,
-              );
-            } else if (state.userRole == Role.employee ||
-                state.userRole == Role.manager) {
-              await Navigator.pushReplacementNamed(
-                context,
-                AppRoutes.homeLayoutRoute,
-              );
-            } else {
+    return SafeArea(
+      child: Scaffold(
+        body: BlocListener<AuthCubit, AuthStates>(
+          listener: (context, state) async {
+            if (state is Authenticated) {
+              _isLoading = false;
+              // check user role first
+              // if admin -> navigate to admin dashboard
+              // else -> navigate to user home page
+              if (state.userRole == Role.admin) {
+                await Navigator.pushReplacementNamed(
+                  context,
+                  AppRoutes.adminHome,
+                );
+              } else if (state.userRole == Role.employee ||
+                  state.userRole == Role.manager) {
+                await Navigator.pushReplacementNamed(
+                  context,
+                  AppRoutes.homeLayoutRoute,
+                );
+              } else {
+                CustomSnackBar.show(
+                  context,
+                  'User role not found',
+                  color: chooseSnackBarColor(ToastStates.ERROR),
+                );
+              }
+            } else if (state is AuthError) {
               CustomSnackBar.show(
                 context,
-                'User role not found',
+                state.message,
                 color: chooseSnackBarColor(ToastStates.ERROR),
               );
+              _isLoading = false;
+            } else if (state is AuthLoading) {
+              _isLoading = true;
             }
-          } else if (state is AuthError) {
-            CustomSnackBar.show(
-              context,
-              state.message,
-              color: chooseSnackBarColor(ToastStates.ERROR),
-            );
-            _isLoading = false;
-          } else if (state is AuthLoading) {
-            _isLoading = true;
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Center(
-            child: Form(
-              key: _formKey,
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      'Login',
-                      style:
-                          Theme.of(context).textTheme.headlineLarge!.copyWith(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.w500,
-                              ),
-                    ),
-                  ),
-                  // App Title
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      'Smart Attendance Simplified.',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ),
-                  // Subtitle
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'login to get started with Location-based attendance tracking system.',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[600],
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Login',
+                        style:
+                            Theme.of(context).textTheme.headlineLarge!.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
                     ),
-                  ),
-
-                  //---------- Email text field ----------//
-                  TextFormFieldWidget(
-                    labelText: 'Email',
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _emailController,
-                    validator: _validateEmail,
-                    prefixIcon: Icons.email,
-                  ),
-                  const SizedBox(height: 10),
-                  //---------- Password text field ----------//
-                  TextFormFieldWidget(
-                    labelText: 'Password',
-                    obscureText: _isPassword,
-                    controller: _passwordController,
-                    validator: _validatePassword,
-                    prefixIcon: Icons.lock,
-                    suffixPressed: () {
-                      setState(() {
-                        _isPassword = !_isPassword;
-                      });
-                    },
-                    suffixIcon: _isPassword
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                  ),
-                  const SizedBox(height: 20),
-                  //---------- Login button ----------//
-                  BlocBuilder<AuthCubit, AuthStates>(
-                    builder: (context, state) {
-                      return CustomAuthButton(
-                        buttonText: 'Login',
-                        isLoading: _isLoading,
-                        onTap: _logIn,
-                      );
-                    },
-                  ),
-                ],
+                    // App Title
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Smart Attendance Simplified.',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    // Subtitle
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        'login to get started with Location-based attendance tracking system.',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ),
+      
+                    //---------- Email text field ----------//
+                    TextFormFieldWidget(
+                      labelText: 'Email',
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      validator: _validateEmail,
+                      prefixIcon: Icons.email,
+                    ),
+                    const SizedBox(height: 10),
+                    //---------- Password text field ----------//
+                    TextFormFieldWidget(
+                      labelText: 'Password',
+                      obscureText: _isPassword,
+                      controller: _passwordController,
+                      validator: _validatePassword,
+                      prefixIcon: Icons.lock,
+                      suffixPressed: () {
+                        setState(() {
+                          _isPassword = !_isPassword;
+                        });
+                      },
+                      suffixIcon: _isPassword
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                    ),
+                    const SizedBox(height: 20),
+                    //---------- Login button ----------//
+                    BlocBuilder<AuthCubit, AuthStates>(
+                      builder: (context, state) {
+                        return CustomAuthButton(
+                          buttonText: 'Login',
+                          isLoading: _isLoading,
+                          onTap: _logIn,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/app_navigator.dart';
 import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
+import 'package:gps_attendance_system/blocs/language/change_language_cubit.dart';
+import 'package:gps_attendance_system/blocs/language/change_language_state.dart';
+import 'package:gps_attendance_system/blocs/theme/theme_bloc.dart';
+import 'package:gps_attendance_system/blocs/theme/theme_state.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/core/themes/app_theme.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
@@ -31,6 +34,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => ChangeLanguageCubit()),
+        BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(create: (context) => AttendanceBloc()),
         BlocProvider(
           create: (context) => AuthCubit()..init(),
@@ -41,13 +46,22 @@ class App extends StatelessWidget {
             ..getAdminData(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: const AppNavigator(),
-        onGenerateRoute: onGenerateRoute,
+      child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(
+        builder: (context, languageState) {
+          return BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, themeState) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: themeState.themeData,
+                locale: languageState.locale,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                home: const AppNavigator(),
+                onGenerateRoute: onGenerateRoute,
+              );
+            },
+          );
+        },
       ),
     );
   }

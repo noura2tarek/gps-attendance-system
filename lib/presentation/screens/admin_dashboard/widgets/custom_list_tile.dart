@@ -22,9 +22,6 @@ class CustomListTile extends StatelessWidget {
     double avatarRadius = MediaQuery.of(context).size.width * 0.07;
     return isUser
         ? Card(
-            color: Colors.white.withValues(alpha: 0.9),
-            surfaceTintColor: Colors.white,
-            elevation: 1.5,
             child: ListTile(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -42,7 +39,7 @@ class CustomListTile extends StatelessWidget {
               ),
               subtitle: subtitle == null ? null : Text(subtitle ?? ''),
               leading: CircleAvatar(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.secondary,
                 radius: avatarRadius,
               ),
               onTap: onTap,
