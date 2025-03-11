@@ -9,8 +9,8 @@ part 'attendance_event.dart';
 part 'attendance_state.dart';
 
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
-  final double companyLat = 30.0447;
-  final double companyLng = 31.2389;
+  double? companyLat;
+  double? companyLng;
   final double geofenceRadius = 100;
   static final DateTime officialCheckInTime = DateTime(
     DateTime.now().year,
@@ -25,6 +25,34 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<CheckEmployeeLocation>(_onCheckEmployeeLocation);
     on<CheckIn>(_onCheckIn);
     on<CheckOut>(_onCheckOut);
+    on<CompanyLocationFetched>(_onCompanyLocationFetched);
+    _fetchCompanyLocation();
+  }
+
+  Future<void> _fetchCompanyLocation() async {
+    try {
+      final docSnapshot = await _firestore
+          .collection('locations')
+          .doc('company-location')
+          .get();
+
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        companyLat = data['latitude'] as double;
+        companyLng = data['longitude'] as double;
+
+        add(CompanyLocationFetched(companyLat!, companyLng!));
+      } else {
+        print('Company location document does not exist');
+      }
+    } catch (e) {
+      print('Error fetching company location: $e');
+    }
+  }
+
+  void _onCompanyLocationFetched(
+      CompanyLocationFetched event, Emitter<AttendanceState> emit) {
+    emit(CompanyLocationUpdated(event.lat, event.lng));
   }
 
   Future<void> _onCheckEmployeeLocation(
@@ -44,8 +72,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       double distance = Geolocator.distanceBetween(
         position.latitude,
         position.longitude,
-        companyLat,
-        companyLng,
+        companyLat!,
+        companyLng!,
       );
 
       if (distance <= geofenceRadius) {
