@@ -39,4 +39,26 @@ class LeaveService {
               .toList(),
         );
   }
+
+  static Stream<List<LeaveModel>> getLeavesByContactNumber(
+      String contactNumber) {
+    return _leavesCollection
+        .where('contactNumber', isEqualTo: contactNumber)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => LeaveModel.fromFirestore(doc))
+              .toList(),
+        );
+  }
+
+  static Future<void> updateLeaveStatus(
+      String leaveId, String newStatus) async {
+    try {
+      await _leavesCollection.doc(leaveId).update({'status': newStatus});
+      print('Leave status updated successfully');
+    } catch (e) {
+      print('Error updating leave status: $e');
+    }
+  }
 }

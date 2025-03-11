@@ -91,4 +91,25 @@ class UserService {
     });
     return usersData;
   }
+
+//method to retrieve the contact number of current user
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final CollectionReference<Map<String, dynamic>> _usersCollection =
+      _firestore.collection('users');
+
+  // Fetch the current user's contact number
+  static Future<String?> getCurrentUserContactNumber() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    print("Current user ID: $userId"); // Debug log
+    if (userId != null) {
+      final userDoc = await _usersCollection.doc(userId).get();
+      if (userDoc.exists) {
+        final userData = userDoc.data() as Map<String, dynamic>?;
+        final contactNumber = userData?['contactNumber'] as String?;
+        print("Fetched contact number: $contactNumber"); // Debug log
+        return contactNumber;
+      }
+    }
+    return null;
+  }
 }
