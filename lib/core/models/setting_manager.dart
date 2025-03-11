@@ -14,7 +14,7 @@ class SettingsManager {
     Navigator.pop(context);
   }
 
-  // switch to user mode and navigate to home layout
+  // Switch to user mode and navigate to home layout
   // For admin only.
   void switchToUserMode({
     required BuildContext context,

@@ -13,21 +13,20 @@ class LeaveModel {
     this.status = 'Pending',
   });
 
-  factory LeaveModel.fromMap(Map<String, dynamic> map, String documentId) {
+  factory LeaveModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+  ) {
+    final data = snapshot.data();
     return LeaveModel(
-      title: map['title']?.toString() ?? '',
-      id: map['id']?.toString() ?? '',
-      leaveType: map['leaveType']?.toString() ?? '',
-      contactNumber: map['contactNumber']?.toString() ?? '',
-      startDate: (map['startDate'] is Timestamp)
-          ? map['startDate'] as Timestamp
-          : Timestamp.now(),
-      endDate: (map['endDate'] is Timestamp)
-          ? map['endDate'] as Timestamp
-          : Timestamp.now(),
-      reason: map['reason']?.toString() ?? '',
-      userId: map['userId']?.toString() ?? '',
-      status: map['status']?.toString() ?? '',
+      title: data?['title'] as String,
+      id: data?['id'] as String,
+      leaveType: data?['leaveType'] as String,
+      contactNumber: data?['contactNumber'] as String,
+      startDate: data?['startDate'] as Timestamp,
+      endDate: data?['endDate'] as Timestamp,
+      reason: data?['reason'] as String,
+      userId: data?['userId'] as String,
+      status: data?['status'] as String,
     );
   }
 

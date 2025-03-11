@@ -101,8 +101,7 @@ class AuthCubit extends Cubit<AuthStates> {
       if (e.code == 'email-already-in-use') {
         emit(AuthError(message: 'The account already exists for that email.'));
       }
-    }
-    catch (e) {
+    } catch (e) {
       emit(AuthError(message: 'There was an error creating the account'));
     }
   }

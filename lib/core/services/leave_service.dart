@@ -4,6 +4,10 @@ import 'package:gps_attendance_system/core/models/leave_model.dart';
 class LeaveService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // Create a collection named leaves
+  static final CollectionReference<Map<String, dynamic>> _leavesCollection =
+      _firestore.collection('leaves');
+
   // Future<void> applyLeave(LeaveModel leave) async {
   //   try {
   //     await _firestore
@@ -20,10 +24,19 @@ class LeaveService {
   static Future<void> applyLeave(LeaveModel leave) async {
     //final userId = leave.userId;
     try {
-      await _firestore.collection('leaves').add(leave.toMap());
+      await _leavesCollection.add(leave.toMap());
       print('Leave Applied Successfully');
     } catch (e) {
       print('Error applying leave: $e');
     }
+  }
+
+  // Get all leaves
+  static Stream<List<LeaveModel>> getAllLeavesStream() {
+    return _leavesCollection.snapshots().map(
+          (snapshot) => snapshot.docs
+              .map((doc) => LeaveModel.fromFirestore(doc))
+              .toList(),
+        );
   }
 }

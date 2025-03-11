@@ -81,11 +81,14 @@ class UserService {
   //-- Get all users data from firestore --//
   static Future<List<UserModel>> getAllUsers() async {
     final snapshot = await users.get();
-    final usersData = snapshot.docs.map((doc) {
-      return UserModel.fromFirestore(
-        doc as DocumentSnapshot<Map<String, dynamic>>,
+    List<UserModel> usersData = [];
+    snapshot.docs.forEach((doc) {
+      usersData.add(
+        UserModel.fromFirestore(
+          doc as DocumentSnapshot<Map<String, dynamic>>,
+        ),
       );
-    }).toList();
+    });
     return usersData;
   }
 }
