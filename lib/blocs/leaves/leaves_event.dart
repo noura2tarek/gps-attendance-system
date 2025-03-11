@@ -13,9 +13,12 @@ class FilterLeaves extends LeaveEvent {
   FilterLeaves(this.filter);
 }
 
-
+// Event to update leaves when new data is received
 class LeavesUpdated extends LeaveEvent {
   final List<LeaveModel> leaves;
 
   LeavesUpdated(this.leaves);
 }
+
+// Event to fetch the leave balance from Firestore
+class FetchLeaveBalance extends LeaveEvent {}

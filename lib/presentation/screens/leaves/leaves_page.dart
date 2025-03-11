@@ -75,7 +75,7 @@ class _LeavesPageState extends State<LeavesPage> {
                       children: [
                         LeaveStatusSquare(
                           title: 'Leave Balance',
-                          count: 25, // Example value
+                          count: state.leaveBalance,
                           color: Colors.green,
                           opacity: 0.2,
                         ),
