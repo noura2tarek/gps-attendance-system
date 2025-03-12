@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
+import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -68,23 +69,57 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: Text('My Profile'),
                   trailing: Icon(Icons.chevron_right, color: Colors.grey),
                 ),
-                const ListTile(
-                  leading: Icon(Icons.lock, color: Colors.grey),
-                  title: Text('Change Password'),
-                  trailing: Icon(Icons.chevron_right, color: Colors.grey),
+                ListTile(
+                  leading: const Icon(Icons.lock, color: Colors.grey),
+                  title: const Text('Reset Password'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const SettingsPage();
+                        },
+                      ),
+                    );
+                  },
+                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                 ),
-                const ListTile(
-                  leading: Icon(Icons.description, color: Colors.grey),
-                  title: Text('View Attendance Record'),
-                  trailing: Icon(Icons.chevron_right, color: Colors.grey),
+                ListTile(
+                  leading: const Icon(Icons.description, color: Colors.grey),
+                  title: const Text('View Attendance Record'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return UserDetailsPage(
+                            userModel: userData!,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                 ),
                 ListTile(
                   leading: const Icon(Icons.settings, color: Colors.grey),
                   title: const Text('Settings'),
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.settings);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const SettingsPage();
+                        },
+                      ),
+                    );
                   },
                   trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+                ),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  child: const Text('Logout'),
+                  onPressed: () {},
                 ),
               ],
             ),

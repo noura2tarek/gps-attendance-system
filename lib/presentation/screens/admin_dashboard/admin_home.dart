@@ -48,7 +48,7 @@ final List<UserModel> dummyUsersObjects = [
 
 /////////
 class AdminHome extends StatefulWidget {
-  AdminHome({super.key});
+  const AdminHome({super.key});
 
   @override
   State<AdminHome> createState() => _AdminHomeState();

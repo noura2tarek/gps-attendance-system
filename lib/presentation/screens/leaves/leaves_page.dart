@@ -20,7 +20,7 @@ class _LeavesPageState extends State<LeavesPage> {
     'All',
     'Pending',
     'Approved',
-    'Rejected'
+    'Rejected',
   ];
 
   @override
@@ -173,7 +173,9 @@ class _LeavesPageState extends State<LeavesPage> {
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: ListTile(
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 12),
+                              vertical: 8,
+                              horizontal: 12,
+                            ),
                             title: Text(
                               '$startDate - $endDate',
                               style: const TextStyle(
