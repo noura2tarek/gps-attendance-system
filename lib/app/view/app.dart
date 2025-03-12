@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/app_navigator.dart';
@@ -5,17 +6,19 @@ import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_state.dart';
+import 'package:gps_attendance_system/blocs/leaves/leaves_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_state.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/settings_page.dart';
+import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total_leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/users_page.dart';
@@ -44,6 +47,15 @@ class App extends StatelessWidget {
           create: (context) => UsersCubit()
             ..getUsers()
             ..getAdminData(),
+        ),
+        BlocProvider(
+          create: (context) {
+            final userId =
+                FirebaseAuth.instance.currentUser?.uid; // Get current user ID
+            return LeaveBloc(
+              LeaveService(),
+            ); // Pass userId to LeaveBloc
+          },
         ),
       ],
       child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(

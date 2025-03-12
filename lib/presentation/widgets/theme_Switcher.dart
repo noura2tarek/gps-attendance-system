@@ -34,7 +34,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
         Container(
           height: 60,
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: AppColors.secondary,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
@@ -55,6 +55,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                 const SizedBox(width: 10),
                 Switch(
                   value: isDarkTheme,
+                  activeColor: Theme.of(context).primaryColor,
                   onChanged: (value) {
                     context.read<ThemeBloc>().add(ToggleTheme());
                   },

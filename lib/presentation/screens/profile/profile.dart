@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 
@@ -61,26 +62,29 @@ class _ProfilePageState extends State<ProfilePage> {
             const Divider(),
             ListView(
               shrinkWrap: true,
-              children: const [
-                ListTile(
+              children: [
+                const ListTile(
                   leading: Icon(Icons.person, color: Colors.grey),
                   title: Text('My Profile'),
                   trailing: Icon(Icons.chevron_right, color: Colors.grey),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.lock, color: Colors.grey),
                   title: Text('Change Password'),
                   trailing: Icon(Icons.chevron_right, color: Colors.grey),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.description, color: Colors.grey),
                   title: Text('View Attendance Record'),
                   trailing: Icon(Icons.chevron_right, color: Colors.grey),
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings, color: Colors.grey),
-                  title: Text('Settings'),
-                  trailing: Icon(Icons.chevron_right, color: Colors.grey),
+                  leading: const Icon(Icons.settings, color: Colors.grey),
+                  title: const Text('Settings'),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.settings);
+                  },
+                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                 ),
               ],
             ),

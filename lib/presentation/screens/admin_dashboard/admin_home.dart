@@ -4,7 +4,9 @@ import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
+import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
@@ -25,7 +27,6 @@ final List<UserModel> dummyUsersObjects = [
     name: 'Noura Tarek',
     email: 'noura@gmail.com',
     contactNumber: '011455555',
-    isOnLeave: false,
     role: Role.employee,
     position: 'Software Engineer',
   ),
@@ -33,7 +34,6 @@ final List<UserModel> dummyUsersObjects = [
     name: 'Ahmed Tarek',
     email: 'ahmed@gmail.com',
     contactNumber: '011455555',
-    isOnLeave: false,
     role: Role.employee,
     position: 'Software Engineer',
   ),
@@ -41,17 +41,22 @@ final List<UserModel> dummyUsersObjects = [
     name: 'John doe',
     email: 'john@gmail.com',
     contactNumber: '011455555',
-    isOnLeave: false,
     role: Role.employee,
     position: 'Software Engineer',
   ),
 ];
 
 /////////
-class AdminHome extends StatelessWidget {
+class AdminHome extends StatefulWidget {
   AdminHome({super.key});
 
+  @override
+  State<AdminHome> createState() => _AdminHomeState();
+}
+
+class _AdminHomeState extends State<AdminHome> {
   final TextEditingController searchController = TextEditingController();
+
   final List<String> containerTitles = [
     AppStrings.totalAttendance,
     AppStrings.employeesPresentNow,
@@ -80,12 +85,35 @@ class AdminHome extends StatelessWidget {
     Icons.settings,
     Icons.logout,
   ];
+
   final List<IconData> containerIcons = [
     Icons.how_to_reg,
     Icons.group,
     Icons.calendar_month,
     Icons.pending_actions,
   ];
+  List<int> counts = [0, 0, 0, 0];
+  List<LeaveModel> allLeaves = [];
+  List<LeaveModel> pendingLeaves = [];
+
+  // Get all leaves method
+  Future<void> _geAllLeaves() async {
+    LeaveService.getAllLeavesStream().listen((leaves) {
+      setState(() {
+        allLeaves = leaves;
+        pendingLeaves =
+            allLeaves.where((leave) => leave.status == 'Pending').toList();
+        counts[2] = allLeaves.length;
+        counts[3] = pendingLeaves.length;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    _geAllLeaves();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,13 +131,12 @@ class AdminHome extends StatelessWidget {
       ),
       // Drawer
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: [
             // Drawer header includes title and date
             DrawerHeader(
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,7 +175,7 @@ class AdminHome extends StatelessWidget {
                   // Admin photo
                   const CircleAvatar(
                     backgroundColor: AppColors.whiteColor,
-                    radius: 28,
+                    radius: 26,
                   ),
                 ],
               ),
@@ -207,7 +234,6 @@ class AdminHome extends StatelessWidget {
           ],
         ),
       ),
-      //-- Add bloc provider of users
       body: Padding(
         padding: const EdgeInsetsDirectional.all(12),
         child: ListView(
@@ -236,6 +262,7 @@ class AdminHome extends StatelessWidget {
                 return CustomContainer(
                   containerTitles: containerTitles,
                   icons: containerIcons,
+                  countNumber: counts[index],
                   index: index,
                 );
               },

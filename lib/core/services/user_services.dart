@@ -81,11 +81,35 @@ class UserService {
   //-- Get all users data from firestore --//
   static Future<List<UserModel>> getAllUsers() async {
     final snapshot = await users.get();
-    final usersData = snapshot.docs.map((doc) {
-      return UserModel.fromFirestore(
-        doc as DocumentSnapshot<Map<String, dynamic>>,
+    List<UserModel> usersData = [];
+    snapshot.docs.forEach((doc) {
+      usersData.add(
+        UserModel.fromFirestore(
+          doc as DocumentSnapshot<Map<String, dynamic>>,
+        ),
       );
-    }).toList();
+    });
     return usersData;
+  }
+
+//method to retrieve the contact number of current user
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final CollectionReference<Map<String, dynamic>> _usersCollection =
+      _firestore.collection('users');
+
+  // Fetch the current user's contact number
+  static Future<String?> getCurrentUserContactNumber() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    print("Current user ID: $userId"); // Debug log
+    if (userId != null) {
+      final userDoc = await _usersCollection.doc(userId).get();
+      if (userDoc.exists) {
+        final userData = userDoc.data() as Map<String, dynamic>?;
+        final contactNumber = userData?['contactNumber'] as String?;
+        print("Fetched contact number: $contactNumber"); // Debug log
+        return contactNumber;
+      }
+    }
+    return null;
   }
 }

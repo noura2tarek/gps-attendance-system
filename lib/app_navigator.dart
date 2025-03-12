@@ -22,8 +22,8 @@ class AppNavigator extends StatelessWidget {
           // else -> navigate to user home page
           // Get user role from shared prefs
           String? userRole =
-              SharedPrefsService.getStringData(key: AppStrings.roleKey);
-          log('user role saved is: $userRole');
+              SharedPrefsService.getData(key: AppStrings.roleKey) as String?;
+          log('From AppNavigator: user role saved is: $userRole');
           if (userRole == 'admin') {
             return AdminHome();
           } else {

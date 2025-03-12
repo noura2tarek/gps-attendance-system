@@ -7,12 +7,14 @@ class CustomContainer extends StatelessWidget {
     required this.containerTitles,
     required this.index,
     required this.icons,
+    required this.countNumber,
     super.key,
   });
 
   final List<String> containerTitles;
   final List<IconData> icons;
   final int index;
+  final int countNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,11 @@ class CustomContainer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.secondary.withValues(alpha: 0.8),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Colors.grey,
+              color: Colors.grey[500]!,
               blurRadius: 4,
-              offset: Offset(0, 5),
+              offset: const Offset(0, 5),
             ),
           ],
           borderRadius: const BorderRadius.all(
@@ -49,9 +51,9 @@ class CustomContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Total employees or managers
-              const Text(
-                '2',
-                style: TextStyle(
+              Text(
+                countNumber.toString(),
+                style: const TextStyle(
                   fontSize: 25,
                   color: AppColors.whiteColor,
                   fontWeight: FontWeight.w500,

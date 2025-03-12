@@ -29,14 +29,14 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
         const SizedBox(height: 15),
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: AppColors.secondary,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                dropdownColor: Theme.of(context).primaryColor,
+                dropdownColor: AppColors.secondary,
                 iconEnabledColor: AppColors.whiteColor,
                 iconDisabledColor: AppColors.whiteColor,
                 value: context

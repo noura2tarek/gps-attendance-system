@@ -41,14 +41,14 @@ class AuthCubit extends Cubit<AuthStates> {
       );
       if (user != null) {
         // save token or id in shared prefs
-        await SharedPrefsService.saveStringData(
+        await SharedPrefsService.saveData(
           key: AppStrings.id,
           value: user.uid,
         );
         UserModel? userModel = await UserService.getUserData(user.uid);
         if (userModel != null) {
           // save user role in shared prefs
-          await SharedPrefsService.saveStringData(
+          await SharedPrefsService.saveData(
             key: AppStrings.roleKey,
             value: userModel.role == Role.admin ? 'admin' : 'user',
           );
@@ -101,8 +101,7 @@ class AuthCubit extends Cubit<AuthStates> {
       if (e.code == 'email-already-in-use') {
         emit(AuthError(message: 'The account already exists for that email.'));
       }
-    }
-    catch (e) {
+    } catch (e) {
       emit(AuthError(message: 'There was an error creating the account'));
     }
   }
