@@ -65,11 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ListView(
               shrinkWrap: true,
               children: [
-                const ListTile(
-                  leading: Icon(Icons.person, color: Colors.grey),
-                  title: Text('My Profile'),
-                  trailing: Icon(Icons.chevron_right, color: Colors.grey),
-                ),
                 ListTile(
                   leading: const Icon(Icons.lock, color: Colors.grey),
                   title: const Text('Reset Password'),
