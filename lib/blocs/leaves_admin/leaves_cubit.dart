@@ -3,7 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
+import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
+import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:meta/meta.dart';
 
 part 'leaves_state.dart';
@@ -38,11 +40,17 @@ class LeavesCubit extends Cubit<LeavesState> {
     }
   }
 
+  // Get user data who submit the leave
+  Future<UserModel?> getUserData(String uid) {
+    emit(LeaveUserDetailsLoaded());
+    return UserService.getUserData(uid);
+  }
+
   // Accept a leave
   Future<void> acceptLeave(LeaveModel leave) async {
     try {
       await LeaveService.approveLeave(leave);
-      emit(LeaveStatusChanged());
+      emit(LeaveApproved());
     } catch (e) {
       emit(LeavesError(message: e.toString()));
     }
@@ -52,7 +60,7 @@ class LeavesCubit extends Cubit<LeavesState> {
   Future<void> rejectLeave(LeaveModel leave) async {
     try {
       await LeaveService.rejectLeave(leave);
-      emit(LeaveStatusChanged());
+      emit(LeaveRejected());
     } catch (e) {
       emit(LeavesError(message: e.toString()));
     }

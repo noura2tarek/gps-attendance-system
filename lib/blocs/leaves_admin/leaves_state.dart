@@ -34,8 +34,7 @@ final class LeavesError extends LeavesState implements Equatable {
 
 final class LeaveApplied extends LeavesState {}
 
-final class GetUserLeavesLoading extends LeavesState {}
+final class LeaveUserDetailsLoaded extends LeavesState {}
 
-final class UserLeavesLoaded extends LeavesState {}
-
-final class LeaveStatusChanged extends LeavesState {}
+final class LeaveApproved extends LeavesState {}
+final class LeaveRejected extends LeavesState {}

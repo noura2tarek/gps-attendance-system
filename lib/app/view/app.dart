@@ -5,6 +5,7 @@ import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_state.dart';
+import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_state.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
@@ -44,6 +45,9 @@ class App extends StatelessWidget {
           create: (context) => UsersCubit()
             ..getUsers()
             ..getAdminData(),
+        ),
+        BlocProvider(
+          create: (context) => LeavesCubit()..getLeaves(),
         ),
       ],
       child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(
