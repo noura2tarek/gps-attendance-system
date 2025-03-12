@@ -53,26 +53,25 @@ class _CompanyLocationState extends State<CompanyLocation> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: SizedBox(
-          // Make height responsive
           height: MediaQuery.of(context).size.height * 0.4,
-
-          child: _companyLocation == null?
-              Center(child: CircularProgressIndicator(),)
-              :
-          GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: _companyLocation!,
-              zoom: 14,
-            ),
-            markers: {
-              Marker(
-                infoWindow: const InfoWindow(title: 'Greek Campus'),
-                markerId: const MarkerId('Greek Campus'),
-                position: _companyLocation!,
-              ),
-            },
-            zoomControlsEnabled: false,
-          ),
+          child: _companyLocation == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: _companyLocation!,
+                    zoom: 14,
+                  ),
+                  markers: {
+                    Marker(
+                      infoWindow: const InfoWindow(title: 'Company'),
+                      markerId: const MarkerId('Company'),
+                      position: _companyLocation!,
+                    ),
+                  },
+                  zoomControlsEnabled: false,
+                ),
         ),
       ),
     );
