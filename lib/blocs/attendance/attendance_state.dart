@@ -23,8 +23,9 @@ class EmployeeCheckedIn extends AttendanceState {
 
 class EmployeeCheckedOut extends AttendanceState {
   final String checkOutTime;
+  final String? previousCheckInTime;
 
-  EmployeeCheckedOut({required this.checkOutTime});
+  EmployeeCheckedOut({required this.checkOutTime, this.previousCheckInTime});
 }
 
 class CompanyLocationUpdated extends AttendanceState {

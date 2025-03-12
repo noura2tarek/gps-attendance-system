@@ -29,7 +29,6 @@ class _AttendanceState extends State<Attendance> {
             builder: (context, state) {
               bool isInside = false;
               bool hasCheckedIn = false;
-              bool hasCheckedOut = false;
               String checkInTime = '--:--';
               String checkOutTime = '--:--';
 
@@ -39,8 +38,6 @@ class _AttendanceState extends State<Attendance> {
                 hasCheckedIn = true;
                 checkInTime = state.time;
               } else if (state is EmployeeCheckedOut) {
-                hasCheckedOut = true;
-                hasCheckedIn = false;
                 checkOutTime = state.checkOutTime;
               }
 

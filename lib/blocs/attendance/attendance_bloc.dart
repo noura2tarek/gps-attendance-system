@@ -32,7 +32,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   Future<void> _fetchCompanyLocation() async {
     try {
       final docSnapshot = await _firestore
-          .collection('locations')
+          .collection('company-location')
           .doc('company-location')
           .get();
 
@@ -81,6 +81,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         bool isOnTime = now.isBefore(officialCheckInTime);
         emit(EmployeeLocationInside(checkInTime: now, isOnTime: isOnTime));
       } else {
+        print('User is outside the geofence');
         emit(EmployeeLocationOutside());
       }
     } catch (e) {
@@ -141,11 +142,14 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         .doc('${user.uid}_$todayDate');
 
     try {
+      DocumentSnapshot doc = await attendanceDoc.get();
+      String? previousCheckInTime = doc.exists ? (doc["checkInTime"] as String?) : null;
+
       await attendanceDoc.set({
         'checkOutTime': checkOutTime,
       }, SetOptions(merge: true));
 
-      emit(EmployeeCheckedOut(checkOutTime: checkOutTime));
+      emit(EmployeeCheckedOut(checkOutTime: checkOutTime, previousCheckInTime: previousCheckInTime,));
     } catch (e) {
       emit(EmployeeLocationError('Failed to check out: $e'));
     }

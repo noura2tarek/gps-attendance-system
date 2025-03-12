@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.3
   flutter_localizations:
     sdk: flutter
   geolocator: ^13.0.2
