@@ -1,0 +1,22 @@
+// Get all leaves
+  static Stream<List<LeaveModel>> getAllLeavesStream() {
+    return _leavesCollection.snapshots().map(
+          (snapshot) => snapshot.docs
+              .map((doc) => LeaveModel.fromFirestore(doc))
+              .toList(),
+        );
+  }
+
+
+  // Get all leaves method
+    Future<void> _geAllLeaves() async {
+      LeaveService.getAllLeavesStream().listen((leaves) {
+        setState(() {
+          allLeaves = leaves;
+          pendingLeaves =
+              allLeaves.where((leave) => leave.status == 'Pending').toList();
+          counts[2] = allLeaves.length;
+          counts[3] = pendingLeaves.length;
+        });
+      });
+    Ste
