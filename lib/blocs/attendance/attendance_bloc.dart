@@ -11,7 +11,7 @@ part 'attendance_state.dart';
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   double? companyLat;
   double? companyLng;
-  final double geofenceRadius = 200;
+  final double geofenceRadius = 100;
   static final DateTime officialCheckInTime = DateTime(
     DateTime.now().year,
     DateTime.now().month,

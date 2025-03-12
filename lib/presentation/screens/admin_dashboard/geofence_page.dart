@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 
 class GeofencePage extends StatefulWidget {
   const GeofencePage({super.key});
@@ -24,7 +25,7 @@ class _GeofencePageState extends State<GeofencePage> {
           radius: 100,
           strokeWidth: 2,
           strokeColor: Colors.blue,
-          fillColor: Colors.blue.withOpacity(0.3),
+          fillColor: Colors.blue.withValues(alpha: 0.3),
         ),
       };
     });
@@ -44,11 +45,10 @@ class _GeofencePageState extends State<GeofencePage> {
   void _saveLocation() async {
     if (_location == null) return;
     await _firestore.collection('company-location').doc('company-location').set(
-        {'latitude': _location!.latitude, 'longitude': _location!.longitude});
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('New Geofence added succusfully'),
-      behavior: SnackBarBehavior.floating,
-    ));
+      {'latitude': _location!.latitude, 'longitude': _location!.longitude},
+    );
+    CustomSnackBar.show(context, 'New Geofence added succusfully',
+        color: chooseSnackBarColor(ToastStates.SUCCESS));
   }
 
   @override
@@ -62,8 +62,8 @@ class _GeofencePageState extends State<GeofencePage> {
           GoogleMap(
             onMapCreated: _onMapCreated,
             onTap: _onMapTap,
-            initialCameraPosition:
-                CameraPosition(target: LatLng(30.0444, 31.2357), zoom: 15),
+            initialCameraPosition: const CameraPosition(
+                target: LatLng(30.0444, 31.2357), zoom: 15),
             markers: _location == null
                 ? {}
                 : {
