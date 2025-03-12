@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
+import 'package:gps_attendance_system/presentation/screens/profile/widgets/reset_password.dart';
 import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -77,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const SettingsPage();
+                          return const ResetPasswordScreen();
                         },
                       ),
                     );
@@ -115,11 +116,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                   },
                   trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                  child: const Text('Logout'),
-                  onPressed: () {},
                 ),
               ],
             ),
