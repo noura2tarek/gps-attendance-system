@@ -11,7 +11,7 @@ part 'attendance_state.dart';
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   double? companyLat;
   double? companyLng;
-  final double geofenceRadius = 100;
+  final double geofenceRadius = 200;
   static final DateTime officialCheckInTime = DateTime(
     DateTime.now().year,
     DateTime.now().month,
@@ -32,7 +32,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   Future<void> _fetchCompanyLocation() async {
     try {
       final docSnapshot = await _firestore
-          .collection('locations')
+          .collection('company-location')
           .doc('company-location')
           .get();
 
@@ -63,7 +63,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         emit(EmployeeLocationPermissionDenied());
-        return;
+        await Geolocator.requestPermission();
       }
 
       Position position = await Geolocator.getCurrentPosition(
