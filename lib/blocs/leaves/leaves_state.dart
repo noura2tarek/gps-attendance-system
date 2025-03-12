@@ -8,9 +8,9 @@ class LeaveInitial extends LeaveState {}
 class LeaveLoading extends LeaveState {}
 
 class LeaveLoaded extends LeaveState {
-  final List<LeaveModel> leaves; // Filtered leaves
-  final List<LeaveModel> allLeaves; // Original list of leaves
-  final int leaveBalance; // Leave balance
+  final List<LeaveModel> leaves;
+  final List<LeaveModel> allLeaves;
+  final int leaveBalance;
 
   LeaveLoaded({
     required this.leaves,

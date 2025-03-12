@@ -13,7 +13,6 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
   StreamSubscription? _leavesSubscription;
   int _leaveBalance = 25;
   LeaveBloc(LeaveService leaveService) : super(LeaveInitial()) {
-    // 👇 Register ALL event handlers here!
     on<FetchLeaves>(_onFetchLeaves);
     on<FilterLeaves>(_onFilterLeaves);
     on<LeavesUpdated>(_onLeavesUpdated);
@@ -24,8 +23,6 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
     emit(LeaveLoading());
     try {
       final contactNumber = await UserService.getCurrentUserContactNumber();
-      print("Fetched contact number: $contactNumber");
-
       if (contactNumber != null) {
         // Cancel previous subscription
         await _leavesSubscription?.cancel();
@@ -34,11 +31,9 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
         _leavesSubscription =
             LeaveService.getLeavesByContactNumber(contactNumber).listen(
                 (leaves) {
-          print("Received real-time update: ${leaves.length} leaves");
           add(LeavesUpdated(leaves));
         }, onError: (error) {
-          print("Error receiving leaves: $error");
-          emit(LeaveError(message: "Error receiving leaves: $error"));
+          emit(LeaveError(message: '$error'));
         });
 
         // Fetch leave balance after fetching leaves
