@@ -58,24 +58,20 @@ class AdminHome extends StatelessWidget {
     AppStrings.pendingApprovals,
   ];
 
-  final List<String> headerTitles = [
+  final List<String> drawerTitles = [
     AppStrings.dashboard,
     AppStrings.employees,
     AppStrings.managers,
     AppStrings.geofence,
-    AppStrings.profile,
-    AppStrings.leaves,
     AppStrings.settings,
     AppStrings.logout,
   ];
 
-  final List<IconData> headerIcons = [
+  final List<IconData> drawerIcons = [
     Icons.dashboard,
     Icons.person,
     Icons.supervisor_account,
     Icons.location_on,
-    Icons.person,
-    Icons.calendar_month,
     Icons.settings,
     Icons.logout,
   ];
@@ -156,13 +152,13 @@ class AdminHome extends StatelessWidget {
             // Dashboard list tiles
             // closes the drawer if the required page is opened
             ...List.generate(
-              headerTitles.length,
+              drawerTitles.length,
               (index) {
                 return CustomListTile(
                   isUser: false,
-                  title: headerTitles[index],
+                  title: drawerTitles[index],
                   leadingWidget: Icon(
-                    headerIcons[index],
+                    drawerIcons[index],
                   ),
                   onTap: () {
                     if (index == 0) {
@@ -186,10 +182,6 @@ class AdminHome extends StatelessWidget {
                     } else if (index == 3) {
                       Navigator.pushNamed(context, AppRoutes.geofence);
                     } else if (index == 4) {
-                      Navigator.pushNamed(context, AppRoutes.profile);
-                    } else if (index == 5) {
-                      Navigator.pushNamed(context, AppRoutes.leaves);
-                    } else if (index == 6) {
                       Navigator.pushNamed(context, AppRoutes.settings);
                     } else {
                       // log out logic here
