@@ -10,27 +10,31 @@ class LeaveCard extends StatelessWidget {
     required this.leave,
     required this.noOfDays,
     super.key,
+    this.isTabbed = true,
   });
 
   final String startDate;
   final String endDate;
   final LeaveModel leave;
   final int noOfDays;
+  final bool isTabbed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       // on tab: go to leave details
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PendingLeaveDetails(
-              model: leave,
-            ),
-          ),
-        );
-      },
+      onTap: isTabbed
+          ? () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<PendingLeaveDetails>(
+                  builder: (context) => PendingLeaveDetails(
+                    model: leave,
+                  ),
+                ),
+              );
+            }
+          : null,
       child: Card(
         margin: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -54,15 +58,23 @@ class LeaveCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(7),
                     decoration: BoxDecoration(
-                      color: AppColors.lightOrangeColor,
+                      color: leave.status == 'Approved'
+                          ? Colors.green.withValues(alpha: 0.2)
+                          : leave.status == 'Rejected'
+                              ? Colors.red.withValues(alpha: 0.2)
+                              : AppColors.lightOrangeColor,
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                     ),
                     child: Text(
                       leave.status,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
-                        color: Colors.orange,
+                        color: leave.status == 'Approved'
+                            ? Colors.green
+                            : leave.status == 'Rejected'
+                                ? Colors.red
+                                : Colors.orange,
                       ),
                     ),
                   ),
