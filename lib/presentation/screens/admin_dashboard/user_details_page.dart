@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 import 'package:gps_attendance_system/core/utils/custom_calendar_timeline.dart';
 import 'package:intl/intl.dart';
@@ -71,15 +69,18 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       final record = attendanceRecords[index];
                       DateTime date = DateFormat('yyyy-M-d')
                           .parse(record['date'] as String);
-                      // String status = AttendanceHelper.getAttendanceStatus(record['checkInTime']?.toString() ?? '');
-                      // Color statusColor = AttendanceHelper.getStatusColor(status);
+                      String formattedDate =
+                          DateFormat('yyyy-M-d').format(date);
+                      String status = record['status'] as String;
+                      Color statusColor =
+                          AttendanceHelper.getStatusColor(status);
 
                       return Card(
                         elevation: 3,
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
                         child: ListTile(
                           title: Text(
-                            date.toString(),
+                            formattedDate,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Column(
@@ -99,16 +100,16 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                   Text("Check-Out: ${record['checkOutTime']}"),
                                 ],
                               ),
-                              // Row(
-                              //   children: [
-                              //     Icon(Icons.info, color: statusColor),
-                              //     const SizedBox(width: 5),
-                              //     Text(status,
-                              //         style: TextStyle(
-                              //             color: statusColor,
-                              //             fontWeight: FontWeight.bold)),
-                              //   ],
-                              // ),
+                              Row(
+                                children: [
+                                  Icon(Icons.info, color: statusColor),
+                                  const SizedBox(width: 5),
+                                  Text(status,
+                                      style: TextStyle(
+                                          color: statusColor,
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
                             ],
                           ),
                         ),
