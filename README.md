@@ -32,34 +32,3 @@ $ flutter run --flavor development --target lib/main_development.dart
 
 # production
 $ flutter run --flavor production --target lib/main_production.dart
-
-# Packages
-
-This project uses the following **Flutter packages**:
-
-### ✅ Core Dependencies
-- [`bloc`](https://pub.dev/packages/bloc) - State management using BLoC pattern.
-- [`flutter_bloc`](https://pub.dev/packages/flutter_bloc) - Integration of BLoC with Flutter widgets.
-- [`equatable`](https://pub.dev/packages/equatable) - Simplifies state comparisons in BLoC.
-- [`firebase_core`](https://pub.dev/packages/firebase_core) - Connects the app to Firebase.
-- [`firebase_auth`](https://pub.dev/packages/firebase_auth) - Handles user authentication.
-- [`cloud_firestore`](https://pub.dev/packages/cloud_firestore) - NoSQL database for storing app data.
-- [`shared_preferences`](https://pub.dev/packages/shared_preferences) - Local storage for lightweight data.
-- [`intl`](https://pub.dev/packages/intl) - Internationalization and date formatting.
-- [`uuid`](https://pub.dev/packages/uuid) - Generates unique IDs.
-
-### 📍 Location & Maps
-- [`geolocator`](https://pub.dev/packages/geolocator) - Access user location and GPS data.
-- [`google_maps_flutter`](https://pub.dev/packages/google_maps_flutter) - Embeds Google Maps into the app.
-
-### 🎨 UI & Utilities
-- [`calendar_timeline`](https://pub.dev/packages/calendar_timeline) - Displays a horizontal calendar widget.
-- [`skeletonizer`](https://pub.dev/packages/skeletonizer) - Shows loading skeleton placeholders.
-
-### 🛠 Development & Testing
-- [`bloc_test`](https://pub.dev/packages/bloc_test) - Testing utilities for BLoC.
-- [`mocktail`](https://pub.dev/packages/mocktail) - Mocking framework for unit tests.
-- [`build_runner`](https://pub.dev/packages/build_runner) - Code generation utilities.
-- [`very_good_analysis`](https://pub.dev/packages/very_good_analysis) - Linting and best practices enforcement.
-- [`flutter_test`](https://pub.dev/packages/flutter_test) - Built-in Flutter testing framework.  
-
