@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,22 +18,32 @@ class LeavesCubit extends Cubit<LeavesState> {
   // static method to get cubit object
   static LeavesCubit get(BuildContext context) => BlocProvider.of(context);
 
+  StreamSubscription<List<LeaveModel>>? _leavesSubscription;
+
   // Get all leaves from leaves service
   List<LeaveModel> allLeaves = [];
   List<LeaveModel> pendingLeaves = [];
+  List<LeaveModel> approvedLeaves = [];
+  List<LeaveModel> rejectedLeaves = [];
 
   // Get all leaves method (stream)
   void getLeaves() {
     emit(GetLeavesLoading());
     try {
-      LeaveService.getAllLeavesStream().listen((leaves) {
+      _leavesSubscription = LeaveService.getAllLeavesStream().listen((leaves) {
         allLeaves = leaves;
         pendingLeaves =
             allLeaves.where((leave) => leave.status == 'Pending').toList();
+        approvedLeaves =
+            allLeaves.where((leave) => leave.status == 'Approved').toList();
+        rejectedLeaves =
+            allLeaves.where((leave) => leave.status == 'Rejected').toList();
         emit(
           LeavesLoaded(
             totalLeaves: allLeaves,
             pendingLeaves: pendingLeaves,
+            approvedLeaves: approvedLeaves,
+            rejectedLeaves: rejectedLeaves,
           ),
         );
       });
@@ -40,17 +52,12 @@ class LeavesCubit extends Cubit<LeavesState> {
     }
   }
 
-  // Get user data who submit the leave
-  Future<UserModel?> getUserData(String uid) {
-    emit(LeaveUserDetailsLoaded());
-    return UserService.getUserData(uid);
-  }
-
   // Accept a leave
   Future<void> acceptLeave(LeaveModel leave) async {
     try {
       await LeaveService.approveLeave(leave);
       emit(LeaveApproved());
+      getLeaves();
     } catch (e) {
       emit(LeavesError(message: e.toString()));
     }
@@ -61,8 +68,15 @@ class LeavesCubit extends Cubit<LeavesState> {
     try {
       await LeaveService.rejectLeave(leave);
       emit(LeaveRejected());
+      getLeaves();
     } catch (e) {
       emit(LeavesError(message: e.toString()));
     }
+  }
+
+  @override
+  Future<void> close() {
+    _leavesSubscription?.cancel();
+    return super.close();
   }
 }

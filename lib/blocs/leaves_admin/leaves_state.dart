@@ -8,10 +8,16 @@ final class LeavesInitial extends LeavesState {}
 final class GetLeavesLoading extends LeavesState {}
 
 final class LeavesLoaded extends LeavesState implements Equatable {
+  LeavesLoaded(
+      {required this.approvedLeaves,
+      required this.rejectedLeaves,
+      required this.totalLeaves,
+      required this.pendingLeaves});
+
   final List<LeaveModel> totalLeaves;
   final List<LeaveModel> pendingLeaves;
-
-  LeavesLoaded({required this.totalLeaves, required this.pendingLeaves});
+  final List<LeaveModel> approvedLeaves;
+  final List<LeaveModel> rejectedLeaves;
 
   @override
   List<Object?> get props => [totalLeaves, pendingLeaves];
@@ -34,7 +40,12 @@ final class LeavesError extends LeavesState implements Equatable {
 
 final class LeaveApplied extends LeavesState {}
 
-final class LeaveUserDetailsLoaded extends LeavesState {}
+final class LeaveUserDetailsLoaded extends LeavesState {
+  LeaveUserDetailsLoaded({required this.userModel});
+
+  final UserModel? userModel;
+}
 
 final class LeaveApproved extends LeavesState {}
+
 final class LeaveRejected extends LeavesState {}

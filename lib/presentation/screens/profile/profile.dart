@@ -81,9 +81,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ListTile(
                   leading: const Icon(Icons.settings, color: Colors.grey),
                   title: const Text('Settings'),
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.settings);
-                  },
                   trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                 ),
               ],

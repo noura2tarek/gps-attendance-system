@@ -23,6 +23,7 @@ String formattedDate = format.format(date);
 //------------ Dummy data ---------//
 final List<UserModel> dummyUsersObjects = [
   UserModel(
+    id: '1',
     name: 'Noura Tarek',
     email: 'noura@gmail.com',
     contactNumber: '011455555',
@@ -30,6 +31,7 @@ final List<UserModel> dummyUsersObjects = [
     position: 'Software Engineer',
   ),
   UserModel(
+    id: '2',
     name: 'Ahmed Tarek',
     email: 'ahmed@gmail.com',
     contactNumber: '011455555',
@@ -37,6 +39,7 @@ final List<UserModel> dummyUsersObjects = [
     position: 'Software Engineer',
   ),
   UserModel(
+    id: '3',
     name: 'John doe',
     email: 'john@gmail.com',
     contactNumber: '011455555',
@@ -82,7 +85,6 @@ class AdminHome extends StatelessWidget {
     Icons.calendar_month,
     Icons.pending_actions,
   ];
-
 
   @override
   Widget build(BuildContext context) {

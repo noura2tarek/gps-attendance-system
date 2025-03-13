@@ -10,12 +10,14 @@ import 'package:gps_attendance_system/blocs/theme/theme_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_state.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
+import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_leave_details.dart';
 import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total_leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
@@ -95,7 +97,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     case AppRoutes.totalLeaves:
       return MaterialPageRoute(
-        builder: (context) => const TotalLeavesPage(),
+        builder: (context) => TotalLeavesPage(),
       );
     case AppRoutes.pendingApprovals:
       return MaterialPageRoute(
@@ -120,6 +122,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     case AppRoutes.homeLayoutRoute:
       return FadePageTransition(page: const HomeLayout());
+    case AppRoutes.pendingLeaveDetails:
+      LeaveModel model = settings.arguments! as LeaveModel;
+      return MaterialPageRoute(
+        builder: (context) => PendingLeaveDetails(model: model),
+      );
     default:
       return FadePageTransition(page: const HomeLayout());
   }

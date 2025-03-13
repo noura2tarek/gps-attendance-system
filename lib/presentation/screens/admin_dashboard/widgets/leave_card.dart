@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_leave_details.dart';
 
 class LeaveCard extends StatelessWidget {
   const LeaveCard({
@@ -25,13 +25,10 @@ class LeaveCard extends StatelessWidget {
       // on tab: go to leave details
       onTap: isTabbed
           ? () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute<PendingLeaveDetails>(
-                  builder: (context) => PendingLeaveDetails(
-                    model: leave,
-                  ),
-                ),
+                arguments: leave,
+                AppRoutes.pendingLeaveDetails,
               );
             }
           : null,

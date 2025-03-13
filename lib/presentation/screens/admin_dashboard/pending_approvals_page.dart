@@ -44,10 +44,6 @@ class PendingApprovalsPage extends StatelessWidget {
       ),
       body: BlocBuilder<LeavesCubit, LeavesState>(
         builder: (context, state) {
-          List<LeaveModel> pendingLeaves = [];
-          if (state is LeavesLoaded) {
-            pendingLeaves = state.pendingLeaves;
-          }
           if (state is LeavesError) {
             CustomSnackBar.show(
               context,
@@ -55,39 +51,64 @@ class PendingApprovalsPage extends StatelessWidget {
               color: chooseSnackBarColor(ToastStates.ERROR),
             );
           }
-          // Date formatter
-          final dateFormat = DateFormat('yyyy-MM-dd');
-          return Skeletonizer(
-            enabled: state is GetLeavesLoading,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(top: 16),
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  final leave = pendingLeaves.isEmpty
-                      ? dummyPendingLeaves[index]
-                      : pendingLeaves[index];
-                  final startDate = dateFormat.format(leave.startDate.toDate());
-                  final endDate = dateFormat.format(leave.endDate.toDate());
-                  int noOfDays = leave.endDate
-                      .toDate()
-                      .difference(leave.startDate.toDate())
-                      .inDays;
-                  return LeaveCard(
-                    startDate: startDate,
-                    endDate: endDate,
-                    leave: leave,
-                    noOfDays: noOfDays,
+          if (state is LeavesLoaded || state is GetLeavesLoading) {
+            // Date formatter
+            final dateFormat = DateFormat('yyyy-MM-dd');
+            List<LeaveModel> pendingLeaves = [];
+            if (state is LeavesLoaded) {
+              pendingLeaves = state.pendingLeaves;
+            }
+            return (pendingLeaves.isNotEmpty || state is GetLeavesLoading)
+                ? Skeletonizer(
+                    enabled: state is GetLeavesLoading,
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(top: 16),
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          final leave =
+                              pendingLeaves.isEmpty && state is GetLeavesLoading
+                                  ? dummyPendingLeaves[index]
+                                  : pendingLeaves[index];
+                          final startDate =
+                              dateFormat.format(leave.startDate.toDate());
+                          final endDate =
+                              dateFormat.format(leave.endDate.toDate());
+                          int noOfDays = leave.endDate
+                              .toDate()
+                              .difference(leave.startDate.toDate())
+                              .inDays;
+                          return LeaveCard(
+                            startDate: startDate,
+                            endDate: endDate,
+                            leave: leave,
+                            noOfDays: noOfDays,
+                          );
+                        },
+                        itemCount: pendingLeaves.isEmpty
+                            ? dummyPendingLeaves.length
+                            : pendingLeaves.length,
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 13,
+                        ),
+                      ),
+                    ),
+                  )
+                : const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'No Pending Leaves found',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
                   );
-                },
-                itemCount: pendingLeaves.isEmpty
-                    ? dummyPendingLeaves.length
-                    : pendingLeaves.length,
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 13,
-                ),
-              ),
-            ),
-          );
+          } else {
+            return const SizedBox();
+          }
         },
       ),
     );

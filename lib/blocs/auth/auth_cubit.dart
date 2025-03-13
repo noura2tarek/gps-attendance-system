@@ -88,6 +88,7 @@ class AuthCubit extends Cubit<AuthStates> {
       String uid = credential.user!.uid;
       // save user data in firebase
       UserModel newUser = UserModel(
+        id: uid,
         name: userModel.name,
         email: email,
         role: userModel.role,
