@@ -65,7 +65,7 @@ class LeaveService {
     });
     log('Leave rejected');
   }
-  
+
   // Get leaves by contact number
   static Stream<List<LeaveModel>> getLeavesByContactNumber(
       String contactNumber) {
@@ -78,6 +78,7 @@ class LeaveService {
               .toList(),
         );
   }
+
   // Update leave status
   static Future<void> updateLeaveStatus(
       String leaveId, String newStatus) async {
@@ -87,6 +88,5 @@ class LeaveService {
     } catch (e) {
       print('Error updating leave status: $e');
     }
-
   }
 }
