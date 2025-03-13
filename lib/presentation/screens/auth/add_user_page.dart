@@ -35,7 +35,6 @@ class AddUserPageState extends State<AddUserPage> {
   void _addNewUser() async {
     if (_formKey.currentState!.validate()) {
       UserModel userModel = UserModel(
-        id: '',
         name: _fullNameController.text,
         email: _emailController.text,
         role: _selectedRole,

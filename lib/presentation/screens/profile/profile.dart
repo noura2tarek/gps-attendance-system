@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
 import 'package:gps_attendance_system/presentation/screens/profile/widgets/reset_password.dart';
-import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -71,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      MaterialPageRoute<ResetPasswordScreen>(
                         builder: (context) {
                           return const ResetPasswordScreen();
                         },
@@ -84,15 +83,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   leading: const Icon(Icons.description, color: Colors.grey),
                   title: const Text('View Attendance Record'),
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return UserDetailsPage(
-                            userModel: userData!,
-                          );
-                        },
-                      ),
+                      arguments: userData!,
+                      AppRoutes.userDetailsRoute,
                     );
                   },
                   trailing: const Icon(Icons.chevron_right, color: Colors.grey),
@@ -101,13 +95,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   leading: const Icon(Icons.settings, color: Colors.grey),
                   title: const Text('Settings'),
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const SettingsPage();
-                        },
-                      ),
+                      AppRoutes.settings,
                     );
                   },
                   trailing: const Icon(Icons.chevron_right, color: Colors.grey),

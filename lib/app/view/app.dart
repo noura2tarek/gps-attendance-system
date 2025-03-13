@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/app_navigator.dart';
@@ -6,8 +5,8 @@ import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_state.dart';
-import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/leaves/leaves_bloc.dart';
+import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_state.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
@@ -21,7 +20,6 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_leave_details.dart';
-import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total_leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/users_page.dart';
@@ -29,6 +27,7 @@ import 'package:gps_attendance_system/presentation/screens/auth/add_user_page.da
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/request_leave_Page.dart';
+import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
 class App extends StatelessWidget {
@@ -50,18 +49,14 @@ class App extends StatelessWidget {
             ..getAdminData(),
         ),
         BlocProvider(
-
           create: (context) => LeavesCubit()..getLeaves(),
-),
+        ),
         BlocProvider(
           create: (context) {
-            final userId =
-                FirebaseAuth.instance.currentUser?.uid; // Get current user ID
             return LeaveBloc(
               LeaveService(),
             ); // Pass userId to LeaveBloc
           },
-
         ),
       ],
       child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(
