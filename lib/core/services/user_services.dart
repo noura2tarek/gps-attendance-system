@@ -92,6 +92,10 @@ class UserService {
     return usersData;
   }
 
+  static String? getCurrentUserId() {
+    return FirebaseAuth.instance.currentUser?.uid;
+  }
+
 //method to retrieve the contact number of current user
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final CollectionReference<Map<String, dynamic>> _usersCollection =

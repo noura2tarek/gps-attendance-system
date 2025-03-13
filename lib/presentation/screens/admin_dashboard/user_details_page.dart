@@ -1,5 +1,6 @@
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 import 'package:gps_attendance_system/core/utils/custom_calendar_timeline.dart';
@@ -15,18 +16,19 @@ class UserDetailsPage extends StatefulWidget {
 }
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
-  // dummy attendance records
-  //-- get from database (collection attendance)
-
-  final List<Map<String, String>> attendanceRecords = [
-    {'date': '2023-04-10', 'checkIn': '10:12 am', 'checkOut': '07:00 pm'},
-    {'date': '2023-04-11', 'checkIn': '12:00 am', 'checkOut': '07:10 pm'},
-    {'date': '2023-04-12', 'checkIn': '09:50 am', 'checkOut': '07:00 pm'},
-    {'date': '2023-04-13', 'checkIn': '09:12 am', 'checkOut': '06:45 pm'},
-    {'date': '2023-04-14', 'checkIn': '10:30 am', 'checkOut': '07:00 pm'},
-  ];
-
   DateTime selectedDate = DateTime.now();
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> fetchAttendanceRecords() {
+    String selectedDateString = DateFormat('yyyy-M-d').format(selectedDate);
+
+    log("Fetching attendance for ID: ${widget.userModel.id} on $selectedDateString");
+
+    return FirebaseFirestore.instance
+        .collection('attendanceRecords')
+        .where('userId', isEqualTo: widget.userModel.id)
+        .where('date', isEqualTo: selectedDateString)
+        .snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,74 +38,88 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       appBar: AppBar(title: Text('${widget.userModel.name} Attendance')),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Calendar Timeline to select date
-              CustomCalendarTimeline(
-                onDateSelected: (date) {
-                  setState(() => selectedDate = date);
-                },
-              ),
-              const SizedBox(height: 15),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: attendanceRecords.length,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final record = attendanceRecords[index];
-                  String formattedDate = DateFormat('MMMM dd, yyyy')
-                      .format(DateTime.parse(record['date']!));
-                  String status =
-                      AttendanceHelper.getAttendanceStatus(record['checkIn']!);
-                  Color statusColor = AttendanceHelper.getStatusColor(status);
+        child: Column(
+          children: [
+            CustomCalendarTimeline(
+              onDateSelected: (date) {
+                setState(() => selectedDate = date);
+              },
+            ),
+            const SizedBox(height: 15),
+            // Text(widget.userModel.id),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: fetchAttendanceRecords(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(child: Text("Error: ${snapshot.error}"));
+                  }
+                  final attendanceRecords = snapshot.data!.docs;
+                  if (attendanceRecords.isEmpty) {
+                    return const Center(
+                        child: Text("No attendance records found"));
+                  }
 
-                  return Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: ListTile(
-                      title: Text(
-                        formattedDate,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(Icons.login, color: Colors.green),
-                              const SizedBox(width: 5),
-                              Text("Check-In: ${record['checkIn']}"),
-                            ],
+                  return ListView.builder(
+                    itemCount: attendanceRecords.length,
+                    itemBuilder: (context, index) {
+                      final record = attendanceRecords[index];
+                      DateTime date = DateFormat('yyyy-M-d')
+                          .parse(record['date'] as String);
+                      String formattedDate =
+                          DateFormat('yyyy-M-d').format(date);
+                      String status = record['status'] as String;
+                      Color statusColor =
+                          AttendanceHelper.getStatusColor(status);
+
+                      return Card(
+                        elevation: 3,
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          title: Text(
+                            formattedDate,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Row(
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Icon(Icons.logout, color: Colors.red),
-                              const SizedBox(width: 5),
-                              Text("Check-Out: ${record['checkOut']}"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Icon(Icons.info, color: statusColor),
-                              const SizedBox(width: 5),
-                              Text(
-                                status,
-                                style: TextStyle(
-                                  color: statusColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.login, color: Colors.green),
+                                  const SizedBox(width: 5),
+                                  Text("Check-In: ${record['checkInTime']}"),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.logout, color: Colors.red),
+                                  const SizedBox(width: 5),
+                                  Text("Check-Out: ${record['checkOutTime']}"),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.info, color: statusColor),
+                                  const SizedBox(width: 5),
+                                  Text(status,
+                                      style: TextStyle(
+                                          color: statusColor,
+                                          fontWeight: FontWeight.bold)),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

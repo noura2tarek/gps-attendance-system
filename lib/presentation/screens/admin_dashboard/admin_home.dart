@@ -23,7 +23,7 @@ String formattedDate = format.format(date);
 //------------ Dummy data ---------//
 final List<UserModel> dummyUsersObjects = [
   UserModel(
-    id: '1',
+    id: "1",
     name: 'Noura Tarek',
     email: 'noura@gmail.com',
     contactNumber: '011455555',
@@ -31,7 +31,7 @@ final List<UserModel> dummyUsersObjects = [
     position: 'Software Engineer',
   ),
   UserModel(
-    id: '2',
+    id: "2",
     name: 'Ahmed Tarek',
     email: 'ahmed@gmail.com',
     contactNumber: '011455555',
@@ -39,7 +39,7 @@ final List<UserModel> dummyUsersObjects = [
     position: 'Software Engineer',
   ),
   UserModel(
-    id: '3',
+    id: "3",
     name: 'John doe',
     email: 'john@gmail.com',
     contactNumber: '011455555',
@@ -49,9 +49,14 @@ final List<UserModel> dummyUsersObjects = [
 ];
 
 /////////
-class AdminHome extends StatelessWidget {
+class AdminHome extends StatefulWidget {
   AdminHome({super.key});
 
+  @override
+  State<AdminHome> createState() => _AdminHomeState();
+}
+
+class _AdminHomeState extends State<AdminHome> {
   final TextEditingController searchController = TextEditingController();
 
   final List<String> containerTitles = [
