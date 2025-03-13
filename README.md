@@ -3,11 +3,13 @@
 CheckMate is a GPS-based HR attendance tracking system that enables employees to check in/out from designated locations. It provides real-time tracking, reports, and leave management.
 
 ## Features
-- **GPS-Based Check-In/Out** – Employees can check in only within specified locations.
-- **Leaves Management** – Employees can request leaves, and admins can approve/reject.
-- **Authentication** – Firebase-based login with Email and Password Sign-In.
-- **Live Tracking** – HR managers can monitor attendance in real time.  
-- **Localization** – Supports multiple languages for a better user experience.
+- **GPS-Based Check-In/Out** Employees can check in only within specified locations.
+- **Leaves Management** Employees can request leaves, and admins can approve/reject.
+- **Authentication** Firebase-based login with Email and Password.
+- **Live Tracking** HR managers can monitor attendance in realtime.  
+- **Localization** Supports multiple languages for a better user experience.
+- **Register New User** Admin can register new employee and add his role.
+- **Leave Balance** Admin can check the leave balance for each employee.
 
 ## Tech-stack
 - **Frontend:** Flutter (Dart)
