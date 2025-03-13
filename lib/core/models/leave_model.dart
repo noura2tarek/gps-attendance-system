@@ -38,7 +38,7 @@ class LeaveModel {
   String reason;
   String userId;
   String id;
-  String status; // pending, approved, rejected
+  String status; // Pending, Approved, Rejected
 
   Map<String, dynamic> toMap() {
     return {

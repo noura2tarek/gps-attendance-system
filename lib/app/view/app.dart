@@ -6,11 +6,13 @@ import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_cubit.dart';
 import 'package:gps_attendance_system/blocs/language/change_language_state.dart';
+import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/leaves/leaves_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_bloc.dart';
 import 'package:gps_attendance_system/blocs/theme/theme_state.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
+import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
@@ -18,6 +20,7 @@ import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_leave_details.dart';
 import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total_leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
@@ -25,9 +28,7 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/users
 import 'package:gps_attendance_system/presentation/screens/auth/add_user_page.dart';
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
-import 'package:gps_attendance_system/presentation/screens/leaves/leaves_page.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/request_leave_Page.dart';
-import 'package:gps_attendance_system/presentation/screens/profile/profile.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
 class App extends StatelessWidget {
@@ -49,6 +50,10 @@ class App extends StatelessWidget {
             ..getAdminData(),
         ),
         BlocProvider(
+
+          create: (context) => LeavesCubit()..getLeaves(),
+),
+        BlocProvider(
           create: (context) {
             final userId =
                 FirebaseAuth.instance.currentUser?.uid; // Get current user ID
@@ -56,6 +61,7 @@ class App extends StatelessWidget {
               LeaveService(),
             ); // Pass userId to LeaveBloc
           },
+
         ),
       ],
       child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(
@@ -105,15 +111,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     case AppRoutes.totalLeaves:
       return MaterialPageRoute(
-        builder: (context) => const TotalLeavesPage(),
+        builder: (context) => TotalLeavesPage(),
       );
     case AppRoutes.pendingApprovals:
       return MaterialPageRoute(
         builder: (context) => const PendingApprovalsPage(),
-      );
-    case AppRoutes.leaves:
-      return MaterialPageRoute(
-        builder: (context) => const LeavesPage(),
       );
     case AppRoutes.requestLeave:
       return MaterialPageRoute(
@@ -134,8 +136,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     case AppRoutes.homeLayoutRoute:
       return FadePageTransition(page: const HomeLayout());
-    case AppRoutes.profile:
-      return FadePageTransition(page: const ProfilePage());
+    case AppRoutes.pendingLeaveDetails:
+      LeaveModel model = settings.arguments! as LeaveModel;
+      return MaterialPageRoute(
+        builder: (context) => PendingLeaveDetails(model: model),
+      );
     default:
       return FadePageTransition(page: const HomeLayout());
   }

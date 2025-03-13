@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
+import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
-import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
@@ -24,6 +23,7 @@ String formattedDate = format.format(date);
 //------------ Dummy data ---------//
 final List<UserModel> dummyUsersObjects = [
   UserModel(
+    id: '1',
     name: 'Noura Tarek',
     email: 'noura@gmail.com',
     contactNumber: '011455555',
@@ -31,6 +31,7 @@ final List<UserModel> dummyUsersObjects = [
     position: 'Software Engineer',
   ),
   UserModel(
+    id: '2',
     name: 'Ahmed Tarek',
     email: 'ahmed@gmail.com',
     contactNumber: '011455555',
@@ -38,6 +39,7 @@ final List<UserModel> dummyUsersObjects = [
     position: 'Software Engineer',
   ),
   UserModel(
+    id: '3',
     name: 'John doe',
     email: 'john@gmail.com',
     contactNumber: '011455555',
@@ -47,14 +49,9 @@ final List<UserModel> dummyUsersObjects = [
 ];
 
 /////////
-class AdminHome extends StatefulWidget {
+class AdminHome extends StatelessWidget {
   AdminHome({super.key});
 
-  @override
-  State<AdminHome> createState() => _AdminHomeState();
-}
-
-class _AdminHomeState extends State<AdminHome> {
   final TextEditingController searchController = TextEditingController();
 
   final List<String> containerTitles = [
@@ -64,24 +61,20 @@ class _AdminHomeState extends State<AdminHome> {
     AppStrings.pendingApprovals,
   ];
 
-  final List<String> headerTitles = [
+  final List<String> drawerTitles = [
     AppStrings.dashboard,
     AppStrings.employees,
     AppStrings.managers,
     AppStrings.geofence,
-    AppStrings.profile,
-    AppStrings.leaves,
     AppStrings.settings,
     AppStrings.logout,
   ];
 
-  final List<IconData> headerIcons = [
+  final List<IconData> drawerIcons = [
     Icons.dashboard,
     Icons.person,
     Icons.supervisor_account,
     Icons.location_on,
-    Icons.person,
-    Icons.calendar_month,
     Icons.settings,
     Icons.logout,
   ];
@@ -92,28 +85,6 @@ class _AdminHomeState extends State<AdminHome> {
     Icons.calendar_month,
     Icons.pending_actions,
   ];
-  List<int> counts = [0, 0, 0, 0];
-  List<LeaveModel> allLeaves = [];
-  List<LeaveModel> pendingLeaves = [];
-
-  // Get all leaves method
-  Future<void> _geAllLeaves() async {
-    LeaveService.getAllLeavesStream().listen((leaves) {
-      setState(() {
-        allLeaves = leaves;
-        pendingLeaves =
-            allLeaves.where((leave) => leave.status == 'Pending').toList();
-        counts[2] = allLeaves.length;
-        counts[3] = pendingLeaves.length;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    _geAllLeaves();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,13 +154,13 @@ class _AdminHomeState extends State<AdminHome> {
             // Dashboard list tiles
             // closes the drawer if the required page is opened
             ...List.generate(
-              headerTitles.length,
+              drawerTitles.length,
               (index) {
                 return CustomListTile(
                   isUser: false,
-                  title: headerTitles[index],
+                  title: drawerTitles[index],
                   leadingWidget: Icon(
-                    headerIcons[index],
+                    drawerIcons[index],
                   ),
                   onTap: () {
                     if (index == 0) {
@@ -213,10 +184,6 @@ class _AdminHomeState extends State<AdminHome> {
                     } else if (index == 3) {
                       Navigator.pushNamed(context, AppRoutes.geofence);
                     } else if (index == 4) {
-                      Navigator.pushNamed(context, AppRoutes.profile);
-                    } else if (index == 5) {
-                      Navigator.pushNamed(context, AppRoutes.leaves);
-                    } else if (index == 6) {
                       Navigator.pushNamed(context, AppRoutes.settings);
                     } else {
                       // log out logic here
@@ -259,11 +226,20 @@ class _AdminHomeState extends State<AdminHome> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return CustomContainer(
-                  containerTitles: containerTitles,
-                  icons: containerIcons,
-                  countNumber: counts[index],
-                  index: index,
+                return BlocBuilder<LeavesCubit, LeavesState>(
+                  builder: (context, state) {
+                    List<int> counts = [0, 0, 0, 0];
+                    if(state is LeavesLoaded){
+                      counts[2] = state.totalLeaves.length;
+                      counts[3] = state.pendingLeaves.length;
+                    }
+                    return CustomContainer(
+                      containerTitles: containerTitles,
+                      icons: containerIcons,
+                      countNumber: counts[index],
+                      index: index,
+                    );
+                  },
                 );
               },
             ),

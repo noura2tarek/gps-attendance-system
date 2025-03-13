@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 enum Role { admin, employee, manager }
 
 class UserModel {
+  final String? id;
   final String name;
   final String email;
   final String contactNumber;
@@ -18,6 +19,7 @@ class UserModel {
     required this.contactNumber,
     required this.role,
     required this.position,
+    this.id,
     this.isOnLeave = false,
     this.leaveBalance = 25,
   });
@@ -27,6 +29,7 @@ class UserModel {
   ) {
     final data = snapshot.data();
     return UserModel(
+      id: snapshot.id,
       name: data?['name'] as String,
       email: data?['email'] as String,
       contactNumber: data?['contactNumber'] as String,
@@ -40,6 +43,7 @@ class UserModel {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
+      'id': id,
       'email': email,
       'contactNumber': contactNumber,
       'isOnLeave': isOnLeave,

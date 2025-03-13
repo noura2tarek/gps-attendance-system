@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
+import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/search_container.dart';
@@ -24,23 +25,22 @@ class UsersPage extends StatefulWidget {
 
 class _UsersPageState extends State<UsersPage> {
   TextEditingController searchController = TextEditingController();
-  List<UserModel> allUsers = [];
+
   List<UserModel> filteredUsers = [];
   DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    allUsers = widget.users;
-    filteredUsers = allUsers;
+    filteredUsers = widget.users;
   }
 
   void filterUsers(String query) {
     setState(() {
       if (query.isEmpty) {
-        filteredUsers = allUsers;
+        filteredUsers = widget.users;
       } else {
-        filteredUsers = allUsers
+        filteredUsers = widget.users
             .where(
               (user) => user.name.toLowerCase().contains(query.toLowerCase()),
             )
@@ -61,7 +61,7 @@ class _UsersPageState extends State<UsersPage> {
       // Add user button
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.pushNamed(context, '/add-user');
+          Navigator.pushNamed(context, AppRoutes.addUser);
         },
         label: const Row(
           children: [
