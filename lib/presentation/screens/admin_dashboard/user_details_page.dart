@@ -60,7 +60,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
                   return Card(
                     elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
                       title: Text(
                         formattedDate,
@@ -87,10 +87,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                             children: [
                               Icon(Icons.info, color: statusColor),
                               const SizedBox(width: 5),
-                              Text(status,
-                                  style: TextStyle(
-                                      color: statusColor,
-                                      fontWeight: FontWeight.bold)),
+                              Text(
+                                status,
+                                style: TextStyle(
+                                  color: statusColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           ),
                         ],
