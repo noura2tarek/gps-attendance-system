@@ -27,6 +27,13 @@ class EmployeeCheckedOut extends AttendanceState {
   EmployeeCheckedOut({required this.checkOutTime});
 }
 
+class CompanyLocationUpdated extends AttendanceState {
+  final double lat;
+  final double lng;
+
+  CompanyLocationUpdated(this.lat, this.lng);
+}
+
 class EmployeeLocationError extends AttendanceState {
   final String message;
 

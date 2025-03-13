@@ -12,19 +12,6 @@ class LeaveService {
   static final CollectionReference<Map<String, dynamic>> _leavesCollection =
       _firestore.collection('leaves');
 
-  // Future<void> applyLeave(LeaveModel leave) async {
-  //   try {
-  //     await _firestore
-  //         .collection('users')
-  //         .doc(leave.userId)
-  //         .collection('leaves')
-  //         .doc(leave.id)
-  //         .set(leave.toMap());
-  //     print("Leave Applied Successfully");
-  //   } catch (e) {
-  //     print("Error applying leave: $e");
-  //   }
-  // }
   static Future<void> applyLeave(LeaveModel leave) async {
     try {
       await _leavesCollection.doc(leave.id).set(leave.toMap());
@@ -77,5 +64,29 @@ class LeaveService {
       'status': 'unApproved',
     });
     log('Leave rejected');
+  }
+  
+  // Get leaves by contact number
+  static Stream<List<LeaveModel>> getLeavesByContactNumber(
+      String contactNumber) {
+    return _leavesCollection
+        .where('contactNumber', isEqualTo: contactNumber)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => LeaveModel.fromFirestore(doc))
+              .toList(),
+        );
+  }
+  // Update leave status
+  static Future<void> updateLeaveStatus(
+      String leaveId, String newStatus) async {
+    try {
+      await _leavesCollection.doc(leaveId).update({'status': newStatus});
+      print('Leave status updated successfully');
+    } catch (e) {
+      print('Error updating leave status: $e');
+    }
+
   }
 }

@@ -10,3 +10,10 @@ class CheckEmployeeLocation extends AttendanceEvent {}
 class CheckIn extends AttendanceEvent {}
 
 class CheckOut extends AttendanceEvent {}
+
+class CompanyLocationFetched extends AttendanceEvent {
+  final double lat;
+  final double lng;
+
+  CompanyLocationFetched(this.lat, this.lng);
+}
