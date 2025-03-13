@@ -20,12 +20,13 @@ It provides real-time attendannce tracking, and leaves management.
 The application contains three user roles:
    - **Employee role**
    - **Manager role**
-   - **Admin role**                                                                   
-The Employee or manager can checkin/checkout, view his leaves, request a leave, track his attendance data.                                        
-The Admin manages and adds users (employee or manager), track all users attendance in real time from his dashboard.                             
-When The Employee or manager login to the app, he will be redirected to the Home layout page.                                               
-This layout includes checkin page to checkin, leaves page include user leaves, and profile page.                                    
-When the admin login to the app, he will be redirected to the admin dashboard layout for tracking Attendance and leaves requests.                                                                     
+   - **Admin role**                    
+  **Funcions of every user role:**                                                            
+     - The Employee/Manager can checkin/checkout, view his leaves requests, request a leave, track his attendance data.                                                         
+     - The Admin manages users and add every user with his specified role in the system, track all users attendance in real time from his dashboard.                                          
+     - When The Employee/manager logins to the app, he will be redirected to the Home layout page.                                                      
+     - This layout includes checkin page to checkin, leaves page include user leaves, and profile page.                                            
+     - When the admin logins to the app, he will be redirected to the admin dashboard layout for tracking Attendance and leaves requests.                                                                                 
 
 -------------------------------------------------------
 # Tech-stack (System Components)
