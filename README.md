@@ -2,27 +2,32 @@
 
 CheckMate is a GPS-based HR attendance tracking system that enables employees to check in/out from designated locations. It provides real-time tracking, reports, and leave management.
 
-## Features
-- **GPS-Based Check-In/Out** Employees can check in only within specified locations.
-- **Leaves Management** Employees can request leaves, and admins can approve/reject.
-- **Authentication** Firebase-based login with Email and Password.
-- **Live Tracking** HR managers can monitor attendance in realtime.  
-- **Localization** Supports multiple languages for a better user experience.
-- **Register New User** Admin can register new employee and add his role.
-- **Leave Balance** Admin can check the leave balance for each employee.
+# Features
 
-## Tech-stack
-- **Frontend:** Flutter (Dart)
+- **GPS-Based Check-In/Out**: Employees can check in/out only within specified locations.
+- **Leaves Management**: Employees can request leaves, and admins can approve/reject.
+- **Authentication**: Firebase-based login with Email and Password.
+- **Live Tracking**: HR managers (Admin) can monitor all employees attendance in realtime.  
+- **Localization**: Supports multiple languages for a better user experience.
+- **Register New User**: Admin can add new employee and his role from his dashboard.
+- **Leave Balance**: Every employee can check/track his leave balance and his leaves requests.
+- **Theme feature**: The user can toggle between light and darl theme modes.
+
+# Tech-stack (System Components)
+- **Frontend: Flutter (Dart)** 
+    1- User View (home layout includes check in, profile, and leaves pages).                          
+    2- Admin View (Admin dashboard in mobile design (the same app) for tracking Attendance Records and manage leaves requests).               
 - **Backend:** Firebase (Firestore, Authentication)
-- **State Management:** BLoC
-- **GPS Services:** Google Maps API 
-
+- **State Management:** BLoC State Management.
+- **GPS Services:** Google Maps API.
+  
+------------------------------------------------
 ## Getting Started
 
-There is 3 flavors for this app:
-- staging
-- development
-- production
+There is 3 Flavors for this app:
+ - staging
+ - development
+ - production
 
 # staging
 $ flutter run --flavor staging --target lib/main_staging.dart
@@ -33,7 +38,8 @@ $ flutter run --flavor development --target lib/main_development.dart
 # production
 $ flutter run --flavor production --target lib/main_production.dart
 
-# Packages
+------------------------------------------------
+# Packages Used
 This project uses the following **Flutter packages**:
 
 ### ✅ Core Dependencies
