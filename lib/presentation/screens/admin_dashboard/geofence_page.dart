@@ -20,7 +20,7 @@ class _GeofencePageState extends State<GeofencePage> {
     setState(() {
       _circle = {
         Circle(
-          circleId: CircleId('value'),
+          circleId: const CircleId('value'),
           center: newLocation,
           radius: 100,
           strokeWidth: 2,
@@ -42,13 +42,16 @@ class _GeofencePageState extends State<GeofencePage> {
     });
   }
 
-  void _saveLocation() async {
+  Future<void> _saveLocation() async {
     if (_location == null) return;
     await _firestore.collection('company-location').doc('company-location').set(
       {'latitude': _location!.latitude, 'longitude': _location!.longitude},
     );
-    CustomSnackBar.show(context, 'New Geofence added succusfully',
-        color: chooseSnackBarColor(ToastStates.SUCCESS));
+    CustomSnackBar.show(
+      context,
+      'New Geofence added succusfully',
+      color: chooseSnackBarColor(ToastStates.SUCCESS),
+    );
   }
 
   @override
@@ -79,8 +82,10 @@ class _GeofencePageState extends State<GeofencePage> {
               bottom: 20,
               left: 20,
               child: ElevatedButton(
-                  onPressed: _saveLocation, child: Text('Save Location')),
-            )
+                onPressed: _saveLocation,
+                child: const Text('Save Location'),
+              ),
+            ),
         ],
       ),
     );

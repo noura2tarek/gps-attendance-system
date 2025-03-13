@@ -104,9 +104,7 @@ class _LeavesPageState extends State<LeavesPage> {
                   }
                 },
               ),
-
               const SizedBox(height: 14),
-
               // Upcoming Leaves Header
               const Text(
                 'Upcoming Leaves',
@@ -145,7 +143,7 @@ class _LeavesPageState extends State<LeavesPage> {
 
               const SizedBox(height: 10),
 
-              // Upcoming Leaves List
+              //--- Upcoming Leaves List
               BlocBuilder<LeaveBloc, LeaveState>(
                 builder: (context, state) {
                   if (state is LeaveLoaded) {
@@ -209,9 +207,7 @@ class _LeavesPageState extends State<LeavesPage> {
                   }
                 },
               ),
-
               const SizedBox(height: 10),
-
               // Request Leave Button
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
