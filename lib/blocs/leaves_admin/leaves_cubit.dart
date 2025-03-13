@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
-import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:meta/meta.dart';
 
 part 'leaves_state.dart';

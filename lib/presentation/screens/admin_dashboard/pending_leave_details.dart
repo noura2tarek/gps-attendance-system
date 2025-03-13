@@ -23,7 +23,7 @@ class PendingLeaveDetails extends StatefulWidget {
 class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
   UserModel? _userModel;
 
-  _getUserData() async {
+  void _getUserData() async {
     _userModel = await UserService.getUserData(widget.model.userId);
     setState(() {});
   }
