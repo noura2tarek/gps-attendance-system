@@ -1,6 +1,7 @@
 # CheckMate
 
-CheckMate is a GPS-based HR attendance tracking system that enables employees to check in/out from designated locations. It provides real-time tracking, reports, and leave management.
+CheckMate is a GPS-based HR attendance tracking system that enables employees or managers to check in/out from designated locations.                               
+It provides real-time attendannce tracking, and leaves management.
 
 # Features
 
@@ -11,12 +12,26 @@ CheckMate is a GPS-based HR attendance tracking system that enables employees to
 - **Localization**: Supports multiple languages for a better user experience.
 - **Register New User**: Admin can add new employee and his role from his dashboard.
 - **Leave Balance**: Every employee can check/track his leave balance and his leaves requests.
-- **Theme feature**: The user can toggle between light and darl theme modes.
+- **Theme feature**: The user can toggle between light and dark theme modes.
+  
+--------------------------------------------------
 
+# User Roles
+The application contains three user roles:
+  - **Employee role**
+  - **Manager role**
+  - **Admin role**
+- The Employee or manager can checkin/checkout, view his leaves, request a leave, track his attendance data.
+- The Admin manages and adds users (employee or manager), track all users attendance in real time from his dashboard.
+- When The Employee or manager login to the app, he will be redirected to the Home layout page.                         
+- This layout includes checkin page to checkin, leaves page include user leaves, and profile page.           
+- When the admin login to the app, he will be redirected to the admin dashboard layout for tracking Attendance and leaves requests.                           
+
+-------------------------------------------------------
 # Tech-stack (System Components)
 - **Frontend: Flutter (Dart)** 
-    1- User View (home layout includes check in, profile, and leaves pages).                          
-    2- Admin View (Admin dashboard in mobile design (the same app) for tracking Attendance Records and manage leaves requests).               
+    - **User View**: (home layout includes check in, profile, and leaves pages).                          
+    - **Admin View**: (Admin dashboard in mobile design (the same app) for tracking Attendance Records and manage leaves requests).               
 - **Backend:** Firebase (Firestore, Authentication)
 - **State Management:** BLoC State Management.
 - **GPS Services:** Google Maps API.
