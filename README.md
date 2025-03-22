@@ -1,7 +1,7 @@
 # CheckMate
 
 CheckMate is a GPS-based HR attendance tracking system that enables employees or managers to check in/out from designated locations.                               
-It provides real-time attendannce tracking, and leaves management.
+It provides real-time attendance tracking, and leaves management.
 
 # Features
 
