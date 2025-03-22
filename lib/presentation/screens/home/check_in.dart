@@ -90,13 +90,13 @@ class _AttendanceState extends State<Attendance> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Detailscard(
+                      DetailsCard(
                         title: 'Check In',
                         subtitle: checkInTime,
                         icon: Icons.login,
                         iconColor: const Color(0xff203546),
                       ),
-                      Detailscard(
+                      DetailsCard(
                         title: 'Check Out',
                         subtitle: checkOutTime,
                         icon: Icons.login,
