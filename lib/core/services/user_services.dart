@@ -45,12 +45,7 @@ class UserService {
   // Add user document to the collection users in database
   // After adding an user, from the admin side.
   static Future<void> addUser(String uid, UserModel user) async {
-    try {
-      await users.doc(uid).set(user.toJson());
-      print('User added successfully.');
-    } catch (e) {
-      throw Exception('Error adding user: $e');
-    }
+    await users.doc(uid).set(user.toJson());
   }
 
   // Get user data from firestore
@@ -82,35 +77,31 @@ class UserService {
   static Future<List<UserModel>> getAllUsers() async {
     final snapshot = await users.get();
     List<UserModel> usersData = [];
-    snapshot.docs.forEach((doc) {
+    for (final doc in snapshot.docs) {
       usersData.add(
         UserModel.fromFirestore(
           doc as DocumentSnapshot<Map<String, dynamic>>,
         ),
       );
-    });
+    }
     return usersData;
   }
 
+  // Get current user id
   static String? getCurrentUserId() {
     return FirebaseAuth.instance.currentUser?.uid;
   }
 
-//method to retrieve the contact number of current user
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  static final CollectionReference<Map<String, dynamic>> _usersCollection =
-      _firestore.collection('users');
+  // method to retrieve the contact number of current user
 
   // Fetch the current user's contact number
   static Future<String?> getCurrentUserContactNumber() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    print("Current user ID: $userId"); // Debug log
+    final userId = getCurrentUserId();
     if (userId != null) {
-      final userDoc = await _usersCollection.doc(userId).get();
+      final userDoc = await users.doc(userId).get();
       if (userDoc.exists) {
-        final userData = userDoc.data() as Map<String, dynamic>?;
+        final userData = userDoc.data();
         final contactNumber = userData?['contactNumber'] as String?;
-        print("Fetched contact number: $contactNumber"); // Debug log
         return contactNumber;
       }
     }
