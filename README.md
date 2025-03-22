@@ -23,7 +23,7 @@ The application contains three user roles:
    - **Admin role.**                                                         
 **Funcions of every user role:**                                                               
      - The Employee/Manager can checkin/checkout, view his leaves requests, request a leave, track his attendance data.                                                         
-     - The Admin manages users and add every user with his specified role in the system, track all users attendance in real time from his dashboard.                                          
+     - The Admin manages users, add every user with his specified role in the system, and track all users attendance in real time from his dashboard.                                          
      - When The Employee/manager logins to the app, he will be redirected to the Home layout page.                                                      
      - This layout includes checkin page to checkin, leaves page include user leaves, and profile page.                                            
      - When the admin logins to the app, he will be redirected to the admin dashboard layout for tracking Attendance and leaves requests.                                                                                 
