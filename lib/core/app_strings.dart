@@ -15,5 +15,5 @@ class AppStrings {
   static const String pendingApprovals = 'Pending\nApprovals';
   static const String roleKey = 'role';
   static const String id = 'id';
-  static const String viewMode = 'View Mode';
+  static const String adminMode = 'Admin Mode';
 }

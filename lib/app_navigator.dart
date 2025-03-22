@@ -25,7 +25,15 @@ class AppNavigator extends StatelessWidget {
               SharedPrefsService.getData(key: AppStrings.roleKey) as String?;
           log('From AppNavigator: user role saved is: $userRole');
           if (userRole == 'admin') {
-            return AdminHome();
+            bool? mode =
+                SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
+            print('mode saved is $mode');
+            bool isAdminMode = mode ?? true;
+            if (isAdminMode == true) {
+              return AdminHome();
+            } else {
+              return const HomeLayout();
+            }
           } else {
             return const HomeLayout();
           }

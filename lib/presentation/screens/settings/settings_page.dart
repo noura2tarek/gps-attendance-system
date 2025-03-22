@@ -23,6 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
   IconData icon = Icons.person;
   bool isAdminMode = true;
 
+  // Toggle user mode
   Future<void> _toggleMode() async {
     setState(() {
       if (isAdminMode) {
@@ -41,16 +42,16 @@ class _SettingsPageState extends State<SettingsPage> {
       isAdminMode = !isAdminMode;
     });
     await SharedPrefsService.saveData(
-      key: AppStrings.viewMode,
+      key: AppStrings.adminMode,
       value: isAdminMode,
     );
   }
 
   Role? userRole;
 
-  // get saved mode
+  // Get saved mode
   Future<void> _getSavedMode() async {
-    bool? mode = SharedPrefsService.getData(key: AppStrings.viewMode) as bool?;
+    bool? mode = SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
     setState(() {
       isAdminMode = mode ?? true;
       text = isAdminMode ? 'Switch to User Mode' : 'Switch to Admin Mode';
@@ -59,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
     log('The saved mode is: $isAdminMode');
   }
 
-  // get user data to check user role
+  // Get user data to check user role
   Future<void> _getUserData() async {
     String? role =
         SharedPrefsService.getData(key: AppStrings.roleKey) as String?;
