@@ -38,20 +38,20 @@ The application contains three user roles:
 - **GPS Services:** Google Maps API.
   
 ------------------------------------------------
-## Getting Started
+# Getting Started
 
 There is 3 Flavors for this app:
  - staging
  - development
  - production
 
-# staging
+## staging
 $ flutter run --flavor staging --target lib/main_staging.dart
 
-# development
+## development
 $ flutter run --flavor development --target lib/main_development.dart
 
-# production
+## production
 $ flutter run --flavor production --target lib/main_production.dart
 
 ------------------------------------------------
