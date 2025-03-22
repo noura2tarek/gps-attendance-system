@@ -1,14 +1,13 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/setting_manager.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
-import 'package:gps_attendance_system/presentation/widgets/Factory%20Pattern.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gps_attendance_system/presentation/widgets/widget_factory.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -23,6 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
   IconData icon = Icons.person;
   bool isAdminMode = true;
 
+  // Toggle user mode
   Future<void> _toggleMode() async {
     setState(() {
       if (isAdminMode) {
@@ -41,16 +41,16 @@ class _SettingsPageState extends State<SettingsPage> {
       isAdminMode = !isAdminMode;
     });
     await SharedPrefsService.saveData(
-      key: AppStrings.viewMode,
+      key: AppStrings.adminMode,
       value: isAdminMode,
     );
   }
 
   Role? userRole;
 
-  // get saved mode
+  // Get saved mode
   Future<void> _getSavedMode() async {
-    bool? mode = SharedPrefsService.getData(key: AppStrings.viewMode) as bool?;
+    bool? mode = SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
     setState(() {
       isAdminMode = mode ?? true;
       text = isAdminMode ? 'Switch to User Mode' : 'Switch to Admin Mode';
@@ -59,7 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
     log('The saved mode is: $isAdminMode');
   }
 
-  // get user data to check user role
+  // Get user data to check user role
   Future<void> _getUserData() async {
     String? role =
         SharedPrefsService.getData(key: AppStrings.roleKey) as String?;

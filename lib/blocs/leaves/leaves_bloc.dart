@@ -7,11 +7,10 @@ import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 
 part 'leaves_event.dart';
+
 part 'leaves_state.dart';
 
 class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
-  StreamSubscription? _leavesSubscription;
-  int _leaveBalance = 25;
   LeaveBloc(LeaveService leaveService) : super(LeaveInitial()) {
     on<FetchLeaves>(_onFetchLeaves);
     on<FilterLeaves>(_onFilterLeaves);
@@ -19,7 +18,11 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
     on<FetchLeaveBalance>(_onFetchLeaveBalance);
   }
 
-  void _onFetchLeaves(FetchLeaves event, Emitter<LeaveState> emit) async {
+  StreamSubscription<List<LeaveModel>>? _leavesSubscription;
+  int _leaveBalance = 25;
+
+  Future<void> _onFetchLeaves(
+      FetchLeaves event, Emitter<LeaveState> emit) async {
     emit(LeaveLoading());
     try {
       final contactNumber = await UserService.getCurrentUserContactNumber();
@@ -30,16 +33,18 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
         // Listen to the stream
         _leavesSubscription =
             LeaveService.getLeavesByContactNumber(contactNumber).listen(
-                (leaves) {
-          add(LeavesUpdated(leaves));
-        }, onError: (error) {
-          emit(LeaveError(message: '$error'));
-        });
+          (leaves) {
+            add(LeavesUpdated(leaves));
+          },
+          onError: (error) {
+            emit(LeaveError(message: '$error'));
+          },
+        );
 
         // Fetch leave balance after fetching leaves
         add(FetchLeaveBalance()); // Add this line
       } else {
-        emit(LeaveError(message: "Contact number not found"));
+        emit(LeaveError(message: 'Contact number not found'));
       }
     } catch (e) {
       emit(LeaveError(message: e.toString()));
@@ -83,22 +88,26 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
           // Update the state with the new leave balance
           if (state is LeaveLoaded) {
             final currentState = state as LeaveLoaded;
-            emit(LeaveLoaded(
-              leaves: currentState.leaves,
-              allLeaves: currentState.allLeaves,
-              leaveBalance: _leaveBalance, // Update leave balance
-            ));
+            emit(
+              LeaveLoaded(
+                leaves: currentState.leaves,
+                allLeaves: currentState.allLeaves,
+                leaveBalance: _leaveBalance, // Update leave balance
+              ),
+            );
           } else {
-            emit(LeaveLoaded(
-              leaves: [],
-              allLeaves: [],
-              leaveBalance: _leaveBalance, // Update leave balance
-            ));
+            emit(
+              LeaveLoaded(
+                leaves: [],
+                allLeaves: [],
+                leaveBalance: _leaveBalance, // Update leave balance
+              ),
+            );
           }
         }
       }
     } catch (e) {
-      emit(LeaveError(message: "Error fetching leave balance: $e"));
+      emit(LeaveError(message: 'Error fetching leave balance: $e'));
     }
   }
 

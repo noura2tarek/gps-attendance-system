@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class Detailscard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final Color iconColor;
-  const Detailscard({
+class DetailsCard extends StatelessWidget {
+  const DetailsCard({
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.iconColor,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class Detailscard extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Icon(
@@ -28,7 +29,7 @@ class Detailscard extends StatelessWidget {
               color: iconColor,
               size: 35,
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -42,8 +43,10 @@ class Detailscard extends StatelessWidget {
                 ),
                 Text(
                   subtitle,
-                  style:
-                      const TextStyle(fontSize: 14, color: Color(0xfff2f3ff)),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xfff2f3ff),
+                  ),
                 ),
               ],
             )

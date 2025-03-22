@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance_system/my_theme.dart';
+import 'package:gps_attendance_system/core/themes/app_theme.dart';
 
 abstract class ThemeState {
   ThemeData get themeData;

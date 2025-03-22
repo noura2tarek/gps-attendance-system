@@ -61,32 +61,20 @@ class LeaveService {
     // Update the leave status in leaves document
     final leaveDocument = _leavesCollection.doc(leave.id);
     await leaveDocument.update({
-      'status': 'unApproved',
+      'status': 'Rejected',
     });
     log('Leave rejected');
   }
 
   // Get leaves by contact number
   static Stream<List<LeaveModel>> getLeavesByContactNumber(
-      String contactNumber) {
+    String contactNumber,
+  ) {
     return _leavesCollection
         .where('contactNumber', isEqualTo: contactNumber)
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs
-              .map((doc) => LeaveModel.fromFirestore(doc))
-              .toList(),
+          (snapshot) => snapshot.docs.map(LeaveModel.fromFirestore).toList(),
         );
-  }
-
-  // Update leave status
-  static Future<void> updateLeaveStatus(
-      String leaveId, String newStatus) async {
-    try {
-      await _leavesCollection.doc(leaveId).update({'status': newStatus});
-      print('Leave status updated successfully');
-    } catch (e) {
-      print('Error updating leave status: $e');
-    }
   }
 }

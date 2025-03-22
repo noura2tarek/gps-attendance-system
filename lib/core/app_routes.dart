@@ -15,4 +15,5 @@ class AppRoutes {
   static const String userDetailsRoute = '/user-details';
   static const String homeLayoutRoute = '/home-layout';
   static const String pendingLeaveDetails = '/pending-leave-details';
+  static const String resetPassword = '/reset-password';
 }

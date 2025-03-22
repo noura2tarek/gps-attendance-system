@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/leaves/leaves_bloc.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_button.dart';
+import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_leave_card.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/leaves_status_square.dart';
 import 'package:intl/intl.dart';
 
@@ -167,40 +168,11 @@ class _LeavesPageState extends State<LeavesPage> {
                             .difference(leave.startDate.toDate())
                             .inDays;
 
-                        return Card(
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 12,
-                            ),
-                            title: Text(
-                              '$startDate - $endDate',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            subtitle: Text(
-                              leave.status,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: leave.status == 'Approved'
-                                    ? Colors.green
-                                    : leave.status == 'Pending'
-                                        ? Colors.orange
-                                        : Colors.red,
-                              ),
-                            ),
-                            trailing: Text(
-                              '$days Day${days != 1 ? 's' : ''}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
+                        return CustomLeaveCard(
+                          startDate: startDate,
+                          endDate: endDate,
+                          leave: leave,
+                          days: days,
                         );
                       },
                     );
@@ -233,3 +205,4 @@ class _LeavesPageState extends State<LeavesPage> {
     );
   }
 }
+///////////////////////////////////////////

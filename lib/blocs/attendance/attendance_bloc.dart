@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gps_attendance_system/core/utils/AttendanceStatusHelper.dart';
-
 part 'attendance_event.dart';
 part 'attendance_state.dart';
 
@@ -85,19 +84,19 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         emit(EmployeeLocationOutside());
       }
     } catch (e) {
-      emit(EmployeeLocationError("Error checking location: $e"));
+      emit(EmployeeLocationError('Error checking location: $e'));
     }
   }
 
   Future<void> _onCheckIn(CheckIn event, Emitter<AttendanceState> emit) async {
     final user = _auth.currentUser;
     if (user == null) {
-      emit(EmployeeLocationError("User not found"));
+      emit(EmployeeLocationError('User not found'));
       return;
     }
 
     final now = DateTime.now();
-    final todayDate = "${now.year}-${now.month}-${now.day}";
+    final todayDate = '${now.year}-${now.month}-${now.day}';
     final checkInTime =
         "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
 
@@ -108,10 +107,11 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     try {
       await attendanceDoc.set(
         {
-          "userId": user.uid,
-          "date": todayDate,
-          "checkInTime": checkInTime,
-          "status": status,
+          'userId': user.uid,
+          'date': todayDate,
+          'checkInTime': checkInTime,
+          'checkOutTime': null, // to fix error in attendance records
+          'status': status,
         },
         SetOptions(merge: true),
       );
@@ -143,13 +143,17 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
     try {
       DocumentSnapshot doc = await attendanceDoc.get();
-      String? previousCheckInTime = doc.exists ? (doc["checkInTime"] as String?) : null;
+      String? previousCheckInTime =
+          doc.exists ? (doc['checkInTime'] as String?) : null;
 
-      await attendanceDoc.set({
+      await attendanceDoc.update({
         'checkOutTime': checkOutTime,
-      }, SetOptions(merge: true));
+      });
 
-      emit(EmployeeCheckedOut(checkOutTime: checkOutTime, previousCheckInTime: previousCheckInTime,));
+      emit(EmployeeCheckedOut(
+        checkOutTime: checkOutTime,
+        previousCheckInTime: previousCheckInTime,
+      ));
     } catch (e) {
       emit(EmployeeLocationError('Failed to check out: $e'));
     }
