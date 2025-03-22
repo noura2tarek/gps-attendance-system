@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
@@ -11,7 +9,7 @@ part 'leaves_event.dart';
 part 'leaves_state.dart';
 
 class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
-  LeaveBloc(LeaveService leaveService) : super(LeaveInitial()) {
+  LeaveBloc() : super(LeaveInitial()) {
     on<FetchLeaves>(_onFetchLeaves);
     on<FilterLeaves>(_onFilterLeaves);
     on<LeavesUpdated>(_onLeavesUpdated);
@@ -76,10 +74,10 @@ class LeaveBloc extends Bloc<LeaveEvent, LeaveState> {
     ));
   }
 
-  void _onFetchLeaveBalance(
+  Future<void> _onFetchLeaveBalance(
       FetchLeaveBalance event, Emitter<LeaveState> emit) async {
     try {
-      final userId = FirebaseAuth.instance.currentUser?.uid;
+      final userId = UserService.getCurrentUserId();
       if (userId != null) {
         final userData = await UserService.getUserData(userId);
         if (userData != null) {

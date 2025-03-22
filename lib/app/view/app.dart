@@ -13,7 +13,6 @@ import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/animation/fade.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home_page.dart';
@@ -54,9 +53,7 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) {
-            return LeaveBloc(
-              LeaveService(),
-            ); // Pass userId to LeaveBloc
+            return LeaveBloc();
           },
         ),
       ],
