@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/themes/app_colors.dart';
 
 class CheckInOutButton extends StatelessWidget {
   const CheckInOutButton({
@@ -29,7 +30,7 @@ class CheckInOutButton extends StatelessWidget {
         label,
         style: const TextStyle(
           fontSize: 16,
-          color: Colors.white,
+          color: AppColors.whiteColor,
         ),
       ),
     );

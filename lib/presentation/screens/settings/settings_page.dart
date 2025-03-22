@@ -1,14 +1,13 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/setting_manager.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
-import 'package:gps_attendance_system/presentation/widgets/Factory%20Pattern.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gps_attendance_system/presentation/widgets/widget_factory.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

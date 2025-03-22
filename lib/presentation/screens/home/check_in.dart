@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
-import 'package:gps_attendance_system/presentation/screens/home/widgets/buttons.dart';
+import 'package:gps_attendance_system/presentation/screens/home/widgets/check_in_button.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/details_card.dart';
 
@@ -21,23 +21,28 @@ class _AttendanceState extends State<Attendance> {
 
   @override
   Widget build(BuildContext context) {
+    bool isInside = false;
+    bool hasCheckedIn = false;
+    bool hasCheckedOut = false;
+    String checkInTime = '--:--';
+    String checkOutTime = '--:--';
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: BlocBuilder<AttendanceBloc, AttendanceState>(
             builder: (context, state) {
-              bool isInside = false;
-              bool hasCheckedIn = false;
-              String checkInTime = '--:--';
-              String checkOutTime = '--:--';
-
               if (state is EmployeeLocationInside) {
                 isInside = true;
+                hasCheckedIn = false;
+                hasCheckedOut = false;
+                checkInTime = '--:--';
+                checkOutTime = '--:--';
               } else if (state is EmployeeCheckedIn) {
                 hasCheckedIn = true;
                 checkInTime = state.time;
               } else if (state is EmployeeCheckedOut) {
+                hasCheckedOut = true;
                 checkOutTime = state.checkOutTime;
               }
 
@@ -65,7 +70,7 @@ class _AttendanceState extends State<Attendance> {
                         color: hasCheckedIn
                             ? const Color(0XFF203546)
                             : const Color(0xff50B3C8),
-                        onPressed: hasCheckedIn
+                        onPressed: hasCheckedIn && !hasCheckedOut
                             ? () =>
                                 context.read<AttendanceBloc>().add(CheckOut())
                             : null,
