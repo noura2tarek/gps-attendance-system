@@ -29,7 +29,7 @@ The application contains three user roles:
      - When the admin logins to the app, he will be redirected to the admin dashboard layout for tracking Attendance and leaves requests.                                                                                 
 
 -------------------------------------------------------
-# Tech-stack (System Components)
+# System Components (Tech-stack)
 - **Frontend: Flutter (Dart)** 
     - **User View**: (home layout includes check in, profile, and leaves pages).                          
     - **Admin View**: (Admin dashboard in mobile design (the same app) for tracking Attendance Records and manage leaves requests).               
