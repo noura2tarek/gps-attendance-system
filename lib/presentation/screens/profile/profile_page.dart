@@ -81,15 +81,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.description, color: Colors.grey),
-                  title: const Text('View Attendance Record'),
+                  title: const Text('View Attendance History'),
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      arguments: userData!,
+                      arguments: userData,
                       AppRoutes.userDetailsRoute,
                     );
                   },
-                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.settings, color: Colors.grey),
