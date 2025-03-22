@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/search_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
 import 'package:skeletonizer/skeletonizer.dart';

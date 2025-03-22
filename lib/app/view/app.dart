@@ -16,12 +16,11 @@ import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/animation/fade.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/geofence_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_leave_details.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/total_leaves_page.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/user_details_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/users_page.dart';
 import 'package:gps_attendance_system/presentation/screens/auth/add_user_page.dart';
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
@@ -29,6 +28,7 @@ import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/request_leave_Page.dart';
 import 'package:gps_attendance_system/presentation/screens/profile/widgets/reset_password.dart';
 import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
+import 'package:gps_attendance_system/presentation/screens/user_attendance_history/user_details_page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
 class App extends StatelessWidget {

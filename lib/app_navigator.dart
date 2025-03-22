@@ -5,7 +5,7 @@ import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home_page.dart';
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
