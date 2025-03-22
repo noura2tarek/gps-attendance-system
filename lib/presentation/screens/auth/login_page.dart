@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
+import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_auth_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
@@ -56,9 +58,13 @@ class _LoginPageState extends State<LoginPage> {
               // if admin -> navigate to admin dashboard
               // else -> navigate to user home page
               if (state.userRole == Role.admin) {
+                bool? mode =
+                    SharedPrefsService.getData(key: AppStrings.adminMode)
+                        as bool?;
+                bool isAdminMode = mode ?? true;
                 await Navigator.pushReplacementNamed(
                   context,
-                  AppRoutes.adminHome,
+                  isAdminMode ? AppRoutes.adminHome : AppRoutes.homeLayoutRoute,
                 );
               } else if (state.userRole == Role.employee ||
                   state.userRole == Role.manager) {
@@ -122,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-      
+
                     //---------- Email text field ----------//
                     TextFormFieldWidget(
                       labelText: 'Email',
