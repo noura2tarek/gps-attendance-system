@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
-import 'package:gps_attendance_system/presentation/screens/profile/widgets/reset_password.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -64,24 +64,19 @@ class _ProfilePageState extends State<ProfilePage> {
             ListView(
               shrinkWrap: true,
               children: [
-                ListTile(
-                  leading: const Icon(Icons.lock, color: Colors.grey),
-                  title: const Text('Reset Password'),
+                CustomListTile(
+                  title: 'Reset Password',
+                  leadingIcon: Icons.lock,
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute<ResetPasswordScreen>(
-                        builder: (context) {
-                          return const ResetPasswordScreen();
-                        },
-                      ),
+                      AppRoutes.resetPassword,
                     );
                   },
-                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.description, color: Colors.grey),
-                  title: const Text('View Attendance History'),
+                CustomListTile(
+                  title: 'View Attendance History',
+                  leadingIcon: Icons.description,
                   onTap: () {
                     Navigator.pushNamed(
                       context,
@@ -89,27 +84,55 @@ class _ProfilePageState extends State<ProfilePage> {
                       AppRoutes.userDetailsRoute,
                     );
                   },
-                  trailing: const Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey,
-                  ),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.settings, color: Colors.grey),
-                  title: const Text('Settings'),
+                CustomListTile(
+                  title: 'Settings',
+                  leadingIcon: Icons.settings,
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.pushNamed(context, AppRoutes.settings);
+                  },
+                ),
+                CustomListTile(
+                  title: 'Log out',
+                  leadingIcon: Icons.logout,
+                  onTap: () {
+                    AuthCubit.get(context).logout();
+                    Navigator.pushNamedAndRemoveUntil(
                       context,
-                      AppRoutes.settings,
+                      AppRoutes.login,
+                      (_) => false,
                     );
                   },
-                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                 ),
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+///////////////////////////////
+
+class CustomListTile extends StatelessWidget {
+  const CustomListTile({
+    required this.title,
+    required this.leadingIcon,
+    super.key,
+    this.onTap,
+  });
+
+  final String title;
+  final IconData leadingIcon;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(leadingIcon, color: Colors.grey),
+      title: Text(title),
+      onTap: onTap,
+      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
     );
   }
 }

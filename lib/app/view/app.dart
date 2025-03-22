@@ -27,6 +27,7 @@ import 'package:gps_attendance_system/presentation/screens/auth/add_user_page.da
 import 'package:gps_attendance_system/presentation/screens/auth/login_page.dart';
 import 'package:gps_attendance_system/presentation/screens/home/check_in.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/request_leave_Page.dart';
+import 'package:gps_attendance_system/presentation/screens/profile/widgets/reset_password.dart';
 import 'package:gps_attendance_system/presentation/screens/settings/settings_page.dart';
 import 'package:gps_attendance_system/presentation/screens/user_layout/home_layout.dart';
 
@@ -123,6 +124,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case AppRoutes.addUser:
       return MaterialPageRoute(
         builder: (context) => const AddUserPage(),
+      );
+    case AppRoutes.resetPassword:
+      return MaterialPageRoute(
+        builder: (context) => const ResetPasswordScreen(),
       );
     case AppRoutes.userDetailsRoute:
       UserModel user = settings.arguments! as UserModel;
