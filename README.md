@@ -57,7 +57,7 @@ $ flutter run --flavor production --target lib/main_production.dart
 
 ---------------------------------------------
 
-## How to Run
+# How to Run
 
 1. Clone the repository.
 2. Run `flutter pub get` to install dependencies.
