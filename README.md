@@ -1,7 +1,7 @@
 # CheckMate
 
-CheckMate is a GPS-based HR attendance tracking system that enables employees or managers to check in/out from designated locations.                               
-It provides real-time attendance tracking, and leaves management.
+CheckMate is a GPS-based HR attendance tracking system that enables employees or managers to check in/out from designated locations to register their attendance.                               
+It provides real-time attendance tracking, users management, and leaves management.
 
 # Features
 
@@ -29,6 +29,7 @@ The application contains three user roles:
      - When the admin logins to the app, he will be redirected to the admin dashboard layout for tracking Attendance and leaves requests.                                                                                 
 
 -------------------------------------------------------
+
 # System Components (Tech-stack)
 - **Frontend: Flutter (Dart)** 
     - **User View**: (home layout includes check in, profile, and leaves pages).                          
@@ -54,7 +55,16 @@ $ flutter run --flavor development --target lib/main_development.dart
 ## production
 $ flutter run --flavor production --target lib/main_production.dart
 
+---------------------------------------------
+
+## How to Run
+
+1. Clone the repository.
+2. Run `flutter pub get` to install dependencies.
+3. Run `flutter run` to start the app.
+
 ------------------------------------------------
+
 # Packages Used
 This project uses the following **Flutter packages**:
 
