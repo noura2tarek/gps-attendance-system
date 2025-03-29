@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_auth_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 import 'package:gps_attendance_system/presentation/widgets/text_form_field.dart';
@@ -110,8 +111,8 @@ class AddUserPageState extends State<AddUserPage> {
                     //----------- Full Name text field ----------//
                     TextFormFieldWidget(
                       keyboardType: TextInputType.name,
-                      labelText: 'Full Name',
-                      hintText: 'Enter Full Name..',
+                      labelText: AppLocalizations.of(context).fullName,
+                      hintText: AppLocalizations.of(context).enterFullName,
                       controller: _fullNameController,
                       validator: _validateFullName,
                       prefixIcon: Icons.person,
@@ -119,8 +120,8 @@ class AddUserPageState extends State<AddUserPage> {
                     const SizedBox(height: 10),
                     //----------- Email text field ----------//
                     TextFormFieldWidget(
-                      labelText: 'Email',
-                      hintText: 'Enter Email..',
+                      labelText: AppLocalizations.of(context).email,
+                      hintText: AppLocalizations.of(context).enterEmail,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       validator: _validateEmail,
@@ -130,8 +131,8 @@ class AddUserPageState extends State<AddUserPage> {
                     //----------- Password text field ----------//
                     TextFormFieldWidget(
                       keyboardType: TextInputType.visiblePassword,
-                      labelText: 'Password',
-                      hintText: 'Enter Password..',
+                      labelText: AppLocalizations.of(context).password,
+                      hintText: AppLocalizations.of(context).enterPassword,
                       obscureText: isPasswordObscure,
                       controller: _passwordController,
                       validator: _validatePassword,
@@ -149,8 +150,9 @@ class AddUserPageState extends State<AddUserPage> {
                     //----------- Confirm Password text field ----------//
                     TextFormFieldWidget(
                       keyboardType: TextInputType.visiblePassword,
-                      labelText: 'Confirm Password',
-                      hintText: 'Enter Confirm Password..',
+                      labelText: AppLocalizations.of(context).confirmPassword,
+                      hintText:
+                          AppLocalizations.of(context).enterConfirmPassword,
                       obscureText: isConfirmPasswordObscure,
                       controller: _confirmPasswordController,
                       validator: _validateConfirmPassword,
@@ -166,8 +168,8 @@ class AddUserPageState extends State<AddUserPage> {
                     ),
                     //----------- Phone text field ----------//
                     TextFormFieldWidget(
-                      labelText: 'Phone',
-                      hintText: 'Enter Phone..',
+                      labelText: AppLocalizations.of(context).phone,
+                      hintText: AppLocalizations.of(context).enterPhone,
                       keyboardType: TextInputType.number,
                       controller: _contactController,
                       validator: _validatePhone,
@@ -176,17 +178,17 @@ class AddUserPageState extends State<AddUserPage> {
                     const SizedBox(height: 10),
                     //----------- Position text field ----------//
                     TextFormFieldWidget(
-                      labelText: 'Position',
-                      hintText: 'Enter Position..',
+                      labelText: AppLocalizations.of(context).position,
+                      hintText: AppLocalizations.of(context).enterPosition,
                       keyboardType: TextInputType.text,
                       controller: _positionController,
                       validator: _validatePosition,
                       prefixIcon: Icons.work,
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsetsDirectional.all(8),
                       child: Text(
-                        'Select user role',
+                        AppLocalizations.of(context).selectUserRole,
                         style: TextStyle(fontSize: 17),
                       ),
                     ),
@@ -198,7 +200,7 @@ class AddUserPageState extends State<AddUserPage> {
                           child: RadioListTile<Role>(
                             value: Role.employee,
                             groupValue: _selectedRole,
-                            title: const Text('Employee'),
+                            title: Text(AppLocalizations.of(context).employee),
                             activeColor: AppColors.fourthColor,
                             onChanged: (value) {
                               setState(() {
@@ -227,7 +229,7 @@ class AddUserPageState extends State<AddUserPage> {
                     RadioListTile<Role>(
                       value: Role.admin,
                       groupValue: _selectedRole,
-                      title: const Text('Admin'),
+                      title: Text(AppLocalizations.of(context).admin),
                       activeColor: AppColors.fourthColor,
                       onChanged: (value) {
                         setState(() {
@@ -241,7 +243,7 @@ class AddUserPageState extends State<AddUserPage> {
                     BlocBuilder<AuthCubit, AuthStates>(
                       builder: (context, state) {
                         return CustomAuthButton(
-                          buttonText: 'Add User',
+                          buttonText: AppLocalizations.of(context).addUser,
                           isLoading: _isLoading,
                           onTap: _addNewUser,
                         );

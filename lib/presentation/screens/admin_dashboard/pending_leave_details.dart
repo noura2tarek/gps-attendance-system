@@ -4,6 +4,7 @@ import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_det_title.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_row_details.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_row_sections.dart';
@@ -129,7 +130,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
                       onPressed: () {
                         LeavesCubit.get(context).acceptLeave(widget.model);
                       },
-                      child: const Text('Approve'),
+                      child: Text(AppLocalizations.of(context).approve),
                     ),
                   ),
                   // Reject button
@@ -149,7 +150,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
                       onPressed: () {
                         LeavesCubit.get(context).rejectLeave(widget.model);
                       },
-                      child: const Text('Reject'),
+                      child: Text(AppLocalizations.of(context).reject),
                     ),
                   ),
                 ],

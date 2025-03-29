@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/check_in_button.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/company_location.dart';
 import 'package:gps_attendance_system/presentation/screens/home/widgets/details_card.dart';
@@ -53,7 +54,7 @@ class _AttendanceState extends State<Attendance> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CheckInOutButton(
-                        label: 'Check In',
+                        label: AppLocalizations.of(context).checkIn,
                         color: isInside && !hasCheckedIn
                             ? const Color(0XFF2563EB)
                             : Colors.black12,
@@ -66,7 +67,7 @@ class _AttendanceState extends State<Attendance> {
                         width: 10,
                       ),
                       CheckInOutButton(
-                        label: 'Check Out',
+                        label: AppLocalizations.of(context).checkOut,
                         color: hasCheckedIn
                             ? const Color(0XFF203546)
                             : const Color(0xff50B3C8),
@@ -80,8 +81,8 @@ class _AttendanceState extends State<Attendance> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "Today's Attendance",
+                  Text(
+                    AppLocalizations.of(context).todayAtt,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
@@ -91,13 +92,13 @@ class _AttendanceState extends State<Attendance> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       DetailsCard(
-                        title: 'Check In',
+                        title: AppLocalizations.of(context).checkIn,
                         subtitle: checkInTime,
                         icon: Icons.login,
                         iconColor: const Color(0xff203546),
                       ),
                       DetailsCard(
-                        title: 'Check Out',
+                        title: AppLocalizations.of(context).checkIn,
                         subtitle: checkOutTime,
                         icon: Icons.login,
                         iconColor: const Color(0xff203546),

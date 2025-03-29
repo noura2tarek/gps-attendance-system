@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/services/leave_service.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_text_field.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
@@ -125,49 +126,49 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                 children: [
                   CustomTextFormField(
                     context: context,
-                    labelText: 'Title',
-                    hintText: 'Enter Title',
+                    labelText: AppLocalizations.of(context).title,
+                    hintText: AppLocalizations.of(context).enterTitle,
                     controller: titleController,
                   ),
                   CustomTextFormField(
                     context: context,
-                    labelText: 'Leave Type',
-                    hintText: 'Select Leave Type',
+                    labelText: AppLocalizations.of(context).leaveType,
+                    hintText: AppLocalizations.of(context).selectLeaveType,
                     isDropdown: true,
-                    dropdownItems: const [
-                      'Sick Leave',
-                      'Casual Leave',
-                      'Annual Leave',
+                    dropdownItems: [
+                      AppLocalizations.of(context).sickLeave,
+                      AppLocalizations.of(context).casualLeave,
+                      AppLocalizations.of(context).annualLeave,
                     ],
                     onChanged: (value) =>
                         setState(() => selectedLeaveType = value),
                   ),
                   CustomTextFormField(
                     context: context,
-                    labelText: 'Contact Number',
-                    hintText: 'Enter Contact Number',
+                    labelText: AppLocalizations.of(context).contactNumber,
+                    hintText: AppLocalizations.of(context).enterContactNumber,
                     keyboardType: TextInputType.phone,
                     controller: contactController,
                   ),
                   CustomTextFormField(
                     context: context,
-                    labelText: 'Start Date',
-                    hintText: 'Select Start Date',
+                    labelText: AppLocalizations.of(context).startDate,
+                    hintText: AppLocalizations.of(context).selectStartDate,
                     controller: startDateController,
                     isDateField: true,
                     onDateTap: () => _selectDate(context, startDateController),
                   ),
                   CustomTextFormField(
                     context: context,
-                    labelText: 'End Date',
-                    hintText: 'Select End Date',
+                    labelText: AppLocalizations.of(context).endDate,
+                    hintText: AppLocalizations.of(context).selectEndDate,
                     controller: endDateController,
                     isDateField: true,
                     onDateTap: () => _selectDate(context, endDateController),
                   ),
                   CustomTextFormField(
-                    labelText: 'Reason for Leave',
-                    hintText: 'Enter Reason',
+                    labelText: AppLocalizations.of(context).reasonForLeave,
+                    hintText: AppLocalizations.of(context).enterReason,
                     controller: reasonController,
                     context: context,
                   ),
@@ -177,7 +178,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                     width: double.infinity,
                     child: CustomButton(
                       isLoading: _isLoading,
-                      text: 'Apply Leave',
+                      text: AppLocalizations.of(context).applyLeave,
                       onPressed: _applyLeave,
                     ),
                   ),

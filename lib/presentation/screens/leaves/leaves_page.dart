@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/leaves/leaves_bloc.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_button.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_leave_card.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/leaves_status_square.dart';
@@ -75,25 +76,25 @@ class _LeavesPageState extends State<LeavesPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         LeaveStatusSquare(
-                          title: 'Leave Balance',
+                          title: AppLocalizations.of(context).leaveBalance,
                           count: state.leaveBalance,
                           color: Colors.green,
                           opacity: 0.2,
                         ),
                         LeaveStatusSquare(
-                          title: 'Approved',
+                          title: AppLocalizations.of(context).approved,
                           count: approvedLeaves,
                           color: Colors.blue,
                           opacity: 0.2,
                         ),
                         LeaveStatusSquare(
-                          title: 'Pending',
+                          title: AppLocalizations.of(context).pending,
                           count: pendingLeaves,
                           color: Colors.orange,
                           opacity: 0.2,
                         ),
                         LeaveStatusSquare(
-                          title: 'Rejected',
+                          title: AppLocalizations.of(context).rejected,
                           count: rejectedLeaves,
                           color: Colors.red,
                           opacity: 0.2,

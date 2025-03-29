@@ -7,6 +7,7 @@ import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
@@ -135,7 +136,7 @@ class _AdminHomeState extends State<AdminHome> {
                           builder: (context, state) {
                             UserModel? admin = usersCubit.adminData;
                             return Text(
-                              'Hello, ${admin?.name ?? "Admin"}',
+                              'AppLocalizations.of(context), ${admin?.name ?? "Admin"}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: AppColors.whiteColor,
@@ -211,8 +212,8 @@ class _AdminHomeState extends State<AdminHome> {
         child: ListView(
           children: [
             // overview title
-            const Text(
-              'Overview',
+            Text(
+              AppLocalizations.of(context).overview,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w500,
@@ -234,7 +235,7 @@ class _AdminHomeState extends State<AdminHome> {
                 return BlocBuilder<LeavesCubit, LeavesState>(
                   builder: (context, state) {
                     List<int> counts = [0, 0, 0, 0];
-                    if(state is LeavesLoaded){
+                    if (state is LeavesLoaded) {
                       counts[2] = state.totalLeaves.length;
                       counts[3] = state.pendingLeaves.length;
                     }
@@ -254,8 +255,8 @@ class _AdminHomeState extends State<AdminHome> {
               children: [
                 const Icon(Icons.people),
                 const SizedBox(width: 10),
-                const Text(
-                  'Employees List',
+                Text(
+                  AppLocalizations.of(context).employeesList,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
