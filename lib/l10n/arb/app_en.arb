@@ -67,5 +67,14 @@
   "selectUserRole": "Select user role",
   "employee": "Employee",
   "manager": "Manager",
-  "admin": "Admin"
+  "admin": "Admin",
+  "resetPassword": "Reset Password",
+  "viewAttendanceHistory": "View Attendance History",
+  "logout": "Log out",
+  "switchToUserMode": "Switch to User Mode",
+  "switchToAdminMode": "Switch to Admin Mode",
+  "noAttendanceRecordsFound": "No attendance records found",
+  "home": "Home",
+  "leaves": "Leaves",
+  "profile": "Profile"
 }

@@ -66,5 +66,14 @@
   "selectUserRole": "اختر دور المستخدم",
   "employee": "موظف",
   "manager": "مدير",
-  "admin": "مشرف"
+  "admin": "مشرف",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+  "viewAttendanceHistory": "عرض سجل الحضور",
+  "logout": "تسجيل الخروج",
+  "switchToUserMode": "التبديل إلى وضع المستخدم",
+  "switchToAdminMode": "التبديل إلى وضع المسؤول",
+  "noAttendanceRecordsFound": "لم يتم العثور على سجلات الحضور",
+  "home": "الرئيسية",
+  "leaves": "الاجازات",
+  "profile": "الحساب"
 }
