@@ -6,6 +6,7 @@ import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_auth_button.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 import 'package:gps_attendance_system/presentation/widgets/text_form_field.dart';
@@ -101,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        'Login',
+                        AppLocalizations.of(context).login,
                         style:
                             Theme.of(context).textTheme.headlineLarge!.copyWith(
                                   color: AppColors.primary,
@@ -131,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     //---------- Email text field ----------//
                     TextFormFieldWidget(
-                      labelText: 'Email',
+                      labelText: AppLocalizations.of(context).email,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       validator: _validateEmail,
@@ -140,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 10),
                     //---------- Password text field ----------//
                     TextFormFieldWidget(
-                      labelText: 'Password',
+                      labelText: AppLocalizations.of(context).password,
                       obscureText: _isPassword,
                       controller: _passwordController,
                       validator: _validatePassword,
@@ -159,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                     BlocBuilder<AuthCubit, AuthStates>(
                       builder: (context, state) {
                         return CustomAuthButton(
-                          buttonText: 'Login',
+                          buttonText: AppLocalizations.of(context).login,
                           isLoading: _isLoading,
                           onTap: _logIn,
                         );

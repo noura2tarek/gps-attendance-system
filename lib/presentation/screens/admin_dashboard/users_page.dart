@@ -66,7 +66,7 @@ class _UsersPageState extends State<UsersPage> {
         },
         label: Row(
           children: [
-            Icon(Icons.add),
+            const Icon(Icons.add),
             Text(AppLocalizations.of(context).addUser),
           ],
         ),
@@ -128,7 +128,7 @@ class _UsersPageState extends State<UsersPage> {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Text(
                             textAlign: TextAlign.center,
-                            '${widget.isEmployees ? AppLocalizations.of(context).noEmployees : AppLocalizations.of(context).noManagers}',
+                            widget.isEmployees ? AppLocalizations.of(context).noEmployees : AppLocalizations.of(context).noManagers,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,

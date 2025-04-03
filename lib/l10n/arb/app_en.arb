@@ -79,5 +79,6 @@
   "profile": "Profile",
   "dashboard": "Dashboard",
   "geofence": "Geofence",
-  "pleaseEnter": "Please enter "
+  "pleaseEnter": "Please enter ",
+  "login": "Login"
 }
