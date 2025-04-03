@@ -69,8 +69,8 @@ class AddUserPageState extends State<AddUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Add User',
+        title: Text(
+          AppLocalizations.of(context).addUser,
         ),
         centerTitle: true,
       ),
@@ -186,10 +186,10 @@ class AddUserPageState extends State<AddUserPage> {
                       prefixIcon: Icons.work,
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.all(8),
+                      padding: const EdgeInsetsDirectional.all(8),
                       child: Text(
                         AppLocalizations.of(context).selectUserRole,
-                        style: TextStyle(fontSize: 17),
+                        style: const TextStyle(fontSize: 17),
                       ),
                     ),
                     //-- Radio buttons to select user role --//
@@ -214,7 +214,7 @@ class AddUserPageState extends State<AddUserPage> {
                           child: RadioListTile<Role>(
                             value: Role.manager,
                             groupValue: _selectedRole,
-                            title: const Text('Manager'),
+                            title: Text(AppLocalizations.of(context).manager),
                             activeColor: AppColors.fourthColor,
                             onChanged: (value) {
                               setState(() {

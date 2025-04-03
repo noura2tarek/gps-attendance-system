@@ -98,7 +98,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
       });
       CustomSnackBar.show(
         context,
-        'Please fill all fields',
+        AppLocalizations.of(context).pleaseFillAllFields,
         color: chooseSnackBarColor(ToastStates.ERROR),
       );
     }
@@ -108,8 +108,8 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Apply Leave',
+        title:  Text(
+          AppLocalizations.of(context).applyLeave,
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

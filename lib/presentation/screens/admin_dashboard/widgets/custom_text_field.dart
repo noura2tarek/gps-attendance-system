@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -58,7 +59,7 @@ class CustomTextFormField extends StatelessWidget {
                 context: context,
               ),
               validator: (value) => value == null || value.isEmpty
-                  ? 'Please enter $labelText'
+                  ? '${AppLocalizations.of(context).pleaseEnter}$labelText'
                   : null,
             ),
     );

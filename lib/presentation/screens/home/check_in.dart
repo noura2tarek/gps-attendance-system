@@ -83,7 +83,10 @@ class _AttendanceState extends State<Attendance> {
                   ),
                   Text(
                     AppLocalizations.of(context).todayAtt,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -91,17 +94,21 @@ class _AttendanceState extends State<Attendance> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      DetailsCard(
-                        title: AppLocalizations.of(context).checkIn,
-                        subtitle: checkInTime,
-                        icon: Icons.login,
-                        iconColor: const Color(0xff203546),
+                      Expanded(
+                        child: DetailsCard(
+                          title: AppLocalizations.of(context).checkIn,
+                          subtitle: checkInTime,
+                          icon: Icons.login,
+                          iconColor: const Color(0xff203546),
+                        ),
                       ),
-                      DetailsCard(
-                        title: AppLocalizations.of(context).checkIn,
-                        subtitle: checkOutTime,
-                        icon: Icons.login,
-                        iconColor: const Color(0xff203546),
+                      Expanded(
+                        child: DetailsCard(
+                          title: AppLocalizations.of(context).checkOut,
+                          subtitle: checkOutTime,
+                          icon: Icons.login,
+                          iconColor: const Color(0xff203546),
+                        ),
                       ),
                     ],
                   ),

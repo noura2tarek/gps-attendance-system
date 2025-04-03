@@ -28,10 +28,10 @@
   "pleaseFillAllFields": "يرجى ملء جميع الحقول",
   "leaveAppliedSuccessfully": "تم تقديم طلب الإجازة بنجاح!" ,
   "submit" : "تقديم طلب",
-  "helo": "اهلا",
+  "hello": "اهلا،",
   "saveLoc": "اضافة العنوان",
   "zeroPending": "لم يتم العثور على إجازات معلقة",
-  "overview": "ملخص",
+  "overview": "الملخص",
   "employeesList": "قائمة الموظفين",
   "approve": "موافقة",
   "reject": "رفض",
@@ -40,10 +40,11 @@
   "totalEmployees": "اجمالي الموظفيين",
   "totalManagers": "اجمالي المديريين",
   "employees": "موظفيين",
+  "managers": "مديريين",
   "noEmployees": "لم يتم يوجد موظفيين",
   "noManagers": "لم يتم يوجد مديرين",
   "checkIn": "تسجيل الحضور",
-  "checkخعف": "تسجيل الانصراف",
+  "checkOut": "تسجيل الانصراف",
   "todayAtt": "حضور اليوم",
   "allLeaves": "جميع الإجازات",
   "all": "الكل",
@@ -75,5 +76,9 @@
   "noAttendanceRecordsFound": "لم يتم العثور على سجلات الحضور",
   "home": "الرئيسية",
   "leaves": "الاجازات",
-  "profile": "الحساب"
+  "profile": "الحساب",
+  "dashboard": "لوحة التحكم",
+  "geofence": "المنطقة الجغرافية",
+  "pleaseEnter": "يرجى ادخال "
+
 }

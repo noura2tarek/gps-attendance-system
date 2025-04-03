@@ -27,16 +27,16 @@ class DetailsCard extends StatelessWidget {
             Icon(
               icon,
               color: iconColor,
-              size: 35,
+              size: 27,
             ),
-            const SizedBox(width: 15),
+            const SizedBox(width: 2),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: Color(0xfff2f3ff),
                   ),

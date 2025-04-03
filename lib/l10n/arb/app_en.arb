@@ -28,7 +28,7 @@
   "pleaseFillAllFields": "Please fill all fields",
   "leaveAppliedSuccessfully": "Leave applied successfully!" ,
   "submit" : "Submit",
-  "hello": "Hello",
+  "hello": "Hello,",
   "saveLoc": "Save Location",
   "zeroPending": "No Pending Leaves found",
   "overview": "Overview",
@@ -76,5 +76,8 @@
   "noAttendanceRecordsFound": "No attendance records found",
   "home": "Home",
   "leaves": "Leaves",
-  "profile": "Profile"
+  "profile": "Profile",
+  "dashboard": "Dashboard",
+  "geofence": "Geofence",
+  "pleaseEnter": "Please enter "
 }
