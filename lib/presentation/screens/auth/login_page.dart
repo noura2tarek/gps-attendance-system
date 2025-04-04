@@ -110,19 +110,11 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                       ),
                     ),
-                    // App Title
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'Smart Attendance Simplified.',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                    ),
                     // Subtitle
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        'login to get started with Location-based attendance tracking system.',
+                        AppLocalizations.of(context).loginToGetStarted,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],
@@ -180,7 +172,6 @@ class _LoginPageState extends State<LoginPage> {
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty || !value.contains('@')) {
       return AppLocalizations.of(context).validEmail;
-      ;
     }
     return null;
   }

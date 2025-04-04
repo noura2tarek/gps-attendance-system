@@ -41,7 +41,7 @@ class PendingApprovalsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pending Approvals'),
+        title:  Text(AppLocalizations.of(context).pendingTApprovals),
       ),
       body: BlocBuilder<LeavesCubit, LeavesState>(
         builder: (context, state) {

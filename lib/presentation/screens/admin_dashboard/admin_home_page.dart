@@ -4,7 +4,6 @@ import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
-import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
@@ -81,10 +80,10 @@ class _AdminHomeState extends State<AdminHome> {
     UsersCubit usersCubit = UsersCubit.get(context);
 
     final List<String> containerTitles = [
-      AppStrings.totalAttendance,
-      AppStrings.employeesPresentNow,
-      AppStrings.totalLeaves,
-      AppStrings.pendingApprovals,
+      AppLocalizations.of(context).totalAttendance,
+      AppLocalizations.of(context).employeesPresentNow,
+      AppLocalizations.of(context).totalLeaves,
+      AppLocalizations.of(context).pendingApprovals,
     ];
 
     final List<String> drawerTitles = [

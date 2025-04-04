@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -19,10 +20,9 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if (email.isEmpty) {
       CustomSnackBar.show(
         context,
-        'Please enter your email',
+        AppLocalizations.of(context).pleaseEnterEmail,
         color: Colors.red,
       );
-
       return;
     }
 
@@ -31,13 +31,13 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
       CustomSnackBar.show(
         context,
-        'Password reset email sent! Check your inbox.',
+        AppLocalizations.of(context).passwordResetEmailSent,
         color: Colors.green,
       );
     } catch (e) {
       CustomSnackBar.show(
         context,
-        'Failed to send password reset email: $e',
+        '${AppLocalizations.of(context).failedToResetPassword}$e',
         color: Colors.red,
       );
     }
@@ -47,7 +47,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reset Password'),
+        title: Text(AppLocalizations.of(context).resetPassword),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -56,16 +56,16 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Enter your email',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).email,
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _resetPassword,
-              child: const Text('Send Reset Email'),
+              child:  Text(AppLocalizations.of(context).sendResetEmail),
             ),
           ],
         ),

@@ -10,11 +10,7 @@ final List<Widget> screens = [
   const ProfilePage(),
 ];
 
-List<String> titles = [
-  'Home',
-  'Leaves',
-  'Profile',
-];
+
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -28,6 +24,11 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> titles = [
+      AppLocalizations.of(context).home,
+      AppLocalizations.of(context).leaves,
+      AppLocalizations.of(context).profile,
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(titles[_currentIndex]),

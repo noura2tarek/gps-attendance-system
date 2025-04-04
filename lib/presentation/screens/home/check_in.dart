@@ -51,30 +51,35 @@ class _AttendanceState extends State<Attendance> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CheckInOutButton(
-                        label: AppLocalizations.of(context).checkIn,
-                        color: isInside && !hasCheckedIn
-                            ? const Color(0XFF2563EB)
-                            : Colors.black12,
-                        onPressed: isInside && !hasCheckedIn
-                            ? () =>
-                                context.read<AttendanceBloc>().add(CheckIn())
-                            : null,
+                      //-- Check In Button
+                      Expanded(
+                        child: CheckInOutButton(
+                          label: AppLocalizations.of(context).checkIn,
+                          color: isInside && !hasCheckedIn
+                              ? const Color(0XFF2563EB)
+                              : Colors.black12,
+                          onPressed: isInside && !hasCheckedIn
+                              ? () =>
+                                  context.read<AttendanceBloc>().add(CheckIn())
+                              : null,
+                        ),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 9,
                       ),
-                      CheckInOutButton(
-                        label: AppLocalizations.of(context).checkOut,
-                        color: hasCheckedIn
-                            ? const Color(0XFF203546)
-                            : const Color(0xff50B3C8),
-                        onPressed: hasCheckedIn && !hasCheckedOut
-                            ? () =>
-                                context.read<AttendanceBloc>().add(CheckOut())
-                            : null,
+                      //-- Check Out Button
+                      Expanded(
+                        child: CheckInOutButton(
+                          label: AppLocalizations.of(context).checkOut,
+                          color: hasCheckedIn
+                              ? const Color(0XFF203546)
+                              : const Color(0xff50B3C8),
+                          onPressed: hasCheckedIn && !hasCheckedOut
+                              ? () =>
+                                  context.read<AttendanceBloc>().add(CheckOut())
+                              : null,
+                        ),
                       ),
                     ],
                   ),
@@ -85,7 +90,7 @@ class _AttendanceState extends State<Attendance> {
                     AppLocalizations.of(context).todayAtt,
                     style: const TextStyle(
                       fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(
@@ -96,7 +101,7 @@ class _AttendanceState extends State<Attendance> {
                     children: [
                       Expanded(
                         child: DetailsCard(
-                          title: AppLocalizations.of(context).checkIn,
+                          title: AppLocalizations.of(context).checkInTime,
                           subtitle: checkInTime,
                           icon: Icons.login,
                           iconColor: const Color(0xff203546),
@@ -104,9 +109,9 @@ class _AttendanceState extends State<Attendance> {
                       ),
                       Expanded(
                         child: DetailsCard(
-                          title: AppLocalizations.of(context).checkOut,
+                          title: AppLocalizations.of(context).checkOutTime,
                           subtitle: checkOutTime,
-                          icon: Icons.login,
+                          icon: Icons.logout,
                           iconColor: const Color(0xff203546),
                         ),
                       ),

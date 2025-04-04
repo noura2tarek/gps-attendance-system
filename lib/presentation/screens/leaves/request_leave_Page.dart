@@ -68,7 +68,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
         await LeaveService.applyLeave(leaveModel);
         CustomSnackBar.show(
           context,
-          'Leave applied successfully!',
+          AppLocalizations.of(context).leaveAppliedSuccessfully,
           color: chooseSnackBarColor(ToastStates.SUCCESS),
         );
         setState(() {

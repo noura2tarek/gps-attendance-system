@@ -262,7 +262,7 @@ class AddUserPageState extends State<AddUserPage> {
   // Validations --------------
   String? _validateFullName(String? value) {
     if (value == null || value.isEmpty) {
-      return AppLocalizations.of(context).fullName;
+      return AppLocalizations.of(context).enterFullName;
     } else if (!value.startsWith(RegExp(r'[A-Z]'))) {
       return AppLocalizations.of(context).fullNameCapital;
     }

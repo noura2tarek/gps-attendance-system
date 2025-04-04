@@ -5,12 +5,12 @@ import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_det_text.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_det_title.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_row_details.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_row_sections.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/my_divider.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 
 class PendingLeaveDetails extends StatefulWidget {
   const PendingLeaveDetails({required this.model, super.key});
@@ -35,7 +35,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
     super.initState();
   }
 
-  final dateFormat = DateFormat('yyyy-MM-dd');
+  final dateFormat = intl.DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
         .difference(widget.model.startDate.toDate())
         .inDays;
     return Scaffold(
-      appBar: AppBar(title: const Text('Leave Details')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).leaveDetails)),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: BlocListener<LeavesCubit, LeavesState>(
@@ -71,7 +71,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.only(top: 8),
+                padding: const EdgeInsetsDirectional.only(top: 8),
                 child: CustomDetTitle(
                   text: AppLocalizations.of(context).userDetails,
                 ),
@@ -104,9 +104,32 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
                 text8: widget.model.status,
               ),
               // Start & end date
-              CustomRowDetails(
-                title: '$startDate to $endDate',
-                subtitle: '$noOfDays Day${noOfDays != 1 ? 's' : ''}',
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  bottom: 8,
+                  start: 8,
+                  end: 8,
+                ),
+                child: Row(
+                  children: [
+                    CustomDetText(
+                      text: startDate,
+                    ),
+                    CustomDetText(
+                      text: AppLocalizations.of(context).to,
+                    ),
+                    CustomDetText(
+                      text: endDate,
+                    ),
+                    const Spacer(),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: CustomDetText(
+                        text: '$noOfDays Day${noOfDays != 1 ? 's' : ''}',
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const MyDivider(),
               const Spacer(),

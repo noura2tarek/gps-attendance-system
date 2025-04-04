@@ -42,7 +42,7 @@ class TotalLeavesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Total Leaves'),
+        title:  Text(AppLocalizations.of(context).totalTLeaves),
       ),
       body: BlocBuilder<LeavesCubit, LeavesState>(
         builder: (context, state) {
@@ -69,7 +69,6 @@ class TotalLeavesPage extends StatelessWidget {
                   padding: const EdgeInsetsDirectional.only(top: 16),
                   child: ListView.separated(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final leave = allLeaves.isEmpty
                           ? dummyPendingLeaves[index]
