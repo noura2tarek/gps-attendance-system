@@ -45,17 +45,17 @@ flutter_launcher_icons:
   adaptive_icon_foreground: "assets/icon/icon.png"
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#2A7F8E"
   image: "assets/icon/icon.png"
-  color_dark: "#121212"
+  color_dark: "#2A7F8E"
   image_dark: "assets/icon/icon.png"
   android: true
   ios: true
   android_12:
     image: "assets/icon/icon.png"
-    icon_background_color: "#ffffff"
+    icon_background_color: "#2A7F8E"
     image_dark: "assets/icon/icon.png"
-    icon_background_color_dark: "#121212"
+    icon_background_color_dark: "#2A7F8E"
   fullscreen: true
   android_gravity: center
   ios_content_mode: center

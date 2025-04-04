@@ -1,18 +1,18 @@
 {
   "images" : [
     {
-      "filename": "LaunchImage.png",
-      "idiom": "universal",
-      "scale": "1x"
+      "filename" : "LaunchImage.png",
+      "idiom" : "universal",
+      "scale" : "1x"
     },
     {
-      "appearances": [
+      "appearances" : [
         {
-          "appearance": "luminosity",
-          "value": "dark"
+          "appearance" : "luminosity",
+          "value" : "dark"
         }
       ],
-      "filename": "LaunchImageDark.png",
+      "filename" : "LaunchImageDark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -22,15 +22,15 @@
       "scale" : "2x"
     },
     {
-      "appearances": [
+      "appearances" : [
         {
-          "appearance": "luminosity",
-          "value": "dark"
+          "appearance" : "luminosity",
+          "value" : "dark"
         }
       ],
-      "filename": "LaunchImageDark@2x.png",
-      "idiom": "universal",
-      "scale": "2x"
+      "filename" : "LaunchImageDark@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
     },
     {
       "filename" : "LaunchImage@3x.png",
@@ -38,15 +38,15 @@
       "scale" : "3x"
     },
     {
-      "appearances": [
+      "appearances" : [
         {
-          "appearance": "luminosity",
-          "value": "dark"
+          "appearance" : "luminosity",
+          "value" : "dark"
         }
       ],
-      "filename": "LaunchImageDark@3x.png",
-      "idiom": "universal",
-      "scale": "3x"
+      "filename" : "LaunchImageDark@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
