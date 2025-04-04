@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
+import 'package:gps_attendance_system/presentation/widgets/user_avatar.dart';
 
 class UsersList extends StatelessWidget {
   const UsersList({required this.users, super.key});
@@ -18,6 +19,10 @@ class UsersList extends StatelessWidget {
         return Padding(
           padding: const EdgeInsetsDirectional.only(bottom: 8),
           child: CustomListTile(
+            leadingWidget: CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage(user.getAvatarImage()),
+            ),
             title: user.name,
             subtitle: user.email,
             onTap: () {

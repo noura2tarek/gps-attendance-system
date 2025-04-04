@@ -95,6 +95,7 @@ class AuthCubit extends Cubit<AuthStates> {
         contactNumber: userModel.contactNumber,
         isOnLeave: userModel.isOnLeave,
         position: userModel.position,
+        gender: userModel.gender,
       );
       await UserService.addUser(uid, newUser);
       emit(AccountCreated());

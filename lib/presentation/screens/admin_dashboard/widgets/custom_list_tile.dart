@@ -37,10 +37,7 @@ class CustomListTile extends StatelessWidget {
                 ),
               ),
               subtitle: subtitle == null ? null : Text(subtitle ?? ''),
-              leading: CircleAvatar(
-                backgroundColor: AppColors.secondary,
-                radius: avatarRadius,
-              ),
+              leading: leadingWidget,
               onTap: onTap,
             ),
           )

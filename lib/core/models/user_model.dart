@@ -12,6 +12,7 @@ class UserModel {
   final Role role; // admin, employee, manager
   final String position;
   final int leaveBalance;
+  final String gender; // 'male' or 'female'
 
   UserModel({
     required this.name,
@@ -19,6 +20,7 @@ class UserModel {
     required this.contactNumber,
     required this.role,
     required this.position,
+    required this.gender,
     this.id,
     this.isOnLeave = false,
     this.leaveBalance = 25,
@@ -37,6 +39,7 @@ class UserModel {
       role: roleFromString(data?['role'] as String),
       position: data?['position'] as String,
       leaveBalance: data?['leaveBalance'] as int,
+      gender: data?['gender'] as String? ?? 'male',
     );
   }
 
@@ -50,7 +53,14 @@ class UserModel {
       'role': stringFromRole(role),
       'position': position,
       'leaveBalance': leaveBalance,
+      'gender': gender,
     };
+  }
+
+  String getAvatarImage() {
+    return gender.toLowerCase() == 'male'
+        ? 'assets/images/avatars/male_avatar.png'
+        : 'assets/images/avatars/female_avatar.png';
   }
 }
 

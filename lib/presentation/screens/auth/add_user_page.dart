@@ -31,7 +31,9 @@ class AddUserPageState extends State<AddUserPage> {
 
   bool _isLoading = false;
 
-  // add new user
+  Role _selectedRole = Role.employee;
+  String _selectedGender = 'male';
+
   void _addNewUser() async {
     if (_formKey.currentState!.validate()) {
       UserModel userModel = UserModel(
@@ -40,6 +42,7 @@ class AddUserPageState extends State<AddUserPage> {
         role: _selectedRole,
         contactNumber: _contactController.text,
         position: _positionController.text,
+        gender: _selectedGender,
       );
 
       AuthCubit authCubit = AuthCubit.get(context);
@@ -61,8 +64,6 @@ class AddUserPageState extends State<AddUserPage> {
     _positionController.dispose();
     super.dispose();
   }
-
-  Role _selectedRole = Role.employee;
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +101,13 @@ class AddUserPageState extends State<AddUserPage> {
           }
         },
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: Center(
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
               child: Form(
                 key: _formKey,
-                child: ListView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //----------- Full Name text field ----------//
                     TextFormFieldWidget(
@@ -193,49 +195,61 @@ class AddUserPageState extends State<AddUserPage> {
                     //-- Radio buttons to select user role --//
                     Row(
                       children: [
-                        // Employee radio button
-                        Expanded(
-                          child: RadioListTile<Role>(
-                            value: Role.employee,
-                            groupValue: _selectedRole,
-                            title: const Text('Employee'),
-                            activeColor: AppColors.fourthColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedRole = value!;
-                              });
-                            },
-                          ),
+                        Radio<Role>(
+                          value: Role.employee,
+                          groupValue: _selectedRole,
+                          onChanged: (Role? value) {
+                            setState(() {
+                              _selectedRole = value!;
+                            });
+                          },
                         ),
-                        // Manager radio button
-                        Expanded(
-                          child: RadioListTile<Role>(
-                            value: Role.manager,
-                            groupValue: _selectedRole,
-                            title: const Text('Manager'),
-                            activeColor: AppColors.fourthColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedRole = value!;
-                              });
-                            },
-                          ),
+                        const Text('Employee'),
+                        Radio<Role>(
+                          value: Role.manager,
+                          groupValue: _selectedRole,
+                          onChanged: (Role? value) {
+                            setState(() {
+                              _selectedRole = value!;
+                            });
+                          },
                         ),
+                        const Text('Manager'),
                       ],
                     ),
-                    // Admin radio button
-                    RadioListTile<Role>(
-                      value: Role.admin,
-                      groupValue: _selectedRole,
-                      title: const Text('Admin'),
-                      activeColor: AppColors.fourthColor,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedRole = value!;
-                        });
-                      },
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsetsDirectional.all(8),
+                      child: Text(
+                        'Select gender',
+                        style: TextStyle(fontSize: 17),
+                      ),
                     ),
-
+                    //-- Radio buttons to select gender --//
+                    Row(
+                      children: [
+                        Radio<String>(
+                          value: 'male',
+                          groupValue: _selectedGender,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                        const Text('Male'),
+                        Radio<String>(
+                          value: 'female',
+                          groupValue: _selectedGender,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                        const Text('Female'),
+                      ],
+                    ),
                     const SizedBox(height: 20),
                     //----------- Add User Button ----------//
                     BlocBuilder<AuthCubit, AuthStates>(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_calendar_timeline.dart';
+import 'package:gps_attendance_system/presentation/widgets/user_avatar.dart';
 import 'package:intl/intl.dart';
 
 class UserDetailsPage extends StatefulWidget {
@@ -40,6 +41,53 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
         child: Column(
           children: [
+            // User Info Card
+            Card(
+              elevation: 3,
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    UserAvatar(
+                      imagePath: widget.userModel.getAvatarImage(),
+                      radius: 30,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.userModel.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.userModel.position,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.userModel.email,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             // -- Calender time line
             CustomCalendarTimeline(
               onDateSelected: (date) {

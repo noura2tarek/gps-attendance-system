@@ -107,4 +107,15 @@ class UserService {
     }
     return null;
   }
+
+  // Update gender for all users
+  static Future<void> updateAllUsersGender() async {
+    final snapshot = await users.get();
+    for (final doc in snapshot.docs) {
+      final data = doc.data() as Map<String, dynamic>;
+      if (!data.containsKey('gender')) {
+        await users.doc(doc.id).update({'gender': 'male'});
+      }
+    }
+  }
 }

@@ -30,7 +30,12 @@ class UsersCubit extends Cubit<UsersState> {
     try {
       emit(UsersLoading());
       await Future.delayed(const Duration(milliseconds: 500));
+
+      // Update gender for all users first
+      await UserService.updateAllUsersGender();
+
       users = await UserService.getAllUsers();
+
       // Filter employees & managers
       for (final user in users) {
         if (user.role == Role.employee) {

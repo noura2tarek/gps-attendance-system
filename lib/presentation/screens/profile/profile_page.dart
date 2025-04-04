@@ -41,6 +41,17 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            CircleAvatar(
+              radius: 65,
+              backgroundColor: Colors.grey[200],
+              child: Image.asset(
+                userData?.getAvatarImage() ??
+                    'assets/images/avatars/male_avatar.png',
+                width: 80,
+                height: 80,
+              ),
+            ),
+            const SizedBox(height: 16),
             Text(
               '${userData?.name}',
               style: const TextStyle(

@@ -29,6 +29,7 @@ final List<UserModel> dummyUsersObjects = [
     contactNumber: '011455555',
     role: Role.employee,
     position: 'Software Engineer',
+    gender: 'female',
   ),
   UserModel(
     id: '2',
@@ -37,6 +38,7 @@ final List<UserModel> dummyUsersObjects = [
     contactNumber: '011455555',
     role: Role.employee,
     position: 'Software Engineer',
+    gender: 'male',
   ),
   UserModel(
     id: '3',
@@ -45,6 +47,7 @@ final List<UserModel> dummyUsersObjects = [
     contactNumber: '011455555',
     role: Role.employee,
     position: 'Software Engineer',
+    gender: 'male',
   ),
 ];
 
@@ -149,9 +152,15 @@ class _AdminHomeState extends State<AdminHome> {
                     ),
                   ),
                   // Admin photo
-                  const CircleAvatar(
-                    backgroundColor: AppColors.whiteColor,
-                    radius: 26,
+                  BlocBuilder<UsersCubit, UsersState>(
+                    builder: (context, state) {
+                      UserModel? admin = usersCubit.adminData;
+                      return CircleAvatar(
+                        radius: 26,
+                        backgroundImage: AssetImage(admin?.getAvatarImage() ??
+                            'assets/images/avatars/male_avatar.png'),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -234,7 +243,7 @@ class _AdminHomeState extends State<AdminHome> {
                 return BlocBuilder<LeavesCubit, LeavesState>(
                   builder: (context, state) {
                     List<int> counts = [0, 0, 0, 0];
-                    if(state is LeavesLoaded){
+                    if (state is LeavesLoaded) {
                       counts[2] = state.totalLeaves.length;
                       counts[3] = state.pendingLeaves.length;
                     }
