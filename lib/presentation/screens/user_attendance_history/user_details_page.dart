@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
@@ -21,8 +20,6 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> fetchAttendanceRecords() {
     String selectedDateString = DateFormat('yyyy-M-d').format(selectedDate);
-
-    log('Fetching attendance for ID: ${widget.userModel.id} on $selectedDateString');
 
     return FirebaseFirestore.instance
         .collection('attendanceRecords')

@@ -157,8 +157,10 @@ class _AdminHomeState extends State<AdminHome> {
                       UserModel? admin = usersCubit.adminData;
                       return CircleAvatar(
                         radius: 26,
-                        backgroundImage: AssetImage(admin?.getAvatarImage() ??
-                            'assets/images/avatars/male_avatar.png'),
+                        backgroundImage: AssetImage(
+                          admin?.getAvatarImage() ??
+                              'assets/images/avatars/male_avatar.png',
+                        ),
                       );
                     },
                   ),
