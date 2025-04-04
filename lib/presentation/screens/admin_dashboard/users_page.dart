@@ -40,11 +40,11 @@ class _UsersPageState extends State<UsersPage> {
       if (query.isEmpty) {
         filteredUsers = widget.users;
       } else {
-        filteredUsers = widget.users
-            .where(
-              (user) => user.name.toLowerCase().contains(query.toLowerCase()),
-            )
-            .toList();
+        filteredUsers = widget.users.where((user) {
+          final name = user.name.toLowerCase();
+          final searchQuery = query.toLowerCase();
+          return name.contains(searchQuery);
+        }).toList();
       }
     });
   }
@@ -102,9 +102,13 @@ class _UsersPageState extends State<UsersPage> {
                 final usersCubit = UsersCubit.get(context);
                 if (state is GetUsersSuccess) {
                   if (widget.isEmployees) {
-                    filteredUsers = usersCubit.employees;
+                    if (searchController.text.isEmpty) {
+                      filteredUsers = usersCubit.employees;
+                    }
                   } else if (!widget.isEmployees) {
-                    filteredUsers = usersCubit.managers;
+                    if (searchController.text.isEmpty) {
+                      filteredUsers = usersCubit.managers;
+                    }
                   }
                 }
 
