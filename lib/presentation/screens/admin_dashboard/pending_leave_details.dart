@@ -54,14 +54,14 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
             if (state is LeaveApproved) {
               CustomSnackBar.show(
                 context,
-                'Leave Approved Successfully',
+                AppLocalizations.of(context).leaveApprovedSuccess,
                 color: chooseSnackBarColor(ToastStates.SUCCESS),
               );
               Navigator.pop(context);
             } else if (state is LeaveRejected) {
               CustomSnackBar.show(
                 context,
-                'Leave Rejected Successfully',
+                AppLocalizations.of(context).leaveRejectedSuccess,
                 color: chooseSnackBarColor(ToastStates.SUCCESS),
               );
               Navigator.pop(context);
@@ -70,18 +70,18 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsetsDirectional.only(top: 8),
                 child: CustomDetTitle(
-                  text: 'User Details',
+                  text: AppLocalizations.of(context).userDetails,
                 ),
               ),
               // --- User Details
               CustomRowSections(
-                text1: 'Leave Balance:',
-                text2: 'Name:',
-                text3: 'Role:',
-                text4: 'Email:',
+                text1: '${AppLocalizations.of(context).leaveBalance}:',
+                text2: '${AppLocalizations.of(context).name}:',
+                text3: '${AppLocalizations.of(context).role}:',
+                text4: '${AppLocalizations.of(context).email}:',
                 text5: _userModel?.leaveBalance.toString() ?? '',
                 text6: _userModel?.name ?? '',
                 text7: stringFromRole(_userModel?.role ?? Role.admin),
@@ -89,15 +89,15 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
               ),
               //---- End of User Details
               const MyDivider(),
-              const CustomDetTitle(
-                text: 'Leave Details',
+              CustomDetTitle(
+                text: AppLocalizations.of(context).leaveDetails,
               ),
               //--- Leave Details
               CustomRowSections(
-                text1: 'Leave Title:',
-                text2: 'Leave Type:',
-                text3: 'Reason:',
-                text4: 'Status:',
+                text1: '${AppLocalizations.of(context).leaveTitle}:',
+                text2: '${AppLocalizations.of(context).leaveType}:',
+                text3: '${AppLocalizations.of(context).reason}:',
+                text4: '${AppLocalizations.of(context).status}:',
                 text5: widget.model.title,
                 text6: widget.model.leaveType,
                 text7: widget.model.reason,

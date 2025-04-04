@@ -274,8 +274,8 @@ class _AdminHomeState extends State<AdminHome> {
                       AppRoutes.employees,
                     );
                   },
-                  child: const Text(
-                    AppStrings.viewAll,
+                  child: Text(
+                    AppLocalizations.of(context).viewAll,
                     style: TextStyle(
                       fontSize: 17,
                     ),

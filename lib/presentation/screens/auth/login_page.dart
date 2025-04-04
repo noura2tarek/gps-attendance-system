@@ -179,14 +179,15 @@ class _LoginPageState extends State<LoginPage> {
   // Validations
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty || !value.contains('@')) {
-      return 'Enter a valid email address';
+      return AppLocalizations.of(context).validEmail;
+      ;
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return AppLocalizations.of(context).passwordLength;
     }
     return null;
   }

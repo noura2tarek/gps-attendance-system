@@ -40,8 +40,8 @@ class _LeavesPageState extends State<LeavesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'All Leaves',
+              Text(
+                AppLocalizations.of(context).allLeaves,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -108,8 +108,8 @@ class _LeavesPageState extends State<LeavesPage> {
               ),
               const SizedBox(height: 14),
               // Upcoming Leaves Header
-              const Text(
-                'Upcoming Leaves',
+              Text(
+                AppLocalizations.of(context).upcommingLeaves,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -117,8 +117,8 @@ class _LeavesPageState extends State<LeavesPage> {
               // Filter Dropdown
               Row(
                 children: [
-                  const Text(
-                    'Filter by:',
+                  Text(
+                    AppLocalizations.of(context).filterBy,
                     style: TextStyle(fontSize: 16),
                   ),
                   const SizedBox(width: 10),
@@ -187,7 +187,7 @@ class _LeavesPageState extends State<LeavesPage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: CustomButton(
-                  text: 'Request a Leave',
+                  text: AppLocalizations.of(context).requestLeave,
                   onPressed: () {
                     Navigator.pushNamed(
                       context,

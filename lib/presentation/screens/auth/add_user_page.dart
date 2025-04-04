@@ -262,46 +262,46 @@ class AddUserPageState extends State<AddUserPage> {
   // Validations --------------
   String? _validateFullName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a full name';
+      return AppLocalizations.of(context).fullName;
     } else if (!value.startsWith(RegExp(r'[A-Z]'))) {
-      return 'Full name must start with a capital letter';
+      return AppLocalizations.of(context).fullNameCapital;
     }
     return null;
   }
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter an email address';
+      return AppLocalizations.of(context).enterEmail;
     } else if (!value.contains('@')) {
-      return 'Enter a valid email address';
+      return AppLocalizations.of(context).validEmail;
     }
     return null;
   }
 
   String? _validatePosition(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a position';
+      return AppLocalizations.of(context).enterPosition;
     }
     return null;
   }
 
   String? _validatePhone(String? value) {
     if (value == null || value.isEmpty || value.length != 11) {
-      return 'Enter a valid phone number';
+      return AppLocalizations.of(context).validPhone;
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return AppLocalizations.of(context).passwordLength;
     }
     return null;
   }
 
   String? _validateConfirmPassword(String? value) {
     if (value != _passwordController.text) {
-      return 'Passwords do not match';
+      return AppLocalizations.of(context).passwordMismatch;
     }
     return null;
   }
