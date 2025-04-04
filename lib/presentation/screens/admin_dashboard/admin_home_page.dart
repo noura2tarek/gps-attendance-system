@@ -4,9 +4,9 @@ import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
-import 'package:gps_attendance_system/core/app_strings.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_list_tile.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
@@ -62,22 +62,6 @@ class AdminHome extends StatefulWidget {
 class _AdminHomeState extends State<AdminHome> {
   final TextEditingController searchController = TextEditingController();
 
-  final List<String> containerTitles = [
-    AppStrings.totalAttendance,
-    AppStrings.employeesPresentNow,
-    AppStrings.totalLeaves,
-    AppStrings.pendingApprovals,
-  ];
-
-  final List<String> drawerTitles = [
-    AppStrings.dashboard,
-    AppStrings.employees,
-    AppStrings.managers,
-    AppStrings.geofence,
-    AppStrings.settings,
-    AppStrings.logout,
-  ];
-
   final List<IconData> drawerIcons = [
     Icons.dashboard,
     Icons.person,
@@ -97,13 +81,29 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     UsersCubit usersCubit = UsersCubit.get(context);
+
+    final List<String> containerTitles = [
+      AppLocalizations.of(context).totalAttendance,
+      AppLocalizations.of(context).employeesPresentNow,
+      AppLocalizations.of(context).totalLeaves,
+      AppLocalizations.of(context).pendingApprovals,
+    ];
+
+    final List<String> drawerTitles = [
+      AppLocalizations.of(context).dashboard,
+      AppLocalizations.of(context).employees,
+      AppLocalizations.of(context).managers,
+      AppLocalizations.of(context).geofence,
+      AppLocalizations.of(context).settings,
+      AppLocalizations.of(context).logout,
+    ];
     return Scaffold(
       // App bar
       appBar: AppBar(
         elevation: 1,
-        title: const Text(
-          'Dashboard',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).dashboard,
+          style: const TextStyle(
             fontWeight: FontWeight.normal,
           ),
         ),
@@ -138,7 +138,7 @@ class _AdminHomeState extends State<AdminHome> {
                           builder: (context, state) {
                             UserModel? admin = usersCubit.adminData;
                             return Text(
-                              'Hello, ${admin?.name ?? "Admin"}',
+                              '${AppLocalizations.of(context).hello} ${admin?.name ?? AppLocalizations.of(context).admin}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: AppColors.whiteColor,
@@ -222,9 +222,9 @@ class _AdminHomeState extends State<AdminHome> {
         child: ListView(
           children: [
             // overview title
-            const Text(
-              'Overview',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).overview,
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w500,
               ),
@@ -265,9 +265,9 @@ class _AdminHomeState extends State<AdminHome> {
               children: [
                 const Icon(Icons.people),
                 const SizedBox(width: 10),
-                const Text(
-                  'Employees List',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).employeesList,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
@@ -284,9 +284,9 @@ class _AdminHomeState extends State<AdminHome> {
                       AppRoutes.employees,
                     );
                   },
-                  child: const Text(
-                    AppStrings.viewAll,
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context).viewAll,
+                    style: const TextStyle(
                       fontSize: 17,
                     ),
                   ),

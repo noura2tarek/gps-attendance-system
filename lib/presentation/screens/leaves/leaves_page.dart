@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/leaves/leaves_bloc.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_button.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/custom_leave_card.dart';
 import 'package:gps_attendance_system/presentation/screens/leaves/widgets/leaves_status_square.dart';
@@ -39,9 +40,9 @@ class _LeavesPageState extends State<LeavesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'All Leaves',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context).allLeaves,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -75,25 +76,25 @@ class _LeavesPageState extends State<LeavesPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         LeaveStatusSquare(
-                          title: 'Leave Balance',
+                          title: AppLocalizations.of(context).leaveBalance,
                           count: state.leaveBalance,
                           color: Colors.green,
                           opacity: 0.2,
                         ),
                         LeaveStatusSquare(
-                          title: 'Approved',
+                          title: AppLocalizations.of(context).approved,
                           count: approvedLeaves,
                           color: Colors.blue,
                           opacity: 0.2,
                         ),
                         LeaveStatusSquare(
-                          title: 'Pending',
+                          title: AppLocalizations.of(context).pending,
                           count: pendingLeaves,
                           color: Colors.orange,
                           opacity: 0.2,
                         ),
                         LeaveStatusSquare(
-                          title: 'Rejected',
+                          title: AppLocalizations.of(context).rejected,
                           count: rejectedLeaves,
                           color: Colors.red,
                           opacity: 0.2,
@@ -107,18 +108,18 @@ class _LeavesPageState extends State<LeavesPage> {
               ),
               const SizedBox(height: 14),
               // Upcoming Leaves Header
-              const Text(
-                'Upcoming Leaves',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Text(
+                AppLocalizations.of(context).upcommingLeaves,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
 
               // Filter Dropdown
               Row(
                 children: [
-                  const Text(
-                    'Filter by:',
-                    style: TextStyle(fontSize: 16),
+                  Text(
+                    AppLocalizations.of(context).filterBy,
+                    style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(width: 10),
                   DropdownButton<String>(
@@ -186,7 +187,7 @@ class _LeavesPageState extends State<LeavesPage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: CustomButton(
-                  text: 'Request a Leave',
+                  text: AppLocalizations.of(context).requestLeave,
                   onPressed: () {
                     Navigator.pushNamed(
                       context,

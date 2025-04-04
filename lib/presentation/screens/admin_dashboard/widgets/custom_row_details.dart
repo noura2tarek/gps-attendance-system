@@ -14,7 +14,11 @@ class CustomRowDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(bottom: 8, start: 8, end: 8),
+      padding: const EdgeInsetsDirectional.only(
+        bottom: 8,
+        start: 8,
+        end: 8,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

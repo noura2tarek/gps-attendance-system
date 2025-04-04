@@ -4,6 +4,7 @@ import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -76,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
               shrinkWrap: true,
               children: [
                 CustomListTile(
-                  title: 'Reset Password',
+                  title: AppLocalizations.of(context).resetPassword,
                   leadingIcon: Icons.lock,
                   onTap: () {
                     Navigator.pushNamed(
@@ -86,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
                 CustomListTile(
-                  title: 'View Attendance History',
+                  title: AppLocalizations.of(context).viewAttendanceHistory,
                   leadingIcon: Icons.description,
                   onTap: () {
                     Navigator.pushNamed(
@@ -97,14 +98,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
                 CustomListTile(
-                  title: 'Settings',
+                  title: AppLocalizations.of(context).settings,
                   leadingIcon: Icons.settings,
                   onTap: () {
                     Navigator.pushNamed(context, AppRoutes.settings);
                   },
                 ),
                 CustomListTile(
-                  title: 'Log out',
+                  title: AppLocalizations.of(context).logout,
                   leadingIcon: Icons.logout,
                   onTap: () {
                     AuthCubit.get(context).logout();

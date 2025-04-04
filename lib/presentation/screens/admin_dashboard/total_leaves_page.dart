@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/pending_approvals_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/leave_card.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
@@ -41,7 +42,7 @@ class TotalLeavesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Total Leaves'),
+        title:  Text(AppLocalizations.of(context).totalTLeaves),
       ),
       body: BlocBuilder<LeavesCubit, LeavesState>(
         builder: (context, state) {
@@ -68,7 +69,6 @@ class TotalLeavesPage extends StatelessWidget {
                   padding: const EdgeInsetsDirectional.only(top: 16),
                   child: ListView.separated(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final leave = allLeaves.isEmpty
                           ? dummyPendingLeaves[index]
@@ -98,8 +98,8 @@ class TotalLeavesPage extends StatelessWidget {
                 ),
               );
             } else {
-              const Center(
-                child: Text('No Leaves found'),
+              Center(
+                child: Text(AppLocalizations.of(context).noLeaves),
               );
             }
           } else {

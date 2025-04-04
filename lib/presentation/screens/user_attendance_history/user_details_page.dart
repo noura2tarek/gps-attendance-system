@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_calendar_timeline.dart';
 import 'package:gps_attendance_system/presentation/widgets/user_avatar.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +44,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               elevation: 3,
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
                     UserAvatar(
@@ -105,8 +106,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                   }
                   final attendanceRecords = snapshot.data!.docs;
                   if (attendanceRecords.isEmpty) {
-                    return const Center(
-                      child: Text('No attendance records found'),
+                    return Center(
+                      child: Text(AppLocalizations.of(context)
+                          .noAttendanceRecordsFound),
                     );
                   }
 
@@ -138,7 +140,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                 children: [
                                   const Icon(Icons.login, color: Colors.green),
                                   const SizedBox(width: 5),
-                                  Text("Check-In: ${record['checkInTime']}"),
+                                  Text(
+                                      "${AppLocalizations.of(context).checkIn} ${record['checkInTime']}"),
                                 ],
                               ),
                               // Check out time row
@@ -153,7 +156,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                     const Icon(Icons.verified_user_outlined),
                                   const SizedBox(width: 5),
                                   if (record['checkOutTime'] != null)
-                                    Text("Check-Out: ${record['checkOutTime']}")
+                                    Text(
+                                        "${AppLocalizations.of(context).checkOut} ${record['checkOutTime']}")
                                   else
                                     const Text(
                                       'Present',

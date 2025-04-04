@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 
 class SearchContainer extends StatelessWidget {
   const SearchContainer(
@@ -23,12 +24,12 @@ class SearchContainer extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         cursorColor: AppColors.primary,
-        decoration: const InputDecoration(
+        decoration:  InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
-          hintText: 'Search...',
-          prefixIcon: Icon(Icons.search),
+          hintText: AppLocalizations.of(context).search,
+          prefixIcon: const Icon(Icons.search),
         ),
         onChanged: onSearch,
       ),

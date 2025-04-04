@@ -8,6 +8,7 @@ import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widge
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 
 // dummy leaves
 List<LeaveModel> dummyPendingLeaves = [
@@ -40,7 +41,7 @@ class PendingApprovalsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pending Approvals'),
+        title:  Text(AppLocalizations.of(context).pendingTApprovals),
       ),
       body: BlocBuilder<LeavesCubit, LeavesState>(
         builder: (context, state) {
@@ -93,13 +94,13 @@ class PendingApprovalsPage extends StatelessWidget {
                       ),
                     ),
                   )
-                : const Center(
+                : Center(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
                         textAlign: TextAlign.center,
-                        'No Pending Leaves found',
-                        style: TextStyle(
+                        AppLocalizations.of(context).zeroPending,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                         ),

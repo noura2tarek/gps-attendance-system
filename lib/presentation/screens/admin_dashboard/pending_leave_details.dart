@@ -4,12 +4,13 @@ import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/services/user_services.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_det_text.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_det_title.dart';
-import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_row_details.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_row_sections.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/my_divider.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 
 class PendingLeaveDetails extends StatefulWidget {
   const PendingLeaveDetails({required this.model, super.key});
@@ -34,7 +35,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
     super.initState();
   }
 
-  final dateFormat = DateFormat('yyyy-MM-dd');
+  final dateFormat = intl.DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
         .difference(widget.model.startDate.toDate())
         .inDays;
     return Scaffold(
-      appBar: AppBar(title: const Text('Leave Details')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).leaveDetails)),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: BlocListener<LeavesCubit, LeavesState>(
@@ -53,14 +54,14 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
             if (state is LeaveApproved) {
               CustomSnackBar.show(
                 context,
-                'Leave Approved Successfully',
+                AppLocalizations.of(context).leaveApprovedSuccess,
                 color: chooseSnackBarColor(ToastStates.SUCCESS),
               );
               Navigator.pop(context);
             } else if (state is LeaveRejected) {
               CustomSnackBar.show(
                 context,
-                'Leave Rejected Successfully',
+                AppLocalizations.of(context).leaveRejectedSuccess,
                 color: chooseSnackBarColor(ToastStates.SUCCESS),
               );
               Navigator.pop(context);
@@ -69,18 +70,18 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.only(top: 8),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(top: 8),
                 child: CustomDetTitle(
-                  text: 'User Details',
+                  text: AppLocalizations.of(context).userDetails,
                 ),
               ),
               // --- User Details
               CustomRowSections(
-                text1: 'Leave Balance:',
-                text2: 'Name:',
-                text3: 'Role:',
-                text4: 'Email:',
+                text1: '${AppLocalizations.of(context).leaveBalance}:',
+                text2: '${AppLocalizations.of(context).name}:',
+                text3: '${AppLocalizations.of(context).role}:',
+                text4: '${AppLocalizations.of(context).email}:',
                 text5: _userModel?.leaveBalance.toString() ?? '',
                 text6: _userModel?.name ?? '',
                 text7: stringFromRole(_userModel?.role ?? Role.admin),
@@ -88,24 +89,47 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
               ),
               //---- End of User Details
               const MyDivider(),
-              const CustomDetTitle(
-                text: 'Leave Details',
+              CustomDetTitle(
+                text: AppLocalizations.of(context).leaveDetails,
               ),
               //--- Leave Details
               CustomRowSections(
-                text1: 'Leave Title:',
-                text2: 'Leave Type:',
-                text3: 'Reason:',
-                text4: 'Status:',
+                text1: '${AppLocalizations.of(context).leaveTitle}:',
+                text2: '${AppLocalizations.of(context).leaveType}:',
+                text3: '${AppLocalizations.of(context).reason}:',
+                text4: '${AppLocalizations.of(context).status}:',
                 text5: widget.model.title,
                 text6: widget.model.leaveType,
                 text7: widget.model.reason,
                 text8: widget.model.status,
               ),
               // Start & end date
-              CustomRowDetails(
-                title: '$startDate to $endDate',
-                subtitle: '$noOfDays Day${noOfDays != 1 ? 's' : ''}',
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  bottom: 8,
+                  start: 8,
+                  end: 8,
+                ),
+                child: Row(
+                  children: [
+                    CustomDetText(
+                      text: startDate,
+                    ),
+                    CustomDetText(
+                      text: AppLocalizations.of(context).to,
+                    ),
+                    CustomDetText(
+                      text: endDate,
+                    ),
+                    const Spacer(),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: CustomDetText(
+                        text: '$noOfDays Day${noOfDays != 1 ? 's' : ''}',
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const MyDivider(),
               const Spacer(),
@@ -129,7 +153,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
                       onPressed: () {
                         LeavesCubit.get(context).acceptLeave(widget.model);
                       },
-                      child: const Text('Approve'),
+                      child: Text(AppLocalizations.of(context).approve),
                     ),
                   ),
                   // Reject button
@@ -149,7 +173,7 @@ class _PendingLeaveDetailsState extends State<PendingLeaveDetails> {
                       onPressed: () {
                         LeavesCubit.get(context).rejectLeave(widget.model);
                       },
-                      child: const Text('Reject'),
+                      child: Text(AppLocalizations.of(context).reject),
                     ),
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 
 class GeofencePage extends StatefulWidget {
@@ -83,7 +84,7 @@ class _GeofencePageState extends State<GeofencePage> {
               left: 20,
               child: ElevatedButton(
                 onPressed: _saveLocation,
-                child: const Text('Save Location'),
+                child: Text(AppLocalizations.of(context).saveLoc),
               ),
             ),
         ],

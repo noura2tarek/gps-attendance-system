@@ -21,14 +21,16 @@ class CheckInOutButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
-        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
       child: Text(
         label,
+        maxLines: 1,
         style: const TextStyle(
+          fontWeight: FontWeight.bold,
           fontSize: 16,
           color: AppColors.whiteColor,
         ),

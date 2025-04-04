@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps_attendance_system/blocs/language/change_language_cubit.dart';
 
 class DetailsCard extends StatelessWidget {
   const DetailsCard({
@@ -21,23 +23,32 @@ class DetailsCard extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(9),
         child: Row(
           children: [
             Icon(
               icon,
               color: iconColor,
-              size: 35,
+              size: 24,
             ),
-            const SizedBox(width: 15),
+            SizedBox(
+              width: context
+                          .watch<ChangeLanguageCubit>()
+                          .state
+                          .locale
+                          .languageCode ==
+                      'en'
+                  ? 9
+                  : 11,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
                     color: Color(0xfff2f3ff),
                   ),
                 ),

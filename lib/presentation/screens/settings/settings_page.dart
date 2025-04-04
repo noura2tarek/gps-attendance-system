@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gps_attendance_system/core/app_strings.dart';
@@ -56,7 +55,6 @@ class _SettingsPageState extends State<SettingsPage> {
       text = isAdminMode ? 'Switch to User Mode' : 'Switch to Admin Mode';
       icon = isAdminMode ? Icons.person : Icons.admin_panel_settings;
     });
-    log('The saved mode is: $isAdminMode');
   }
 
   // Get user data to check user role
@@ -77,7 +75,6 @@ class _SettingsPageState extends State<SettingsPage> {
         });
       }
     }
-    log('the user role is: $userRole');
   }
 
   @override

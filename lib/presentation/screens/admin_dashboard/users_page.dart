@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/admin_home_page.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/search_container.dart';
 import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/users_list.dart';
@@ -63,10 +64,10 @@ class _UsersPageState extends State<UsersPage> {
         onPressed: () {
           Navigator.pushNamed(context, AppRoutes.addUser);
         },
-        label: const Row(
+        label: Row(
           children: [
-            Icon(Icons.add),
-            Text('Add User'),
+            const Icon(Icons.add),
+            Text(AppLocalizations.of(context).addUser),
           ],
         ),
       ),
@@ -81,7 +82,9 @@ class _UsersPageState extends State<UsersPage> {
                 const Icon(Icons.people),
                 const SizedBox(width: 10),
                 Text(
-                  widget.isEmployees ? 'Total Employees' : 'Total Managers',
+                  widget.isEmployees
+                      ? AppLocalizations.of(context).totalEmployees
+                      : AppLocalizations.of(context).totalManagers,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -129,7 +132,7 @@ class _UsersPageState extends State<UsersPage> {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Text(
                             textAlign: TextAlign.center,
-                            'No ${widget.isEmployees ? 'employees' : 'managers'} found',
+                            widget.isEmployees ? AppLocalizations.of(context).noEmployees : AppLocalizations.of(context).noManagers,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
