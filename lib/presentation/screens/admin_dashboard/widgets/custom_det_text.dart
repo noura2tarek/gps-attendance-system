@@ -4,9 +4,15 @@ class CustomDetText extends StatelessWidget {
   const CustomDetText({
     required this.text,
     super.key,
+    this.textColor = Colors.black,
+    this.fontSize = 16,
+    this.fontWeight = FontWeight.w500,
   });
 
   final String text;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +20,10 @@ class CustomDetText extends StatelessWidget {
       text,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: textColor,
+        fontWeight: fontWeight,
       ),
     );
   }

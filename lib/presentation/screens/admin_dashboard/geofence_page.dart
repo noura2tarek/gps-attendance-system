@@ -50,7 +50,7 @@ class _GeofencePageState extends State<GeofencePage> {
     );
     CustomSnackBar.show(
       context,
-      'New Geofence added succusfully',
+      'New Geofence added successfully',
       color: chooseSnackBarColor(ToastStates.SUCCESS),
     );
   }
@@ -59,7 +59,7 @@ class _GeofencePageState extends State<GeofencePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Geofence'),
+        title: Text(AppLocalizations.of(context).geofence),
       ),
       body: Stack(
         children: [
@@ -67,7 +67,9 @@ class _GeofencePageState extends State<GeofencePage> {
             onMapCreated: _onMapCreated,
             onTap: _onMapTap,
             initialCameraPosition: const CameraPosition(
-                target: LatLng(30.0444, 31.2357), zoom: 15),
+              target: LatLng(30.0444, 31.2357),
+              zoom: 15,
+            ),
             markers: _location == null
                 ? {}
                 : {

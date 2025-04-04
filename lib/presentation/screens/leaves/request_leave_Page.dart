@@ -126,7 +126,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                 children: [
                   CustomTextFormField(
                     context: context,
-                    labelText: AppLocalizations.of(context).title,
+                    labelText: AppLocalizations.of(context).leaveTitle,
                     hintText: AppLocalizations.of(context).enterTitle,
                     controller: titleController,
                   ),

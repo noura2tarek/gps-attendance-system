@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
 import 'package:gps_attendance_system/core/models/leave_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
+import 'package:gps_attendance_system/l10n/l10n.dart';
+import 'package:gps_attendance_system/presentation/screens/admin_dashboard/widgets/custom_det_text.dart';
 
 class LeaveCard extends StatelessWidget {
   const LeaveCard({
@@ -37,7 +39,7 @@ class LeaveCard extends StatelessWidget {
           horizontal: 16,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -86,23 +88,26 @@ class LeaveCard extends StatelessWidget {
               ),
               // Start & end date
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '$startDate to $endDate',
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
+                  CustomDetText(
+                    text: startDate,
+                    fontWeight: FontWeight.normal,
                   ),
-                  // Duration
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 5),
-                    child: Text(
-                      '$noOfDays Day${noOfDays != 1 ? 's' : ''}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                  CustomDetText(
+                    text: AppLocalizations.of(context).to,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  CustomDetText(
+                    text: endDate,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  const Spacer(),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: CustomDetText(
+                      textColor: Colors.grey,
+                      fontSize: 14,
+                      text: '$noOfDays Day${noOfDays != 1 ? 's' : ''}',
                     ),
                   ),
                 ],

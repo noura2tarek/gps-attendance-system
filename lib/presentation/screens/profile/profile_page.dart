@@ -48,8 +48,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Image.asset(
                 userData?.getAvatarImage() ??
                     'assets/images/avatars/male_avatar.png',
-                width: 80,
-                height: 80,
+                width: 100,
+                height: 100,
               ),
             ),
             const SizedBox(height: 16),

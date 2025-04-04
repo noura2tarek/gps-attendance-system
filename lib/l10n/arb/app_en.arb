@@ -117,5 +117,8 @@
   "sendResetEmail": "Send Reset Email",
   "pleaseEnterEmail": "Please enter your email",
   "passwordResetEmailSent": "Password reset email sent! Check your inbox.",
-  "failedToResetPassword": "Failed to send password reset email: "
+  "failedToResetPassword": "Failed to send password reset email: ",
+  "selectGender": "Select gender",
+  "male": "Male",
+  "female": "Female"
 }

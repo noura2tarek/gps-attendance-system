@@ -28,7 +28,7 @@
   "pleaseFillAllFields": "يرجى ملء جميع الحقول",
   "leaveAppliedSuccessfully": "تم تقديم طلب الإجازة بنجاح!" ,
   "submit" : "تقديم طلب",
-  "hello": "اهلا،",
+  "hello": "اهلا ،",
   "saveLoc": "اضافة العنوان",
   "zeroPending": "لم يتم العثور على إجازات معلقة",
   "overview": "الملخص",
@@ -41,8 +41,8 @@
   "totalManagers": "اجمالي المديريين",
   "employees": "الموظفيين",
   "managers": "المديريين",
-  "noEmployees": "لم يتم يوجد موظفيين",
-  "noManagers": "لم يتم يوجد مديرين",
+  "noEmployees": "لم يتم العثور علي موظفيين",
+  "noManagers": "لم يتم العثور علي مديرين",
   "checkIn": "تسجيل الحضور",
   "checkInTime": "وقت الحضور",
   "checkOut": "تسجيل الانصراف",
@@ -54,7 +54,7 @@
   "approved": "موافقة",
   "rejected": "مرفوضة",
   "leaveBalance": "رصيد الاجازات",
-  "fullName": "الاسم الكامل",
+  "fullName": "الاسم بالكامل",
   "enterFullName": "أدخل الاسم بالكامل..",
   "email": "البريد الإلكتروني",
   "enterEmail": "أدخل البريد الإلكتروني..",
@@ -117,5 +117,8 @@
   "sendResetEmail": "ارسال",
   "pleaseEnterEmail": "يرجى ادخال البريد الالكتروني",
   "passwordResetEmailSent": "تم إرسال رسالة إعادة تعيين كلمة المرور! تحقق من صندوق الوارد الخاص بك.",
-  "failedToResetPassword": "فشل في اعادة تعيين كلمة المرور: "
+  "failedToResetPassword": "فشل في اعادة تعيين كلمة المرور: ",
+  "selectGender": "حدد الجنس",
+  "male": "ذكر",
+  "female": "انثى"
 }

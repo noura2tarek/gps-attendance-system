@@ -69,7 +69,7 @@ class AddUserPageState extends State<AddUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context).addUser,
         ),
         centerTitle: true,
@@ -113,7 +113,7 @@ class AddUserPageState extends State<AddUserPage> {
                     TextFormFieldWidget(
                       keyboardType: TextInputType.name,
                       labelText: AppLocalizations.of(context).fullName,
-                      hintText:  AppLocalizations.of(context).enterFullName,
+                      hintText: AppLocalizations.of(context).enterFullName,
                       controller: _fullNameController,
                       validator: _validateFullName,
                       prefixIcon: Icons.person,
@@ -152,7 +152,8 @@ class AddUserPageState extends State<AddUserPage> {
                     TextFormFieldWidget(
                       keyboardType: TextInputType.visiblePassword,
                       labelText: AppLocalizations.of(context).confirmPassword,
-                      hintText: AppLocalizations.of(context).enterConfirmPassword,
+                      hintText:
+                          AppLocalizations.of(context).enterConfirmPassword,
                       obscureText: isConfirmPasswordObscure,
                       controller: _confirmPasswordController,
                       validator: _validateConfirmPassword,
@@ -185,11 +186,11 @@ class AddUserPageState extends State<AddUserPage> {
                       validator: _validatePosition,
                       prefixIcon: Icons.work,
                     ),
-                    const Padding(
-                      padding: EdgeInsetsDirectional.all(8),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.all(8),
                       child: Text(
                         AppLocalizations.of(context).selectUserRole,
-                        style: TextStyle(fontSize: 17),
+                        style: const TextStyle(fontSize: 17),
                       ),
                     ),
                     //-- Radio buttons to select user role --//
@@ -238,11 +239,11 @@ class AddUserPageState extends State<AddUserPage> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsetsDirectional.all(8),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.all(8),
                       child: Text(
-                        'Select gender',
-                        style: TextStyle(fontSize: 17),
+                        AppLocalizations.of(context).selectGender,
+                        style: const TextStyle(fontSize: 17),
                       ),
                     ),
                     //-- Radio buttons to select gender --//
@@ -257,7 +258,7 @@ class AddUserPageState extends State<AddUserPage> {
                             });
                           },
                         ),
-                        const Text('Male'),
+                        Text(AppLocalizations.of(context).male),
                         Radio<String>(
                           value: 'female',
                           groupValue: _selectedGender,
@@ -267,7 +268,7 @@ class AddUserPageState extends State<AddUserPage> {
                             });
                           },
                         ),
-                        const Text('Female'),
+                        Text(AppLocalizations.of(context).female),
                       ],
                     ),
                     const SizedBox(height: 20),

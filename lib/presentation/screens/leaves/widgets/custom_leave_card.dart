@@ -46,6 +46,7 @@ class CustomLeaveCard extends StatelessWidget {
         ),
         trailing: Text(
           '$days Day${days != 1 ? 's' : ''}',
+          textDirection: TextDirection.ltr,
           style: const TextStyle(
             fontSize: 14,
             color: Colors.grey,
