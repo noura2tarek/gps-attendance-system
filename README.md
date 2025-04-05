@@ -1,26 +1,28 @@
 # CheckMate
 
-CheckMate is a GPS-based HR attendance tracking system that enables employees or managers to check in/out from designated locations to register their attendance.                               
+CheckMate is a GPS-based attendance tracking system that enables employees or managers to check in/out from designated locations to register their attendance.                               
 It provides real-time attendance tracking, users management, and leaves management.
 
 # Features
 
-- **GPS-Based Check-In/Out**: Employees can check in/out only within specified locations.
-- **Leaves Management**: Employees can request leaves, and admins can approve/reject.
+- **GPS-Based Attendance**: Employees can check in/out only within specified locations.
+- **Leaves Management**: Employees can request leaves, and admins can approve or reject.
 - **Authentication**: Firebase-based login with Email and Password.
-- **Live Tracking**: HR managers (Admin) can monitor all employees attendance in realtime.  
+- **Real-Time Tracking**: HR managers (Admins) can monitor all employees attendance in realtime.  
 - **Localization**: Supports multiple languages for a better user experience.
-- **Register New User**: Admin can add new employee and his role from his dashboard.
+- **User Management**: Admin can add new employee and his role from the dashboard.
 - **Leave Balance**: Every employee can check/track his leave balance and his leaves requests.
 - **Theme feature**: The user can toggle between light and dark theme modes.
   
 --------------------------------------------------
 
 # User Roles
+
 The application contains three user roles:
    - **Employee role.**
    - **Manager role.**
-   - **Admin role.**                                                         
+   - **Admin role.**
+                                                    
 **Funcions of every user role:**                                                               
      - The Employee/Manager can checkin/checkout, view his leaves requests, request a leave, track his attendance data.                                                         
      - The Admin manages users, add every user with his specified role in the system, and track all users attendance in real time from his dashboard.                                          
