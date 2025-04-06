@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gps_attendance_system/core/services/attendance_service.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/snakbar_widget.dart';
 
@@ -12,10 +12,39 @@ class GeofencePage extends StatefulWidget {
 }
 
 class _GeofencePageState extends State<GeofencePage> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   GoogleMapController? _googleMapController;
-  LatLng? _location;
+  bool mapTapped = false;
   Set<Circle> _circle = {};
+  LatLng? _companyLocation;
+
+  // Get company location
+  Future<void> _fetchCompanyLocation() async {
+    try {
+      final docSnapshot = await AttendanceService.fetchCompanyLocation();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _companyLocation = LatLng(
+            data['latitude'] as double,
+            data['longitude'] as double,
+          );
+          print('company location coordinates: $_companyLocation');
+        });
+      } else {
+        setState(() {
+          _companyLocation = LatLng(30.0447, 31.2389);
+        });
+      }
+    } catch (e) {
+      print('Error getting company location: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    _fetchCompanyLocation();
+    super.initState();
+  }
 
   void _updateCircle(LatLng newLocation) {
     setState(() {
@@ -38,15 +67,17 @@ class _GeofencePageState extends State<GeofencePage> {
 
   void _onMapTap(LatLng loc) {
     setState(() {
-      _location = loc;
+      _companyLocation = loc;
+      mapTapped = true;
       _updateCircle(loc);
     });
   }
 
   Future<void> _saveLocation() async {
-    if (_location == null) return;
-    await _firestore.collection('company-location').doc('company-location').set(
-      {'latitude': _location!.latitude, 'longitude': _location!.longitude},
+    // if (_companyLocation == null) return;
+    await AttendanceService.updateCompanyLocation(
+      _companyLocation!.latitude,
+      _companyLocation!.longitude,
     );
     CustomSnackBar.show(
       context,
@@ -54,7 +85,6 @@ class _GeofencePageState extends State<GeofencePage> {
       color: chooseSnackBarColor(ToastStates.SUCCESS),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,24 +93,27 @@ class _GeofencePageState extends State<GeofencePage> {
       ),
       body: Stack(
         children: [
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            onTap: _onMapTap,
-            initialCameraPosition: const CameraPosition(
-              target: LatLng(30.0444, 31.2357),
-              zoom: 15,
+          if (_companyLocation == null)
+            const Center(child: CircularProgressIndicator())
+          else
+            GoogleMap(
+              onMapCreated: _onMapCreated,
+              onTap: _onMapTap,
+              zoomControlsEnabled: false,
+              initialCameraPosition: CameraPosition(
+                target: _companyLocation ?? LatLng(30.0447, 31.2389),
+                zoom: 15,
+              ),
+              markers: {
+                Marker(
+                  infoWindow: const InfoWindow(title: 'Your Company'),
+                  markerId: const MarkerId('Your Company'),
+                  position: _companyLocation ?? LatLng(30.0447, 31.2389),
+                ),
+              },
+              circles: _circle,
             ),
-            markers: _location == null
-                ? {}
-                : {
-                    Marker(
-                      markerId: const MarkerId('Your Company'),
-                      position: _location!,
-                    ),
-                  },
-            circles: _circle,
-          ),
-          if (_location != null)
+          if (mapTapped)
             Positioned(
               bottom: 20,
               left: 20,
