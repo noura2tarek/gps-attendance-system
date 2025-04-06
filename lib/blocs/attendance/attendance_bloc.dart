@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -11,6 +12,7 @@ import 'package:gps_attendance_system/core/services/shared_prefs_service.dart';
 import 'package:gps_attendance_system/core/utils/AttendanceStatusHelper.dart';
 
 part 'attendance_event.dart';
+
 part 'attendance_state.dart';
 
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
@@ -51,12 +53,12 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         String? userRole =
             SharedPrefsService.getData(key: AppStrings.roleKey) as String?;
         if (userRole == 'admin') {
-            bool? mode =
-            SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
-            bool isAdminMode = mode ?? true;
-            if (isAdminMode == true) {
-              add(FetchAttendanceCountData());
-            }
+          bool? mode =
+              SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
+          bool isAdminMode = mode ?? true;
+          if (isAdminMode == true) {
+            add(FetchAttendanceCountData());
+          }
         }
       } else {
         print('Company location document does not exist');
@@ -78,8 +80,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       }
 
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high,);
-
+        desiredAccuracy: LocationAccuracy.high,
+      );
       double distance = Geolocator.distanceBetween(
         position.latitude,
         position.longitude,
@@ -91,7 +93,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         bool isOnTime = now.isBefore(officialCheckInTime);
         emit(EmployeeLocationInside(checkInTime: now, isOnTime: isOnTime));
       } else {
-        print('User is outside the geofence');
+        log('User is outside the geofence');
         emit(EmployeeLocationOutside());
       }
     } catch (e) {
@@ -172,11 +174,12 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     FetchAttendanceCountData event,
     Emitter<AttendanceState> emit,
   ) async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     emit(FetchAttendanceCountLoading());
     await emit.onEach<List<AttendanceModel>>(
       AttendanceService.getAttendanceData(),
       onData: (data) {
+        final Set<String> presentUserIdsToday = {};
         final Set<String> presentUserIds = {};
         int totalAttendanceToday = 0;
         int totalEmployeesPresentNow = 0;
@@ -186,18 +189,21 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
           if (checkInTime.day == now.day &&
               checkInTime.month == now.month &&
               checkInTime.year == now.year) {
-            totalAttendanceToday++;
+            presentUserIdsToday.add(userId);
           }
           if (element.checkOutTime == null) {
             presentUserIds.add(userId);
           }
         }
         totalEmployeesPresentNow = presentUserIds.length;
+        totalAttendanceToday = presentUserIdsToday.length;
         if (!isClosed) {
-          emit(FetchAttendanceCountSuccess(
-            totalAttendanceToday: totalAttendanceToday,
-            totalEmployeesPresentNow: totalEmployeesPresentNow,
-          ),);
+          emit(
+            FetchAttendanceCountSuccess(
+              totalAttendanceToday: totalAttendanceToday,
+              totalEmployeesPresentNow: totalEmployeesPresentNow,
+            ),
+          );
         }
       },
       onError: (error, stackTrace) {
