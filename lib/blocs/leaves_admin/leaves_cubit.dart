@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,14 +35,16 @@ class LeavesCubit extends Cubit<LeavesState> {
             allLeaves.where((leave) => leave.status == 'Approved').toList();
         rejectedLeaves =
             allLeaves.where((leave) => leave.status == 'Rejected').toList();
-        emit(
-          LeavesLoaded(
-            totalLeaves: allLeaves,
-            pendingLeaves: pendingLeaves,
-            approvedLeaves: approvedLeaves,
-            rejectedLeaves: rejectedLeaves,
-          ),
-        );
+        if (!isClosed) {
+          emit(
+            LeavesLoaded(
+              totalLeaves: allLeaves,
+              pendingLeaves: pendingLeaves,
+              approvedLeaves: approvedLeaves,
+              rejectedLeaves: rejectedLeaves,
+            ),
+          );
+        }
       });
     } catch (e) {
       emit(LeavesError(message: e.toString()));

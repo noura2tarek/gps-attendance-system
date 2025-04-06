@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gps_attendance_system/core/models/attendance_model.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
+import 'package:gps_attendance_system/core/services/attendance_service.dart';
 import 'package:gps_attendance_system/core/utils/attendance_helper.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
 import 'package:gps_attendance_system/presentation/widgets/custom_calendar_timeline.dart';
@@ -19,14 +20,18 @@ class UserDetailsPage extends StatefulWidget {
 class _UserDetailsPageState extends State<UserDetailsPage> {
   DateTime selectedDate = DateTime.now();
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> fetchAttendanceRecords() {
+  Stream<List<AttendanceModel>> fetchAttendanceRecords() {
     String selectedDateString = DateFormat('yyyy-M-d').format(selectedDate);
 
-    return FirebaseFirestore.instance
-        .collection('attendanceRecords')
+    return AttendanceService.attendanceRecords
         .where('userId', isEqualTo: widget.userModel.id)
         .where('date', isEqualTo: selectedDateString)
-        .snapshots();
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => AttendanceModel.fromFirestore(doc))
+              .toList(),
+        );
   }
 
   @override
@@ -95,7 +100,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             const SizedBox(height: 15),
             //-- Attendance Records List As stream --//
             Expanded(
-              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              child: StreamBuilder<List<AttendanceModel>>(
                 stream: fetchAttendanceRecords(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -104,11 +109,12 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                   if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   }
-                  final attendanceRecords = snapshot.data!.docs;
+                  final attendanceRecords = snapshot.data!;
                   if (attendanceRecords.isEmpty) {
                     return Center(
-                      child: Text(AppLocalizations.of(context)
-                          .noAttendanceRecordsFound),
+                      child: Text(
+                        AppLocalizations.of(context).noAttendanceRecordsFound,
+                      ),
                     );
                   }
 
@@ -116,11 +122,10 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     itemCount: attendanceRecords.length,
                     itemBuilder: (context, index) {
                       final record = attendanceRecords[index];
-                      DateTime date = DateFormat('yyyy-M-d')
-                          .parse(record['date'] as String);
+                      DateTime date = DateFormat('yyyy-M-d').parse(record.date);
                       String formattedDate =
                           DateFormat('yyyy-M-d').format(date);
-                      String status = record['status'] as String;
+                      String status = record.status;
                       Color statusColor =
                           AttendanceHelper.getStatusColor(status);
 
@@ -141,13 +146,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                   const Icon(Icons.login, color: Colors.green),
                                   const SizedBox(width: 5),
                                   Text(
-                                      "${AppLocalizations.of(context).checkIn} ${record['checkInTime']}"),
+                                      '${AppLocalizations.of(context).checkIn} ${record.checkInTime}'),
                                 ],
                               ),
                               // Check out time row
                               Row(
                                 children: [
-                                  if (record['checkOutTime'] != null)
+                                  if (record.checkOutTime != null)
                                     const Icon(
                                       Icons.logout,
                                       color: Colors.red,
@@ -155,9 +160,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                   else
                                     const Icon(Icons.verified_user_outlined),
                                   const SizedBox(width: 5),
-                                  if (record['checkOutTime'] != null)
+                                  if (record.checkOutTime != null)
                                     Text(
-                                        "${AppLocalizations.of(context).checkOut} ${record['checkOutTime']}")
+                                        '${AppLocalizations.of(context).checkOut} ${record.checkOutTime}')
                                   else
                                     const Text(
                                       'Present',

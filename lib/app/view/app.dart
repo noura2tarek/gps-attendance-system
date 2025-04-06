@@ -39,7 +39,8 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ChangeLanguageCubit()),
         BlocProvider(create: (context) => ThemeBloc()),
-        BlocProvider(create: (context) => AttendanceBloc()),
+        BlocProvider(
+            create: (context) => AttendanceBloc()..add(FetchCompanyLocation())),
         BlocProvider(
           create: (context) => AuthCubit()..init(),
         ),
@@ -49,7 +50,7 @@ class App extends StatelessWidget {
             ..getAdminData(),
         ),
         BlocProvider(
-          create: (context) => LeavesCubit()..getLeaves(),
+          create: (context) => LeavesCubit(),
         ),
         BlocProvider(
           create: (context) {

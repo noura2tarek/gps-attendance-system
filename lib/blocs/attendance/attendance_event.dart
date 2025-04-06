@@ -17,3 +17,6 @@ class CompanyLocationFetched extends AttendanceEvent {
 
   CompanyLocationFetched(this.lat, this.lng);
 }
+class FetchAttendanceCountData extends AttendanceEvent {}
+class FetchCompanyLocation extends AttendanceEvent {}
+

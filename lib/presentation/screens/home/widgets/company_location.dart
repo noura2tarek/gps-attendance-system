@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gps_attendance_system/core/services/attendance_service.dart';
 
 class CompanyLocation extends StatefulWidget {
   const CompanyLocation({super.key});
@@ -14,10 +14,7 @@ class _CompanyLocationState extends State<CompanyLocation> {
 
   Future<void> _fetchCompanyLocation() async {
     try {
-      final docSnapshot = await FirebaseFirestore.instance
-          .collection('company-location')
-          .doc('company-location')
-          .get();
+      final docSnapshot = await AttendanceService.fetchCompanyLocation();
 
       if (docSnapshot.exists) {
         final data = docSnapshot.data() as Map<String, dynamic>;
@@ -48,14 +45,14 @@ class _CompanyLocationState extends State<CompanyLocation> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.grey.shade300, width: 1),
+        border: Border.all(color: Colors.grey.shade300),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.4,
           child: _companyLocation == null
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : GoogleMap(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps_attendance_system/blocs/attendance/attendance_bloc.dart';
 import 'package:gps_attendance_system/blocs/auth/auth_cubit.dart';
 import 'package:gps_attendance_system/blocs/leaves_admin/leaves_cubit.dart';
 import 'package:gps_attendance_system/blocs/user_cubit/users_cubit.dart';
 import 'package:gps_attendance_system/core/app_routes.dart';
+import 'package:gps_attendance_system/core/constants/assets_constants.dart';
 import 'package:gps_attendance_system/core/models/user_model.dart';
 import 'package:gps_attendance_system/core/themes/app_colors.dart';
 import 'package:gps_attendance_system/l10n/l10n.dart';
@@ -79,9 +81,15 @@ class _AdminHomeState extends State<AdminHome> {
   ];
 
   @override
+  void initState() {
+    context.read<AttendanceBloc>().add(FetchAttendanceCountData());
+    context.read<LeavesCubit>().getLeaves();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     UsersCubit usersCubit = UsersCubit.get(context);
-
     final List<String> containerTitles = [
       AppLocalizations.of(context).totalAttendance,
       AppLocalizations.of(context).employeesPresentNow,
@@ -158,8 +166,7 @@ class _AdminHomeState extends State<AdminHome> {
                       return CircleAvatar(
                         radius: 26,
                         backgroundImage: AssetImage(
-                          admin?.getAvatarImage() ??
-                              'assets/images/avatars/male_avatar.png',
+                          admin?.getAvatarImage() ?? AssetsConstants.maleAvatar,
                         ),
                       );
                     },
@@ -242,18 +249,26 @@ class _AdminHomeState extends State<AdminHome> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return BlocBuilder<LeavesCubit, LeavesState>(
+                List<int> counts = [0, 0, 0, 0];
+                return BlocBuilder<AttendanceBloc, AttendanceState>(
                   builder: (context, state) {
-                    List<int> counts = [0, 0, 0, 0];
-                    if (state is LeavesLoaded) {
-                      counts[2] = state.totalLeaves.length;
-                      counts[3] = state.pendingLeaves.length;
+                    if (state is FetchAttendanceCountSuccess) {
+                      counts[0] = state.totalAttendanceToday;
+                      counts[1] = state.totalEmployeesPresentNow;
                     }
-                    return CustomContainer(
-                      containerTitles: containerTitles,
-                      icons: containerIcons,
-                      countNumber: counts[index],
-                      index: index,
+                    return BlocBuilder<LeavesCubit, LeavesState>(
+                      builder: (context, state) {
+                        if (state is LeavesLoaded) {
+                          counts[2] = state.totalLeaves.length;
+                          counts[3] = state.pendingLeaves.length;
+                        }
+                        return CustomContainer(
+                          containerTitles: containerTitles,
+                          icons: containerIcons,
+                          countNumber: counts[index],
+                          index: index,
+                        );
+                      },
                     );
                   },
                 );
