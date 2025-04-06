@@ -74,17 +74,17 @@ class _GeofencePageState extends State<GeofencePage> {
   }
 
   Future<void> _saveLocation() async {
-    // if (_companyLocation == null) return;
     await AttendanceService.updateCompanyLocation(
       _companyLocation!.latitude,
       _companyLocation!.longitude,
     );
     CustomSnackBar.show(
       context,
-      'New Geofence added successfully',
+      AppLocalizations.of(context).geofenceChangedSuccessfully,
       color: chooseSnackBarColor(ToastStates.SUCCESS),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +108,7 @@ class _GeofencePageState extends State<GeofencePage> {
                 Marker(
                   infoWindow: const InfoWindow(title: 'Your Company'),
                   markerId: const MarkerId('Your Company'),
-                  position: _companyLocation ?? LatLng(30.0447, 31.2389),
+                  position: _companyLocation ?? const LatLng(30.0447, 31.2389),
                 ),
               },
               circles: _circle,
@@ -119,7 +119,7 @@ class _GeofencePageState extends State<GeofencePage> {
               left: 20,
               child: ElevatedButton(
                 onPressed: _saveLocation,
-                child: Text(AppLocalizations.of(context).saveLoc),
+                child: Text(AppLocalizations.of(context).changeLoc),
               ),
             ),
         ],
