@@ -21,9 +21,15 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   final double geofenceRadius = 100;
   final now = DateTime.now();
   static final DateTime officialCheckInTime = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
+    DateTime
+        .now()
+        .year,
+    DateTime
+        .now()
+        .month,
+    DateTime
+        .now()
+        .day,
     9,
   );
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,10 +43,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   }
 
   // fetch company location event handler
-  Future<void> _fetchCompanyLocation(
-    FetchCompanyLocation event,
-    Emitter<AttendanceState> emit,
-  ) async {
+  Future<void> _fetchCompanyLocation(FetchCompanyLocation event,
+      Emitter<AttendanceState> emit,) async {
     try {
       final docSnapshot = await AttendanceService.fetchCompanyLocation();
 
@@ -51,10 +55,10 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
         emit(CompanyLocationUpdated(companyLat!, companyLng!));
         String? userRole =
-            SharedPrefsService.getData(key: AppStrings.roleKey) as String?;
+        SharedPrefsService.getData(key: AppStrings.roleKey) as String?;
         if (userRole == 'admin') {
           bool? mode =
-              SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
+          SharedPrefsService.getData(key: AppStrings.adminMode) as bool?;
           bool isAdminMode = mode ?? true;
           if (isAdminMode == true) {
             add(FetchAttendanceCountData());
@@ -68,10 +72,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     }
   }
 
-  Future<void> _onCheckEmployeeLocation(
-    CheckEmployeeLocation event,
-    Emitter<AttendanceState> emit,
-  ) async {
+  Future<void> _onCheckEmployeeLocation(CheckEmployeeLocation event,
+      Emitter<AttendanceState> emit,) async {
     try {
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
@@ -111,7 +113,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
     final todayDate = '${now.year}-${now.month}-${now.day}';
     final checkInTime =
-        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(
+        2, '0')}";
 
     final status = AttendanceStatusHelper.getStatus(now);
     final docId = '${user.uid}_$todayDate';
@@ -134,10 +137,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   }
 
   // check out event handler
-  Future<void> _onCheckOut(
-    CheckOut event,
-    Emitter<AttendanceState> emit,
-  ) async {
+  Future<void> _onCheckOut(CheckOut event,
+      Emitter<AttendanceState> emit,) async {
     final user = _auth.currentUser;
     if (user == null) {
       emit(EmployeeLocationError('User not found'));
@@ -146,15 +147,16 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
     final todayDate = '${now.year}-${now.month}-${now.day}';
     final checkOutTime =
-        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(
+        2, '0')}";
 
     final attendanceDoc =
-        AttendanceService.attendanceRecords.doc('${user.uid}_$todayDate');
+    AttendanceService.attendanceRecords.doc('${user.uid}_$todayDate');
 
     try {
       DocumentSnapshot doc = await attendanceDoc.get();
       String? previousCheckInTime =
-          doc.exists ? (doc['checkInTime'] as String?) : null;
+      doc.exists ? (doc['checkInTime'] as String?) : null;
 
       await attendanceDoc.update({
         'checkOutTime': checkOutTime,
@@ -170,10 +172,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   }
 
   // Fetch attendance count data as stream handler
-  Future<void> _onFetchAttendanceData(
-    FetchAttendanceCountData event,
-    Emitter<AttendanceState> emit,
-  ) async {
+  Future<void> _onFetchAttendanceData(FetchAttendanceCountData event,
+      Emitter<AttendanceState> emit,) async {
     await Future.delayed(const Duration(milliseconds: 200));
     emit(FetchAttendanceCountLoading());
     await emit.onEach<List<AttendanceModel>>(
@@ -191,7 +191,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
               checkInTime.year == now.year) {
             presentUserIdsToday.add(userId);
           }
-          if (element.checkOutTime == null) {
+          if (element.checkOutTime == null && checkInTime.day == now.day &&
+              checkInTime.month == now.month && checkInTime.year == now.year) {
             presentUserIds.add(userId);
           }
         }
