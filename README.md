@@ -1,7 +1,7 @@
 # CheckMate
 
 CheckMate is a GPS-based attendance tracking system that enables employees or managers to check in/out from designated locations to register their attendance.                               
-It provides real-time attendance tracking, users management, and leaves management.
+It provides real-time attendance tracking, user management, and leaves management.
 
 # Features
 
@@ -23,7 +23,7 @@ The application contains three user roles:
    - **Manager role.**
    - **Admin role.**
                                                     
-**Funcions of every user role:**                                                               
+**The Role of each user:**                                                               
      - The Employee/Manager can checkin/checkout, view his leaves requests, request a leave, track his attendance data.                                                         
      - The Admin manages users, add every user with his specified role in the system, and track all users attendance in real time from his dashboard.                                          
      - When The Employee/manager logins to the app, he will be redirected to the Home layout page.                                                      
