@@ -197,46 +197,42 @@ class AddUserPageState extends State<AddUserPage> {
                     Row(
                       children: [
                         // Employee radio button
-                        Expanded(
-                          child: RadioListTile<Role>(
-                            value: Role.employee,
-                            groupValue: _selectedRole,
-                            title: Text(AppLocalizations.of(context).employee),
-                            activeColor: AppColors.fourthColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedRole = value!;
-                              });
-                            },
-                          ),
+                        Radio<Role>(
+                          value: Role.employee,
+                          groupValue: _selectedRole,
+                          activeColor: AppColors.fourthColor,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedRole = value!;
+                            });
+                          },
                         ),
+                        Text(AppLocalizations.of(context).employee),
                         // Manager radio button
-                        Expanded(
-                          child: RadioListTile<Role>(
-                            value: Role.manager,
-                            groupValue: _selectedRole,
-                            title: Text(AppLocalizations.of(context).manager),
-                            activeColor: AppColors.fourthColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedRole = value!;
-                              });
-                            },
-                          ),
+                        Radio<Role>(
+                          value: Role.manager,
+                          groupValue: _selectedRole,
+                          activeColor: AppColors.fourthColor,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedRole = value!;
+                            });
+                          },
                         ),
+                        Text(AppLocalizations.of(context).manager),
+                        // Admin radio button
+                        Radio<Role>(
+                          value: Role.admin,
+                          groupValue: _selectedRole,
+                          activeColor: AppColors.fourthColor,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedRole = value!;
+                            });
+                          },
+                        ),
+                        Text(AppLocalizations.of(context).admin),
                       ],
-                    ),
-                    // Admin radio button
-                    RadioListTile<Role>(
-                      value: Role.admin,
-                      groupValue: _selectedRole,
-                      title: Text(AppLocalizations.of(context).admin),
-                      activeColor: AppColors.fourthColor,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedRole = value!;
-                        });
-                      },
                     ),
                     const SizedBox(height: 10),
                     Padding(
