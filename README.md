@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="screenshots/remind_me_banner.png" alt="Gps-attendance Banner">
+</p>
+
 # CheckMate
 
 CheckMate is a GPS-based attendance tracking system that enables employees or managers to check in/out from designated locations to register their attendance.                               
@@ -66,6 +70,33 @@ $ flutter run --flavor production --target lib/main_production.dart
 3. Run `flutter run` to start the app.
 
 ------------------------------------------------
+
+# Screenshots
+
+| Home Screen                       | Search                            |
+| --------------------------------- | --------------------------------- |
+| ![Home](ch1.jpeg)                 | ![Search](ch2.jpeg) |
+
+| Handle Error State                | Filter Characters                             |
+| --------------------------------- | ----------------------------------------------|
+| ![Handle Error](ch3.jpeg)         | ![Filter](ch4.jpeg) |
+
+| Handle Loading State              | Export Data                       |
+| ----------------------------------| ----------------------------|
+| ![Handle Loading](ch5.jpeg)       |   ![Export](ch6.jpeg) |
+
+
+------------------------------------------------
+
+# Demo Video
+
+🎥 **Application Demo**
+
+```
+https://drive.google.com/file/d/1rZSctCPtvsrUefSXlA0vvvNztFfisD5H/view?usp=sharing
+```
+
+------------------------------------
 
 # Packages Used
 This project uses the following **Flutter packages**:
