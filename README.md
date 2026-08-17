@@ -73,13 +73,13 @@ $ flutter run --flavor production --target lib/main_production.dart
 
 # Screenshots
 
-| ![1](screenshots\app1.png)     | ![2](screenshots\app2.png) |
+| ![Home](screenshots\app1.png)     | ![Home](screenshots\app2.png) |
       
 | ----------------------------------| --------------------------|
-| ![3](screenshots\app3.png)         | ![4](screenshots\app4.jpg) |
+| ![Home](screenshots\app3.png)     | ![Home](screenshots\app4.jpg) |
 
 | ----------------------------------|------------------------|
-| ![5](screenshots\app5.png)         |------------------------|   
+| ![Home](screenshots\app5.png)     |------------------------|   
 
 
 ------------------------------------------------
