@@ -85,11 +85,14 @@ $ flutter run --flavor production --target lib/main_production.dart
 # Demo Video
 
 🎥 **Application Demo**
-
+**User view**
 ```
 https://drive.google.com/file/d/1rZSctCPtvsrUefSXlA0vvvNztFfisD5H/view?usp=sharing
 ```
-
+**Admin view**
+```
+https://drive.google.com/file/d/1sxP1BnzlByDIsYhRPDA82WugnXGI-5gR/view?usp=sharing
+```
 ------------------------------------
 
 # Packages Used
