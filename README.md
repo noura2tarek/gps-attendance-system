@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="screenshots/remind_me_banner.png" alt="Gps-attendance Banner">
+  <img src="screenshots\checkmate_banner.png" alt="Gps-attendance Banner">
 </p>
 
 # CheckMate
@@ -73,17 +73,15 @@ $ flutter run --flavor production --target lib/main_production.dart
 
 # Screenshots
 
-| Home Screen                       | Search                            |
-| --------------------------------- | --------------------------------- |
-| ![Home](ch1.jpeg)                 | ![Search](ch2.jpeg) |
+| ----------------------------- | --------------------------|
+| ![](screenshots\app1.png)     | ![](screenshots\app2.png) |
 
-| Handle Error State                | Filter Characters                             |
-| --------------------------------- | ----------------------------------------------|
-| ![Handle Error](ch3.jpeg)         | ![Filter](ch4.jpeg) |
+                             
+| ----------------------------------| --------------------------|
+| ![](screenshots\app3.png)         | ![](screenshots\app4.jpg) |
 
-| Handle Loading State              | Export Data                       |
-| ----------------------------------| ----------------------------|
-| ![Handle Loading](ch5.jpeg)       |   ![Export](ch6.jpeg) |
+| ----------------------------------|------------------------|
+| ![](screenshots\app5.png)         |------------------------|   
 
 
 ------------------------------------------------
